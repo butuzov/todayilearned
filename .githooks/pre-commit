@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+''' read all markdowns for todoitems and creates a todolist '''
+
+import os, re, json
+
+def main():
+	""" read md files in repository and grab todo items"""
+	todo = re.compile("todo: (.*?)\n")
+	contents = [ "# TODO\n" ]
+
+	root = os.path.abspath(".");
+	for parent, subdir, files in os.walk( root ):
+		for md in [f for f in files if f.find(".md") != -1]:
+			content = ""
+			with open( parent + '/' + md ) as f:
+				content = "\n".join(f.readlines())
+
+			matches = todo.findall(content)
+			if len(matches) > 0:
+				contents.append("## `{}`".format(parent.replace(root+'/', '')))
+
+			for item in matches:
+				contents.append("* {}".format(item))
+
+	with open("todo-list.md", "w") as f:
+		f.write("\n".join(contents))
+
+if __name__ == "__main__":
+	main()
