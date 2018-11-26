@@ -21,21 +21,15 @@
 #### sed
   * Add examples
 
-#### grep
-  * Add examples
-
 #### tar
   * Add more examples
+
+#### less
+  * Add real-life usefull examples
 
 #### mmap
   * Add examples
 
-#### awk
-  * Add more real-life examples
-
 #### top
   * Add more keybindings
   * create page for `htop`
-
-#### less
-  * Add real-life usefull examples
