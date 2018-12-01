@@ -21,9 +21,6 @@
 #### sed
   * Add examples
 
-#### tar
-  * Add more examples
-
 #### less
   * Add real-life usefull examples
 

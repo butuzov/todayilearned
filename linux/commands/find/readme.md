@@ -25,6 +25,10 @@ find /users/al -name Cookbook -type d           # search '/users/al' dir
 #--------------------
 find /opt /usr /var -name foo.scala -type f     # search multiple dirs
 
+# search by user
+#--------------------------
+find . -user butuzov
+
 # case-insensitive searching
 #--------------------------
 find . -iname foo                               # find foo, Foo, FOo, FOO, etc.
