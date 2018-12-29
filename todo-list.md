@@ -11,22 +11,15 @@
 
 ### commands
 
-#### head-tail
-  * `head` add examples
-  * `tail` add examples
-
-#### xargs
-  * Add more examples
-
-#### sed
-  * Add examples
-
-#### less
-  * Add real-life usefull examples
-
 #### mmap
   * Add examples
 
 #### top
   * Add more keybindings
   * create page for `htop`
+
+#### sed
+  * Add examples
+
+#### xargs
+  * Add more examples

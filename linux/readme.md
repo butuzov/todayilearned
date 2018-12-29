@@ -10,6 +10,7 @@
   * [grep](commands/grep)
   * [head](commands/head-tail)
   * [tail](commands/head-tail)
+  * [ln](commands/ln)
   * [less](commands/less)
   * [lsof](commands/lsof)
   * [mmap](commands/mmap)
@@ -17,3 +18,7 @@
   * [top](commands/top)
   * [sed](commands/sed)
   * [xargs](commands/xargs)
+
+### [`systemd`](commands/systemd)
+
+  `systemd`, `chkconfig`, `service`, `runlevel`, `systemd-cgls`, `systemctl`, `journalctl`, `systemd-analyze`,  `localectl`, `timedatectl`, `hostnamectl`, `systemd-resolve`, `systemd-inhibi`,  `systemd-delta`.

@@ -2,6 +2,14 @@
 
 # `head` Display first lines of a file
 
+```bash
+# will print 10 lines of rome and juliete beginig
+head romeo-and-juliet.txt
+
+# will print first line
+head -n 1 romeo-and-juliet.txt
+```
+
 # `tail` Display the last part of a file
 
 
@@ -24,6 +32,3 @@ tail -n 15 file.txt
 # Show Last 8 Bytes of file.txt
 tail --bytes 8 file.txt
 ```
-
-###### @todo: `head` add examples
-###### @todo: `tail` add examples
