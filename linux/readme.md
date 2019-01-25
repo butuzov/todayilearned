@@ -14,6 +14,7 @@
   * [head](commands/head-tail)
   * [tail](commands/head-tail)
   * [ln](commands/ln)
+  * [ls](commands/ls)
   * [tr](commands/tr)
   * [sort](commands/sort)
   * [printf](commands/printf)
@@ -29,5 +30,4 @@
   * [xargs](commands/xargs)
 
 ### [`systemd`](commands/systemd)
-
   `systemd`, `chkconfig`, `service`, `runlevel`, `systemd-cgls`, `systemctl`, `journalctl`, `systemd-analyze`,  `localectl`, `timedatectl`, `hostnamectl`, `systemd-resolve`, `systemd-inhibi`,  `systemd-delta`.
