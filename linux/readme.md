@@ -1,7 +1,14 @@
 ## Documents
 
-* [Shell Arithmetic](arithmetic-expansion.md)
-* [Conditions in BASH](conditions.md)
+* [Expansions](expansions.md)
+* [Conditions](conditions.md)
+* [Terminal Shortcuts](keyboard.md)
+
+## Style Guides
+*  https://google.github.io/styleguide/shell.xml
+*  https://mywiki.wooledge.org/BashPitfalls
+*  https://books.goalkicker.com/BashBook/
+*  https://wiki.bash-hackers.org/scripting/obsolete
 
 ## External
   * [GTFOBins](https://gtfobins.github.io/) - Unix binaries that can be exploited by an attacker to bypass local security restrictions.
