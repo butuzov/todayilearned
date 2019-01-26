@@ -13,28 +13,25 @@
 ## External
   * [GTFOBins](https://gtfobins.github.io/) - Unix binaries that can be exploited by an attacker to bypass local security restrictions.
 
-## Commands
 
-  * [awk](commands/awk)
-  * [find](commands/find)
-  * [grep](commands/grep)
+  Type                                | Commands
+--------------------------------------|----------
+Text                                  | [`awk`](commands/text/awk.md.md), [`tr`](commands/text/tr.md), [`printf`](commands/text/printf.md), [`wc`](commands/text/wc.md), [`sed`](commands/text/sed.md), [`grep`](commands/text/grep.md)
+ File (System)                        | [`find`](commands/file-system/find.md), [`ls`](commands/file-system/ls.md), [`lsof`](commands/file-system/lsof.md), [`ln`](commands/file-system/ln.md)
+ Network                              | mtr, ssh, nc, nmap
+ [`systemd`](commands/systemd/)       | `systemd`, `chkconfig`, `service`, `runlevel`, `systemd-cgls`, `systemctl`, `journalctl`, `systemd-analyze`,  `localectl`, `timedatectl`, `hostnamectl`, `systemd-resolve`, `systemd-inhibi`, `systemd-delta`
+
+## Commands - UNsorted
+
   * [head](commands/head-tail)
   * [tail](commands/head-tail)
-  * [ln](commands/ln)
-  * [ls](commands/ls)
-  * [tr](commands/tr)
   * [sort](commands/sort)
-  * [printf](commands/printf)
-  * [wc](commands/wc)
   * [cut](commands/cut)
   * [split](commands/split)
   * [less](commands/less)
-  * [lsof](commands/lsof)
   * [mmap](commands/mmap)
   * [tar](commands/tar)
   * [top](commands/top)
-  * [sed](commands/sed)
   * [xargs](commands/xargs)
 
-### [`systemd`](commands/systemd)
-  `systemd`, `chkconfig`, `service`, `runlevel`, `systemd-cgls`, `systemctl`, `journalctl`, `systemd-analyze`,  `localectl`, `timedatectl`, `hostnamectl`, `systemd-resolve`, `systemd-inhibi`,  `systemd-delta`.
+##### @todo: sort commands

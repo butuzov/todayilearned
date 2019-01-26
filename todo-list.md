@@ -8,6 +8,7 @@
   * checkout [flake8](https://pypi.org/project/flake8/)
 
 ## linux
+  * sort commands
 
 ### commands
 
@@ -18,8 +19,8 @@
   * Add more keybindings
   * create page for `htop`
 
-#### sed
-  * Add examples
-
 #### xargs
   * Add more examples
+
+#### text
+  * Add examples
