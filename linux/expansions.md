@@ -10,8 +10,7 @@ Expansion is performed on the command line after it has been split into tokens. 
 | **Command Substitution**            | Using the output of a command as an argument.
 | **Arithmetic Expansion**            | How to use arithmetic in shell expansions.
 | **Process Substitution**            | A way to write and read to and from a command.
-| Word Splitting                  | How the results of expansion are split into separate arguments.
-| Filename Expansion              | A shorthand for specifying filenames matching patterns.
+| **Filename Expansion**              | A shorthand for specifying filenames matching patterns.
 
 ### [Brace Expansion](https://www.gnu.org/software/bash/manual/html_node/Brace-Expansion.html)
 
@@ -41,6 +40,9 @@ $ mkdir /usr/local/src/bash/{old,new,dist,bugs}
 
 ### [Shell Parameter Expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html)
 
+![](expansion.png)
+
+* https://wiki.bash-hackers.org/syntax/pe
 
 
 ##### Example
@@ -152,8 +154,31 @@ $ diff <(ls) <(ls -a)
 > ..
 ```
 
-### @todo: Word Splitting
-### @todo: Filename Expansion
+### Filename Expansion
+
+* https://www.gnu.org/software/bash/manual/html_node/Filename-Expansion.html
+* https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html
+
+##### Example: Additional Example of Filepath renlated code.
+```bash
+> FILEPATH=~/Dropbox/Linux_Under_the_Hood.ipynb
+
+# Path without Extension
+> echo ${FILEPATH%.*}
+~/Dropbox/Linux_Under_the_Hood
+
+# Extension
+> echo ${FILEPATH##*.}
+ipynb
+
+# Directory
+> echo ${FILEPATH%/*}
+~/Dropbox/
+
+# FIlename
+> echo ${FILEPATH##*/}
+Linux_Under_the_Hood.ipynb
+```
 
 ### [History Expansion](https://www.gnu.org/software/bash/manual/html_node/History-Interaction.html#History-Interaction)
 
