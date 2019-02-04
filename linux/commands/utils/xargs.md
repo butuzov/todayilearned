@@ -46,9 +46,6 @@ Spaces, tabs and newlines may be embedded in arguments using single (`'`) or dou
   `-x`  |      | Force xargs to terminate immediately if a command line containing number arguments will not fit in the specified (or default) command line length.
 
 
-
-If utility is omitted, echo(1) is used.
-
 Undefined behavior may occur if utility reads from the standard input.
 
 The xargs utility exits immediately (without processing any further input) if a command line cannot be assembled, utility cannot be invoked, an invocation of utility is terminated by a signal, or an invocation of utility exits with a value of 255.

@@ -18,6 +18,9 @@ grep -C 1 -color=auto -i HEY text.txt
 # almost same as above but inverted. shows everything that not match term
 grep -i -v HEY text.txt
 
+# Find the character 's' followed by 'pring'
+grep "[s]pring" text.txt
+
 # we can search in directories as well.
 grep -i password password-dn
 
