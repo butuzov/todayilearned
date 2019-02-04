@@ -14,24 +14,23 @@
   * [GTFOBins](https://gtfobins.github.io/) - Unix binaries that can be exploited by an attacker to bypass local security restrictions.
 
 
-  Type                                | Commands
---------------------------------------|----------
-Text                                  | [`awk`](commands/text/awk.md.md), [`tr`](commands/text/tr.md), [`printf`](commands/text/printf.md), [`wc`](commands/text/wc.md), [`sed`](commands/text/sed.md), [`grep`](commands/text/grep.md)
- File (System)                        | [`find`](commands/file-system/find.md), [`ls`](commands/file-system/ls.md), [`lsof`](commands/file-system/lsof.md), [`ln`](commands/file-system/ln.md)
- Network                              | mtr, ssh, nc, nmap
- [`systemd`](commands/systemd/)       | `systemd`, `chkconfig`, `service`, `runlevel`, `systemd-cgls`, `systemctl`, `journalctl`, `systemd-analyze`,  `localectl`, `timedatectl`, `hostnamectl`, `systemd-resolve`, `systemd-inhibi`, `systemd-delta`
+|  Type                      | List of commands
+|----------------------------|----------
+| Archives                   | [`tar`](archives/tar.md), `zcat`
+| Text                       | [`awk`](text/awk.md), [`tr`](text/tr.md), [`printf`](text/printf.md), [`wc`](text/wc.md), [`sed`](text/sed.md), [`grep`](text/grep.md)
+| File (System)              | [`file`](file-system/file.md), [`find`](file-system/find.md), [`ls`](file-system/ls.md), [`lsof`](file-system/lsof.md), [`ln`](file-system/ln.md)
+| System                     | [`top`](system/top.md), [`uname`](system/uname.md)
+| Utils                      | [`sort`](utils/sort.md), [`xargs`](utils/xargs.md)  
+| Testing                    | [`test`](testying/test.md), [`time`](testing/time.md), [`expr`](testing/expr.md)
+| Network                    | `mtr`, `ssh`, `nc`, `nmap`, `curl`, `ssh-copy-id`, `scp`
+ [`systemd`](systemd/)       | `systemd`, `chkconfig`, `service`, `runlevel`, `systemd-cgls`, `systemctl`, `journalctl`, `systemd-analyze`,  `localectl`, `timedatectl`, `hostnamectl`, `systemd-resolve`, `systemd-inhibi`, `systemd-delta`
 
-## Commands - UNsorted
+## Commands - Unsorted
 
-  * [head](commands/head-tail)
-  * [tail](commands/head-tail)
-  * [sort](commands/sort)
-  * [cut](commands/cut)
-  * [split](commands/split)
-  * [less](commands/less)
-  * [mmap](commands/mmap)
-  * [tar](commands/tar)
-  * [top](commands/top)
-  * [xargs](commands/xargs)
+  * [head](head-tail) 
+  * [cut](cut)
+  * [split](split)
+  * [less](less)
+  * [mmap](mmap)  
 
 ##### @todo: sort commands
