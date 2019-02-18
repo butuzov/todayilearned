@@ -24,6 +24,7 @@
 
   Build it yourself next time you will have time.
 
+  * https://medium.com/@sometimescasey/building-tensorflow-from-source-for-sse-avx-fma-instructions-worth-the-effort-fbda4e30eec3
 
 * (macbook 13") CPU: Multiple cpu issues
 
