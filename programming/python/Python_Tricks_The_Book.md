@@ -510,59 +510,8 @@ class MyClass:
   * types .MappingProxyType - read only dict (frozendict).
   * keys are `hashable`'s
 
-### 5.2 Array Data Structures
-  * `list`s
-  * `tuple`s
-  * `array.array` - typed lists
-  ```python
-  array.array('f', (1.0, 1.5, 2.0, 2.5))
-  ```
-  * `str` - immutable strings list (unicode)
-  * `bytes` - immutable bytes container
-  * `bytearray` - mutable bytes container
-
-### 5.3 Records, Structs, and Data Transfer Objects
-  * `dict`s
-  * `tuple`s & `collections.namedtuple`s
-  * `typing.NamedTuple` improved named `tuple`'s
-  * [`struct.Struct`](https://docs.python.org/3.6/library/struct.html)
-
-  ```python
-  >>> from struct import Struct
-  >>> MyStruct = Struct('i?f')
-  >>> data = MyStruct.pack(23, False, 42.0)
-  # Blob (blob):
-  >>> data
-  b'x17x00x00x00x00x00x00x00x00x00(B'
-  # BLOB-can be unpacked:
-  >>> MyStruct.unpack(data)
-  (23, False, 42.0)
-  ```
-  * `types.SimpleNamespace`
-
-### 5.4 Sets and Multi sets.
-  * `sets` `{1,2,3}`
-  * `frozenset` - immutable `set`
-  * `collections.Counter` - wird set (allow multiple values), but has counter on it.
 
 
-### 5.5 Stacks (LIFOs)
-
-  * `list` as example of stack
-  * `collections.deque` double linked list.
-  * `deque.LifoQueue`
-
-### 5.6 Queues (FIFOs)
-
-  * `list` as example of stack
-  * `collections.deque` double linked list.
-  * `queue.Queue` paralel cumputation blocking.
-  * `multiprocessing.Queue`
-
-### 5.7 PriorityQueues
-  * `list`, but it depends
-  * `heapq`
-  * `queue.PriorityQueue`
 
 
 ## Chapter 6 - Looping & Iteration
@@ -592,17 +541,6 @@ class MyClass:
   print({x:x+1 for x  in range(100) if x % 10 == 0})
   ```
 
-### 6.3 List Slicing Tricks and the Sushi Operator
-Similar to range you can slice list (or string).
-
-  ```python
-  q = [1,2,3,4,5,6,7,8,9,0]
-  print(q[:-1])    # all without last element
-  print(q[-1])     # last element, start from end.
-  print(q[2::4])   # start from 3rd, till end with step of 2
-  print(q[2::-1])  # start from 3rd... and reverse it!
-  print(q[8:3:-1]) # start from 9th .. till 4rd.. and reverse it!
-  ```
 
 ### 6.4 Beautiful Iterators
 
@@ -645,13 +583,6 @@ Similar to range you can slice list (or string).
   print(defaultdict(int)['key'])
   ```
 
-### 7.2 Sorting Dictionaries for Fun and Profit
-
-  ```python
-  # but beware! see talk by Raimond
-  xs = xs = {'a': 4, 'c': 2, 'b': 3, 'd': 1}
-  xl = {k:v for k, v in sorted(xs.items(), key=lambda x: x[1], reverse=False)}
-  ```
 
 ### 7.3 Emulating Switch/Case Statements With Dicts
 
@@ -736,17 +667,6 @@ Similar to range you can slice list (or string).
 ## Chapter 9/10 - Closing Thoughts and ...
 
 ### 9/10.0 Podcasts, Websites etc.
-
-#### Website and Communities
-
-  * [PythonistaCafe](www.pythonistacafe.com) - comunity website.
-  * [/r/Python](https://www.reddit.com/r/Python/) @ Reddit
-  * [Dan Bader](https://dbader.org/) author's website.
-
-#### Podcasts.
-  * [Talk Python to me](https://talkpython.fm/) by [Michael Kennedy](https://twitter.com/mkennedy)
-  * [Podcast.__init__('Python')](https://www.podcastinit.com/) by [Tobias Macey](https://twitter.com/TobiasMacey)
-   * [TestAndCode](https://www.podcastinit.com/) by [Brian Okken](https://twitter.com/brianokken)
 
 ### 9/10.1 Tenary Expression.
 
