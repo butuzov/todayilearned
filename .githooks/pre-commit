@@ -1,69 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env bash
 
-''' read all markdowns for todoitems and creates a todolist '''
+. ~/Desktop/Py3.7/bin/activate
 
-from os import walk
-from os.path import abspath
-from re import compile
-
-
-class Todo(object):
-    def __init__(self, root):
-        self.data = {'nodes': {}, 'items': []}
-        self.root = root
-        self.regexp = compile("todo: (.*?)\n")
-
-    def add(self, path, items):
-        base = path.replace(self.root+'/', '')
-        catalog = self.data
-
-        levels = base.split("/")
-        for index, level in enumerate(levels):
-            subcat = catalog['nodes'].get(level, {'nodes': {}, 'items': []})
-
-            if len(levels) == index+1:
-                subcat['items'] = items
-
-            catalog['nodes'].update({level: subcat})
-            catalog = subcat
-
-    def __str__(self):
-        return Todo.printer(0, self.data)
-
-    @staticmethod
-    def printer(indent, data):
-
-        todos = ["  * {}".format(item) for item in data['items']]
-
-        for header, items in data['nodes'].items():
-            todos.append("\n{} {}".format("#"*(indent+2), header))
-            todos.append(Todo.printer(indent+1, items))
-
-        return "\n".join(todos)
-
-    def find(self, string):
-        return self.regexp.findall(string)
+for py in $0*.py; do
+	printf "Running - %s\n" $(basename ${py})
+	python "${py}"
+	if [[ $? == 1 ]]; then
+		printf "Error - %s\n" $(basename ${py}) && deactivate && exit 1
+	fi
+	printf "\n\n"
+done
 
 
-def main():
-    """ read md files in repository and grab todo items"""
-    contents = "# TODO Items"
-
-    root = abspath(".")
-    todo = Todo(root)
-    for parent, _, files in walk(root):
-        for md in [f for f in files if f.find(".md") != -1]:
-            with open(parent+'/'+md) as f:
-                content = "\n".join(f.readlines())
-
-            matches = todo.find(content)
-            if len(matches) > 0:
-                todo.add(parent, matches)
-
-    with open("todo-list.md", "w") as f:
-        f.write("{}\n{}".format(contents, todo))
-
-# TODO: AutoCommit
-# TODO: Check only commited files
-if __name__ == "__main__":
-    main()
+deactivate
