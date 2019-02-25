@@ -62,81 +62,8 @@ My notes on the wonderful book, so I can return later to notes. Check link in ti
 
 ## Chapter 2 - Patterns for Cleaner Python
 
-### 2.1 Covering Your A** With Assertions
-
-1. Never use tuples in assert.
-```python
-assert( 1 == 2, "It's failing!") # No it's not
-```
-
-2. Do not give assert runtime checks, `assert` can be disabled.
-
-### 2.2 Complacent Comma Placement
-
-```python
-# Having comma at the end of your list is OK.
-names = [
-  'John',
-  'Betty',
-  'Liza',
-]
-
-#  not having a comma - in strings concatenation.
-str_var = (
-  'A long time ago'
-  'in a galaxy far, far away....'
-)
-```
 
 
-### 2.3 Context Managers and the with Statement
-
-#### `with ` & dunders
-```python
-class ManagedFile:
-     def __init__(self, name):
-         self.name = name
-    def __enter__(self):
-         self.file = open(self.name, 'w')
-         return self.file
-    def __exit__(self, exc_type, exc_val, exc_tb):
-         if self.file:
-             self.file.close()
-
-# so we can do something like
-# implementing custom write or read
-or any other functionality.
-with ManagedFile("list.json") as f:
-    f.read()
-
-```
-
-#### `with` & `contextlib`
-```python
-from contextlib import contextmanager
-@contextmanager
-def managed_file(name):
-  try:
-    f = open(name, 'w')
-    yield f
-  finally:
-    f.close()
-
->>> with managed_file('hello.txt') as f:
- ...     f.write('привет, мир!')
- ...     f.write('а теперь, пока!')
-
-```
-
-### 2.4 Underscores, Dunders, and More
-
-  Type                  | Example | Why
-------------------------|---------|-----
-Single@Start            | `_var`  | This is private methods/functions/vars
-Single@End              |  `var_` | Avoid conflicts names
-Double@Start            | `__var` | Name mangling
-Dunder                  |`__var__`| Magic
-Single                  | `_`     | Ignore_me_variable or Last expression result.
 
 
 ### 2.5 A Shocking Truth About String Formatting
@@ -154,35 +81,6 @@ from string import Template
 print( Template('Hey, $name').substitute(name=name) ) #-> Hey, Django
 ```
 Read more about format and % ways @ [Pyformat](https://pyformat.info/)
-
-
-### 2.6 “[The Zen of Python](http://www.thezenofpython.com/)” Easter Egg
-
-```python
-import this
-```
-
-#### The Zen of Python, by Tim Peters
-
-  * Beautiful is better than ugly.
-  * Explicit is better than implicit.
-  * Simple is better than complex.
-  * Complex is better than complicated.
-  * Flat is better than nested.
-  * Sparse is better than dense.
-  * Readability counts.
-  * Special cases aren't special enough to break the rules.
-  * Although practicality beats purity.
-  * Errors should never pass silently.
-  * Unless explicitly silenced.
-  * In the face of ambiguity, refuse the temptation to guess.
-  * There should be one-- and preferably only one --obvious way to do it.
-  * Although that way may not be obvious at first unless you're Dutch.
-  * Now is better than never.
-  * Although never is often better than *right* now.
-  * If the implementation is hard to explain, it's a bad idea.
-  * If the implementation is easy to explain, it may be a good idea.
-  * Namespaces are one honking great idea -- let's do more of those!
 
 
 ## Chapter 3 - Effective Functions
@@ -438,31 +336,6 @@ class Concrete(Base):
 assert issubclass(Concrete, Base)
 ```
 
-### 4.6 What Named tuples Are Good For
-
-```python
-from collections import namedtuple
-Car = namedtuple('Auto' , 'color engine')
-# Is Creates class Auto with a fields 'color' and 'engine' and
-# instanciate it to Car variable
-redSubaru = Car("red", "3.6Turbo")
-Car._fields
->>> ('color', 'engine')
-# and you can instantiate class with wraper implementing
-# custom methods
-class CarMethods(Car):
-  def hex(self):
-    return '#000' if self.color not "red" else "#f00"
-
-# replace value
-redSubaru._repalce(color=black)
-
-# dumping values as json from OrderDict
-json.dump(redSubaru._asdict())
-
-# and finaly - factory
-Car._make("red", "turbo")
-
 ```
 
 ### 4.7 Class vs Instance Variable Pitfalls
@@ -572,16 +445,6 @@ class MyClass:
   ```
 
 ## Chapter 7 - Dictionary Tricks
-### 7.1 Dictionary Default Values
-
-  ```python
-  # using .get() method
-  dictionary.get('key', []) # list is value if key entry not found
-
-  # using default dict zero value, wouldn't work with .get()
-  from collections import defaultdict
-  print(defaultdict(int)['key'])
-  ```
 
 
 ### 7.3 Emulating Switch/Case Statements With Dicts
@@ -592,20 +455,7 @@ class MyClass:
 
   Avoid using: `True`, 1, 1.0 in same time as keys. Implement you `__hash__` and/or `__eq__` nicly.
 
-### 7.5 So Many Ways to Merge Dictionaries
 
-  Pre-Python 3.5
-  ```python
-  zs = dict(xs, **ys)
-  >>> zs
-  {'a': 1, 'c': 4, 'b': 3}
-  ```
-
-  Post-Python 3.5
-
-  ```python
-  zs = {**xs, **ys}
-  ```
 
 ### 7.6 Dictionary Pretty-Printing
 
@@ -629,44 +479,7 @@ class MyClass:
   pprint.pprint(mapping)
   ```
 
-## Chapter 8 - Pythonic Productivity Techniques
-### 8.1 Exploring Python Modules and Objects
 
-  Use REPL more offen. `dir()`, `help()` for simple reflection.
-
-### 8.2 Isolating Project Dependencies With Virtualenv
-
-  `python3 -m venv .venv` by Raimond and Dan.
-
-  ```bash
-  # create virtual environment
-  $ > python3 -m venv .venv
-  # activate it, instead of . you also can use source
-  $ > . .venv/bin/activate
-  # install whatever you need
-  (.venv) $ > python3 -m pip install pandas
-  # want to stop work? deactivate it
-  (.venv) $ > deactivate
-  # and back to your shell
-  $ >
-  ```
-
-### 8.3 Peeking Behind the Bytecode Curtain
-  ```python
-  import dis
-
-  def test(name):
-      return f"Hello {name}!"
-
-  print(test.__code__.co_code)
-  print(test.__code__.co_consts)
-  print(test.__code__.co_varnames)
-
-  dis.dis(test)
-  ```
-## Chapter 9/10 - Closing Thoughts and ...
-
-### 9/10.0 Podcasts, Websites etc.
 
 ### 9/10.1 Tenary Expression.
 
