@@ -3,6 +3,13 @@
   `^` - `ctrl`
   `%` - `meta` or `alt` (mac)
 
+
+
+ Shortcut | Description           | Shortcut | Description
+----------|-----------------------|----------|----------------------
+
+
+
  Shortcut | Description           | Shortcut | Description          | Shortcut | Description             |
 ----------|-----------------------|----------|----------------------|----------|-------------------------|
   `tab`   | auto complete         | `^b`     | back one character   | `^w`     | delete one word         |
