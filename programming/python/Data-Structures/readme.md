@@ -2,11 +2,7 @@
 
 # Python Data Structures & Types
 
-## Dicts
-
-### @ `dict`
-
-Dictionary, default Python's hashmap type.
+## `dict` - Dictionary, default Python's hashmap type.
 
 **Talks**:
 * [Modern Python Dictionaries - A confluence of a dozen great ideas (PyCon 2017)](https://www.youtube.com/watch?v=npw4s1QTmPg) by Raymond Hettinger
@@ -29,7 +25,56 @@ output > {'a': 1, 'b': 3, 'c': 2, 'x': 5, 'y': 1, 'z': 9}
 
     {'a': 1, 'b': 3, 'c': 2, 'z': 9, 'y': 1, 'x': 5}
 
-## `dataclasses.dataclass`
+## `tuple`
+
+```python
+one = "uno"
+dos = "two"
+t = (one, dos)
+
+try:
+    t[1] = "dva"
+except TypeError as e:
+    print("Error: ", e, file=sys.stderr)
+```
+
+    Error:  'tuple' object does not support item assignment
+
+## `collections.namedtuple`
+
+```python
+import collections, json 
+
+Car = collections.namedtuple('Auto' , 'color engine')
+# Is Creates class Auto with a fields 'color' and 'engine' and
+# instanciate it to Car variable
+redSubaru = Car("red", "3.6Turbo")
+print(Car._fields)
+output > ('color', 'engine')
+
+# And you can instantiate class with wraper implementing custom methods
+class CarMethods(Car):
+    def hex(self):
+        return ('#000', "#f00")[self.color != "red"]
+
+# replace value
+redSubaru._replace(color="#000")
+print(redSubaru)
+output > Auto(color='red', engine='3.6Turbo')
+
+# show tuple as dictionary
+print(json.dumps(redSubaru._asdict()))
+output > '{"color": "red", "engine": "3.6Turbo"}'
+
+# and finaly - factory
+print(Car._make(("red", "turbo")))
+output > Auto(color='red', engine='turbo')
+
+```
+
+## `dataclasses.dataclass` 
+
+* [Dataclasses: The code generator to end all code generators - PyCon 2018](https://www.youtube.com/watch?v=T-TwcmT6Rcw) by Raymond Hettinger [slides](https://www.dropbox.com/s/te4q0xf46zkuu21/hettinger_dataclasses_pycon_2018.zip), [pdf](https://www.dropbox.com/s/m8pwkkz43qz5pgt/HettingerPycon2018.pdf)
 
 ```python
 import dataclasses
@@ -85,7 +130,9 @@ output > 'p1 >= p2 ... False'
 
 ```
 
-### `collections.OrderedDict`
+![image.png](attachment:image.png)
+
+## `collections.OrderedDict` - Key's ordered dictionary
 
 ```python
 # Ordered Dict
@@ -127,7 +174,7 @@ output > {'a': 1, 'b': 3, 'c': 2}
 
     {'a': 1, 'c': 2, 'b': 3}
 
-###  `collections.defaultdict`
+##  `collections.defaultdict` - Default value for dictionary
 
 ```python
 import collections 
@@ -143,7 +190,7 @@ print(collections.defaultdict(list)['key_that_not_exists'])
 output > []
 ```
 
-### `types.MappingProxyType`
+## @ `types.MappingProxyType`
 
 * https://www.python.org/dev/peps/pep-0416
 * https://docs.python.org/3/library/types.html
@@ -173,7 +220,7 @@ except AttributeError:
     output > 'Cant Update frozen/proxy value of dictionary'
 ```
 
-### struct.Struct
+## `struct.Struct` - Interpret bytes as packed binary data
 
 ```python
 # Struct
@@ -190,9 +237,7 @@ print(MyStruct.unpack(compact_data))
 output > (23, False, 42.0)
 ```
 
-### `array.array`
-
-C-types arrays
+## `array.array` - C-types arrays
 
 ```python
 # https://docs.python.org/3/library/array.html
@@ -215,9 +260,7 @@ print(array('f', (1.0, 1.5, 2.0, 2.5)))
 output > array('f', [1.0, 1.5, 2.0, 2.5])
 ```
 
-### `bytes`
-
-`immutable` sequence of bytes
+## `bytes` - `immutable` sequence of bytes
 
 ```python
 b = b'literal'
@@ -254,9 +297,7 @@ print(bytes("dots over і", 'utf8'))
 output > b'dots over \xd1\x96'
 ```
 
-### `bytearray`
-
-`mutable` byte array (like list)
+## `bytearray` - `mutable` byte array (like `list`)
 
 ```python
 # Same way to initialize it was done with byte
@@ -295,41 +336,7 @@ print(bytearray(b" ").join(words.split()))
 output > bytearray(b'Dont comes easy')
 ```
 
-### `collections.namedtuple`
-
-```python
-import collections, json 
-
-Car = collections.namedtuple('Auto' , 'color engine')
-# Is Creates class Auto with a fields 'color' and 'engine' and
-# instanciate it to Car variable
-redSubaru = Car("red", "3.6Turbo")
-print(Car._fields)
-output > ('color', 'engine')
-
-# And you can instantiate class with wraper implementing custom methods
-class CarMethods(Car):
-    def hex(self):
-        return ('#000', "#f00")[self.color != "red"]
-
-# replace value
-redSubaru._replace(color="#000")
-print(redSubaru)
-output > Auto(color='red', engine='3.6Turbo')
-
-# show tuple as dictionary
-print(json.dumps(redSubaru._asdict()))
-output > '{"color": "red", "engine": "3.6Turbo"}'
-
-# and finaly - factory
-print(Car._make(("red", "turbo")))
-output > Auto(color='red', engine='turbo')
-
-```
-
-### `set`
-
-Well.. a `set` (unique set)
+## `set` 
 
 ```python
 s = set([1,2,1,2,3,1])
@@ -348,48 +355,83 @@ print(s & set([2, 19]))
 output > {2, 19}
 ```
 
-### `collections.Counter`
+## `collections.Counter` - Counter of Unique data
 
 ```python
 # collections.Counter example
 
 from collections import Counter
 
-c1 = Counter();
-c1['apples'] += 1
-c1['apples'] += 2
-c1['peaches'] += 10
+c0 = Counter({'uno':1, 'dos':2});
+print(c0)
+output > Counter({'dos': 2, 'uno': 1})
+
+c1 = Counter(uno=1)
+print(c1)
+output > Counter({'uno': 1})
+
+c2 = Counter();
+c2['apples'] += 1
+c2['apples'] += 2
+c2['peaches'] += 10
 
 # Most Common Elements (sorted by `count`)
-print(c1.most_common())
+print(c2.most_common())
 output > [('peaches', 10), ('apples', 3)]
 
 # Counter Example
-c2 = Counter()
-lipsum = "Un dos tres quatro sinco seis"
+c3 = Counter()
+lipsum = "Un dos tres quatro cinco seis siete"
 words = [w.strip(".,") for w in lipsum.lower().split(' ')]   
 for word in words:
-    c2[word]+=1
-print(c2.most_common(2))
+    c3[word]+=1
+print(c3.most_common(2))
 output > [('un', 1), ('dos', 1)]
 
 # List
-print(list(c2.elements()))
-output > ['un', 'dos', 'tres', 'quatro', 'sinco', 'seis']
+print(list(c3.elements()))
+output > ['un', 'dos', 'tres', 'quatro', 'cinco', 'seis', 'siete']
 
 # Unique Elements
-print(list(c2))
-output > ['un', 'dos', 'tres', 'quatro', 'sinco', 'seis']
+print(list(c3))
+output > ['un', 'dos', 'tres', 'quatro', 'cinco', 'seis', 'siete']
 
 # Additoional methods
-c3 = Counter(["dos"])
-c3.update(["dos", "tres", "sinco", "seis", "ocho"])
-c3.subtract(["ocho"])
+c4 = Counter(["dos"])
+c4.update(["dos", "tres", "cinco", "seis", "ocho"])
+c4.subtract(["ocho"])
+print(c4)
+output > Counter({'dos': 2, 'tres': 1, 'cinco': 1, 'seis': 1, 'ocho': 0})
+print(c4)
+output > Counter({'dos': 2, 'tres': 1, 'cinco': 1, 'seis': 1, 'ocho': 0}) 
+
+# background implementation - itertools chain
+print(c4.elements())
+output > <itertools.chain object at 0x111b2ba90>
+
+# adding counters
+print(c4+c3)
+output > Counter({'dos': 3, 'tres': 2, 'cinco': 2, 'seis': 2, 'un': 1, 'quatro': 1, 'siete': 1})
+print(c4)
+output > Counter({'dos': 2, 'tres': 1, 'cinco': 1, 'seis': 1, 'ocho': 0})
 print(c3)
-output > Counter({'dos': 2, 'tres': 1, 'sinco': 1, 'seis': 1, 'ocho': 0}) 
+output > Counter({'un': 1, 'dos': 1, 'tres': 1, 'quatro': 1, 'cinco': 1, 'seis': 1, 'siete': 1})
+# subtraction
+print(c4-c3)
+output > Counter({'dos': 1})
+print(c3-c4)
+output > Counter({'un': 1, 'quatro': 1, 'siete': 1})
+
+# maximum value (union)
+print(c3|c4)
+output > Counter({'dos': 2, 'un': 1, 'tres': 1, 'quatro': 1, 'cinco': 1, 'seis': 1, 'siete': 1})
+
+# minimum value (intersection)
+print(c3&c4)
+output > Counter({'dos': 1, 'tres': 1, 'cinco': 1, 'seis': 1})
 ```
 
-### `collections.deque`
+## `collections.deque` - Double Ended Queue
 
 ```python
 import collections 
@@ -400,35 +442,93 @@ output > deque(['one', 'two', 'three'])
 print(d)
 output > deque(['one', 'two', 'three', 'four'])
 print(d)
-output > deque(['zero', 'one', 'two', 'three', 'four'])
+output > deque(['one', 'two', 'four'])
 print(d)
-output > deque(['two', 'three', 'one'])
+output > deque(['one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['zero', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try'])
+print(d)
+output > deque(['dva', 'try', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four'])
 
 d.append("four")
 print(d)
 output > deque(['one', 'two', 'three', 'four'])
 print(d)
-output > deque(['zero', 'one', 'two', 'three', 'four'])
+output > deque(['one', 'two', 'four'])
 print(d)
-output > deque(['two', 'three', 'one'])
+output > deque(['one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['zero', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try'])
+print(d)
+output > deque(['dva', 'try', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four'])
+print(d.remove("three"))
+output > None
+print(d)
+output > deque(['one', 'two', 'four'])
+print(d)
+output > deque(['one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['zero', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try'])
+print(d)
+output > deque(['dva', 'try', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four'])
+
+d.extend(["dva", "try", "chotyry"])
+print(d)
+output > deque(['one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['zero', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try'])
+print(d)
+output > deque(['dva', 'try', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four'])
+
+d.extendleft(["iti", "ni", "san", "si"])
+print(d)
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['zero', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try', 'chotyry'])
+print(d)
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try'])
+print(d)
+output > deque(['dva', 'try', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four'])
 
 d.appendleft("zero")
 print(d)
-output > deque(['zero', 'one', 'two', 'three', 'four'])
+output > deque(['zero', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try', 'chotyry'])
 print(d)
-output > deque(['two', 'three', 'one'])
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try'])
+print(d)
+output > deque(['dva', 'try', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four'])
 
 d_poped = d.pop()
 print(d_poped)
-output > 'four'
+output > 'chotyry'
 
 d_popedleft = d.popleft()
 print(d_popedleft)
 output > 'zero'
 
 # rotatiob
+print(d)
+output > deque(['si', 'san', 'ni', 'iti', 'one', 'two', 'four', 'dva', 'try'])
+print(d)
+output > deque(['dva', 'try', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four'])
 d.rotate(2)
 print(d)
-output > deque(['two', 'three', 'one'])
+output > deque(['dva', 'try', 'si', 'san', 'ni', 'iti', 'one', 'two', 'four'])
 ```
 
