@@ -4,6 +4,9 @@
 * https://en.wikipedia.org/wiki/List_of_Unix_commands
 * https://uk.wikipedia.org/wiki/Категорія:Стандартні_програми_для_Unix
 
+**Resources:**
+* https://coderwall.com/t/terminal/popular
+
 ## Archives
 
 ### `ar`
@@ -162,17 +165,13 @@ Use locally available keys to authorise logins on a remote machine
 
  * https://www.thegeekstuff.com/2008/10/6-awesome-linux-cd-command-hacks-productivity-tip3-for-geeks/
 
-### `mdfind`
-
-macOS Spotfline Search
+### `mdfind` - macOS Spotfline Search
 
 ```bash
 mdfind search phraze -onlyin "/Volumes/SharedDocuments" | less
 ```
 
-### `find`
-
-Walk a file hierarchy
+### `find` - Walk a file hierarchy
 
 ![find by Julia Evans](images/find.jpg)
 
@@ -281,36 +280,32 @@ find . -name -type f '*.mp3' -mtime -180 -print0 | xargs -0 tar rvf music.tar
 find . -type f -name "*html" | xargs tar cvf jw-htmlfiles.tar -
 find . -type f -name "*html" | pax -w -f jw-htmlfiles.tar
 # http://alvinalexander.com/blog/post/linux-unix/using-pax-instead-of-tar
+
+# find files with permitions
+#----------
+find . -perm -u+s              # search for files with SUID set.   
 ```
 
-### `ls`
-
-List directory contents
+### `ls` - List directory contents
 
 ```bash
-# One file/directory per line
-ls -1
+# Usage Examples
+# ------------------------------------------
+ls -1      # One file/directory per line
+ls -lah    # Show files size in "human" size
 
-# human size
-ls -lah
+# Order -----------------------------------
+ls -lt     # time based order
+ls -ltr    # time based reverse order
 
-# time based order
-ls -lt
+# Filtering -------------------------------
+ls -a      # Show also hidden files 
+ls -A      # Show also hidden files  but not . and ..
 
-# time based reverse order
-ls -ltr
+# Options ---------------------------------
+ls -i      # Inodes numbers
+ls -ln     # UID/GID
 
-# Hidden withou . and ..
-ls -A
-
-# Hidden with
-ls -a
-
-# Inodes numbers
-ls -i
-
-# UID/GID
-ls -ln
 ```
 
  inode  | Type-Permissions | Number of Links | Owner   | Group | Size | Last-Modified | Name
@@ -487,13 +482,118 @@ Print (Linux) operating system name.
 **example**
 
 ```bash
-uname -a
+> uname -a
+Darwin bigmac 17.7.0 Darwin Kernel Version 17.7.0: Thu Dec 20 21:47:19 PST 2018; root:xnu-4570.71.22~1/RELEASE_X86_64 x86_64 i386 MacPro5,1 Darwin
+
+> uname -m
+x86_64
 ```
 
 **Alternatives**
 
 * [How to check OS and version using a Linux command](https://unix.stackexchange.com/questions/88644)
 * [How do I identify which Linux distro is running?](https://unix.stackexchange.com/questions/35183)
+
+### `date` - Print or set the system date and time
+
+```bash
+date                            # will print date
+date +'%Y-%m-%d'                # will print date in YYY-mm-dd format 
+date +'%s'                      # date as unixtimestamp
+
+# Password generation based on date output
+date +%s | sha256sum | base64 | head -c 32
+```
+
+### `cal`
+
+Displays a calendar and the date of Easter
+
+```bash
+cal -d 2018-02
+```
+
+## Utils
+
+### `@xargs` - Pass arguments for execution
+
+![](images/xargs.jpg)
+The xargs utility reads space, tab, newline and end-of-file delimited strings from the standard input and executes utility with the strings as arguments.
+
+Any arguments specified on the command line are given to utility upon each invocation, followed by some number of the arguments read from the standard input of xargs.  The utility is repeatedly executed until standard input is exhausted.
+
+Spaces, tabs and newlines may be embedded in arguments using single (`'`) or double (`"`) quotes or backslashes (`\`).  Single quotes escape all non-single quote characters, excluding newlines, up to the matching single quote.  Double quotes escape all non-double quote characters, excluding newlines, up to the matching double quote.  Any single character, including newlines, may be escaped by a backslash.
+
+                                                                     
+```bash
+# Getting Git Subcomands Help Pages to Files.
+#-----------------------------------------------
+git help -a | \
+    awk '{printf "%s\n%s\n", $1, $2}' | \
+    head -n 172 | \
+    tail -n 156 | \
+    xargs -I {} sh -c "git {} -h > {}.md"
+
+# Copy the list of files and directories which start with an
+# uppercase letter in the current directory to destdir
+# -------
+ls -1d [A-Z]* | xargs -J % cp -rp % destination_directory
+
+# length of the video
+find . -name "*mp4" -print0 | xargs -0 -I {} sh -c 'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "{}"' 
+
+# pip cleanup
+python -m pip list | \ 
+    awk 'NR>2 {print $1}' | \ 
+    grep -Ev "pip|setuptools|wheel" | \
+    xargs -I {} sh -c "python -m pip uninstall {} -y"
+```
+
+**Optionns**
+
+  Key   |  Short  | Description
+--------|---------|--------------------------------------------------------------------
+  `-0`  |  &nbsp; | Change xargs to expect NUL (`\0`) characters as separators, instead of spaces and newlines.  This is expected to be used in concert with the `-print0` function in `find(1)`.
+  `-E`  | eofstr  | Use eofstr as a logical EOF marker.
+  `-I`  | replstr |  Execute utility for each input line, replacing one or more occurrences of replstr in up to replacements (or 5 if no `-R` flag is speci fied) arguments to utility with the entire line of input.  The resulting arguments, after replacement is done, will not be allowed to grow beyond 255 bytes; this is implemented by concatenating as much of the argument containing replstr as possible, to the con structed arguments to utility, up to 255 bytes. The 255 byte limit does not apply to arguments to utility which do not contain replstr, and furthermore, no replacement will be done on utility itself.  Implies `-x`.
+  `-J`  | replstr |  If this option is specified, xargs will use the data read from standard input to replace the first occurrence of replstr instead of appending that data after all other arguments.  This option will not affect how many arguments will be read from input (`-n`), or the size of the command(s) xargs will generate (`-s`).  The option just moves where those arguments will be placed in the command(s) that are executed.  The replstr must show up as a distinct argument to xargs.  It will not be recognized if, for instance, it is in the middle of a quoted string.  Furthermore, only the first occurrence of the replstr will be replaced.
+  `-L`  | number |  Call utility for every number non-empty lines read.  A line ending with a space continues to the next non-empty line.  If EOF is reached and fewer lines have been read than number then utility will be called with the available lines.  The `-L` and `-n` options are mutually-exclusive; the last one given will be used.
+  `-n`  | number | Set the maximum number of arguments taken from standard input for each invocation of utility.  An invocation of utility will use less than number standard input arguments if the number of bytes accumulated (see the `-s` option) exceeds the specified size or there are fewer than number arguments remaining for the last invocation of utility.  The current default value for number is 5000.
+  `-o`  |  &nbsp;   | Reopen stdin as `/dev/tty` in the child process before executing the command.  This is useful if you want xargs to run an interactive application.
+  `-P`  | maxprocs |  Parallel mode: run at most maxprocs invocations of utility at once.
+  `-p`  |  &nbsp;    | Echo each command to be executed and ask the user whether it should be executed.  An affirmative response, `y' in the POSIX locale, causes the command to be executed, any other response causes it to be skipped.  No commands are executed if the process is not attached to a terminal.
+  `-R`  | replacements | Specify the maximum number of arguments that -I will do replacement in.  If replacements is negative, the number of arguments in which to replace is unbounded.
+  `-s`  | size |  Set the maximum number of bytes for the command line length provided to utility.  The sum of the length of the utility name, the arguments passed to utility (including NULL terminators) and the current environment will be less than or equal to this number. The current default value for size is ARG_MAX - 4096.
+  `-t`  |  &nbsp;  | Echo the command to be executed to standard error immediately before it is executed.
+  `-x`  |  &nbsp;   | Force xargs to terminate immediately if a command line containing number arguments will not fit in the specified (or default) command line length.
+
+Undefined behavior may occur if utility reads from the standard input.
+
+The xargs utility exits immediately (without processing any further input) if a command line cannot be assembled, utility cannot be invoked, an invocation of utility is terminated by a signal, or an invocation of utility exits with a value of 255.
+
+### `sort` - Sort lines of text files
+
+![](images/sort.jpg)
+
+```bash
+# Top 10 commands used:
+history | awk '{print $2}' | awk 'BEGIN {FS="|"}{print $1}' | sort | uniq -c | sort -nr | head
+
+# Shorter and Faster version
+history | awk 'BEGIN {FS="[ \t]+|\\|"} {print $3}' | sort | uniq -c | sort -nr | head
+
+# Duplicate file finder
+find ./ -type f -print0 | xargs -0 -n1 md5sum | sort -k 1,32 | uniq -w 32 -d --all-repeated=separate | sed -e 's/^[0-9a-f]*\ *//;'
+
+# Sorting a CSV file by the second column alphabetically
+sort -t"," -k2,2 filename.csv
+
+# Numerically
+sort -t"," -k2n,2 filename.csv
+
+# Reverse order
+sort -t"," -k2nr,2 filename.csv
+```
 
 ## Development, Testing & Debug
 
@@ -660,18 +760,13 @@ test 4 -lt 6 && echo 1 || echo 0
 
 ## Files (Operations)
 
-### `less`
-
-Opposite of more
+### `less` - Opposite of more
 
 ![less by Julia Evans](images/less.jpg)
 
 ```bash
-# view file via less
-less And_Then_There_Were_None.txt
-
-# same but strting from 6th line.
-less +6 And_Then_There_Were_None.txt
+less And_Then_There_Were_None.txt    # View file via less
+less +6 And_Then_There_Were_None.txt # Same, but strting from 6th line.
 ```
 
 *Keyboard shortcuts*
@@ -732,15 +827,17 @@ less +6 And_Then_There_Were_None.txt
 *  mx – mark the current position with the letter `x`.
 *  ‘x – go to the marked position `x`.
 
+### `more` - Opposite of Less 
+
+See `less`
+
 ## Text Tools
 
 ### TODO
 
 * http://www.theunixschool.com/2012/07/10-examples-of-paste-command-usage-in.html    
 
-### `awk`
-
-Pattern-directed scanning and processing language
+### `awk` - Pattern-directed scanning and processing language
 
 ![awk by Julia Evans](images/awk.jpg)
 
@@ -818,6 +915,15 @@ vagrant ssh-config| \
         }
         print $1, $2, $3
     }'
+```
+
+```bash
+# Comman Usage Patterns
+# TOP 10 used commands: 
+history | awk '{print $2}' | awk 'BEGIN {FS="|"}{print $1}' | sort | uniq -c | sort -nr | head
+
+# Same, but shorter:
+history | awk 'BEGIN {FS="[ \t]+|\\|"} {print $3}' | sort | uniq -c | sort -nr | head
 ```
 
 ### `grep`
@@ -909,9 +1015,7 @@ wc -cmlw And_Then_There_Were_None.txt
 > 29 173 953 953 And_Then_There_Were_None.txt
 ```
 
-### `split`
-
-Split a file into pieces
+### `split` - Split a file into pieces
 
 ```bash
 # We will split our CSV into new_filename every 500 lines
@@ -925,9 +1029,7 @@ ls
 find . -type f -exec mv '{}' '{}'.csv \;
 ```
 
-### `cut`
-
-Remove sections from each line of files
+### `cut` - Remove sections from each line of files
 
 ```bash
 # Cut is for removing columns. To illustrate, if we only wanted the
@@ -949,37 +1051,133 @@ cat filename.csv | cut -d, -f 2 | sort | uniq | wc -l
 cat filename.csv | cut -d, -f 2 | sort | uniq -c | head
 ```
 
-### `head`
-
-Output the first part of files
+### `head` - Output the first lines of files
 
 ![](images/head-tail.jpg)
 
 ```bash
-# will print 10 lines of rome and juliete beginig
-head romeo-and-juliet.txt
 
-# will print first line
-head -n 1 romeo-and-juliet.txt
+# usage
+# --------------------------------------------
+head romeo-and-juliet.txt                               # will print 10 lines of rome and juliete beginig
+head romeo-and-juliet.txt -n 1                          # setting a number of lines to print 
+head */list.cvs -n 20                                   # read more then one file
 ```
 
-### `tail`
-
-Output the last part of files
+### `tail` - Output the last part of files
 
 ```bash
+# Examples -----------------
+tail file.txt               # Show Last Lines of file.txt
+tail -n 15 file.txt         # Show Last 15 Lines of file.txt
+tail 15 file.txt            # Show Last 15 Lines of file.txt, but without providing `n` opt 
 
-# Show Last Lines of file.txt
-tail file.txt
+tail --bytes 8 file.txt     # Show Last 8 Bytes of file.txt
+tail -f error-log.txt       # Updated output of updated file (monitoring)
 
-# Show Last 15 Lines of file.txt
-tail -n 15 file.txt
+```
 
-# Show Last 8 Bytes of file.txt
-tail --bytes 8 file.txt
+### `pr`
 
-# Updated output of updated file (monitoring)
-tail -f error-log.txt
+Convert text files for printing
+
+```bash
+# five columns for listing directories
+ls | pr -T5
+```
+
+## User & Groups Mangement
+
+### `su`
+
+Substitute user identity (switch to other user account)
+
+```bash
+# Basic Usage 
+su butuzov                 # switch to user butuzov
+su                         # switch to root user 
+```
+
+### `passwd`
+
+Modify a user's password
+
+```bash
+# basick Usage 
+# ----------------------
+passwd                  # change your password
+passwd butuzov          # change passowrd for user butuzov (if you are working under root)
+```
+
+### `chown` - Change file owner and group
+
+```python
+```bash
+
+### `chmod` - Change file mode bits
+
+```bash
+# Usage Examples
+# --------------------------
+chmod +x        command.py           # Set execution permition to file command.py
+chmod ugo+rws   directory            # Permitions for User/Group/Other to Read/Write/eXecute
+chmod 0777      directory            # Same as above
+
+# --------------------------
+chmod u+s       command.py           # set SUID bit for all users (allows to execute file as file owner)
+chmod u-s       command.py           # set SUID bit for all users (allows to execute file as file owner)
+chmod g+s       directory            # set SGID bit for directory
+chmod g-s       directory            # remove SGID bit for directory
+chmod o+t       directory            # sticky bit (only owner can remove file in directory)
+chmod o-t       directory            # remove sticky bit
+```
+
+## MacOSX  System Tools
+
+### `system_profiler`
+
+Reports system hardware and software configuration
+
+```bash
+> system_profiler SPSoftwareDataType
+Software:
+
+    System Software Overview:
+
+      System Version: macOS 10.13.6 (17G5019)
+      Kernel Version: Darwin 17.7.0
+      Boot Volume: master
+      Boot Mode: Normal
+      Computer Name: bigmac
+      User Name: Oleg Butuzov (butuzov)
+      Secure Virtual Memory: Enabled
+      System Integrity Protection: Enabled
+      Time since boot: 5:31
+      
+> system_profiler -detailLevel mini | less
+```
+
+### `sw_vers` 
+
+```bash
+> sw_vers
+
+ProductName:    Mac OS X
+ProductVersion: 10.13.6
+BuildVersion:   17G5019
+    
+```
+
+### `defaults`
+
+Access the Mac OS X user defaults system
+
+```bash
+# read all | madness
+defaults read 
+
+# version of mac
+defaults read loginwindow SystemVersionStampAsString
 ```
 
 ## `systemd`
