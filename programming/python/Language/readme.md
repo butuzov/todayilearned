@@ -1,6 +1,18 @@
 
 
 ```python
+#hide
+from icecream import ic  
+import sys, re
+
+def jupyter(*args): 
+    print(*[re.sub(r",\s{1,}", ", ", i.replace(",\n", ", ")) for i in args], file=sys.stdout)
+    
+ic.configureOutput(prefix='ic> ', outputFunction=jupyter)
+```
+
+
+```python
 import this
 ```
 
@@ -26,23 +38,29 @@ import this
     If the implementation is easy to explain, it may be a good idea.
     Namespaces are one honking great idea -- let's do more of those!
 
+
 ## Abstract Syntax Tree - Visualization
+
 
 ```python
 # cell magic from `showast` module
-
 !pip install showast 2>&1 1>/dev/null
 import showast
 ```
+
 
 ```python
 %%showast 
 assert 1+9 == 10
 ```
 
+
 ![svg](readme_files/readme_4_0.svg)
 
+
 ## Disassembling code 
+
+
 
 ```python
 import dis
@@ -54,16 +72,29 @@ dis.dis("print(1)")
                   4 CALL_FUNCTION            1
                   6 RETURN_VALUE
 
+
+
 ```python
 def test(name):
-  return f"Hello {name}!"
-print(test.__code__.co_code)
-output > b'd\x01|\x00\x9b\x00d\x02\x9d\x03S\x00'
-print(test.__code__.co_consts)
-output > (None, 'Hello ', '!')
-print(test.__code__.co_varnames)
-output > ('name',)
+    return f"Hello {name}!"
+
+ic(test.__code__.co_code)
+ic(test.__code__.co_consts)
+ic(test.__code__.co_varnames)
 ```
+
+    ic> test.__code__.co_code: b'd\x01|\x00\x9b\x00d\x02\x9d\x03S\x00'
+    ic> test.__code__.co_consts: (None, 'Hello ', '!')
+    ic> test.__code__.co_varnames: ('name',)
+
+
+
+
+
+    ('name',)
+
+
+
 
 ```python
 dis.dis(test)
@@ -76,23 +107,41 @@ dis.dis(test)
                   8 BUILD_STRING             3
                  10 RETURN_VALUE
 
+
 ## Using `sys`
+
 
 ```python
 import sys
-print(sys.getrefcount(1))
-output > 2286
-print(sys.getsizeof(1))
-output > 28
+
+ic(sys.getrefcount(1))
+ic(sys.getsizeof(1))
 ```
+
+    ic> sys.getrefcount(1): 2276
+    ic> sys.getsizeof(1): 28
+
+
+
+
+
+    28
+
+
 
 ## Simple reflection - `dir()`
 
+
 ```python
 # methods of str class
-print(dir(str))
-output > ['__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getnewargs__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mod__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__rmod__', '__rmul__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'capitalize', 'casefold', 'center', 'count', 'encode', 'endswith', 'expandtabs', 'find', 'format', 'format_map', 'index', 'isalnum', 'isalpha', 'isascii', 'isdecimal', 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable', 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 'maketrans', 'partition', 'replace', 'rfind', 'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']
+ic(dir(str))
 ```
+
+    ic> dir(str): ['__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getnewargs__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mod__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__rmod__', '__rmul__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'capitalize', 'casefold', 'center', 'count', 'encode', 'endswith', 'expandtabs', 'find', 'format', 'format_map', 'index', 'isalnum', 'isalpha', 'isascii', 'isdecimal', 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable', 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 'maketrans', 'partition', 'replace', 'rfind', 'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']
+
+
+
+
 
     ['__add__',
      '__class__',
@@ -173,7 +222,10 @@ output > ['__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__d
      'upper',
      'zfill']
 
+
+
 ## Simple Reflection - `help()`
+
 
 ```python
 help(str)
@@ -576,3 +628,8 @@ help(str)
      |      must be a string, whose characters will be mapped to None in the result.
     
 
+
+
+```python
+
+```
