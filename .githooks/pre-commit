@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-. ~/Desktop/Py3.7/bin/activate
+# . ~/Desktop/jupyter/bin/activate
 
-for py in $0*.py; do
-	printf "Running - %s\n" $(basename ${py})
-	python "${py}"
-	if [[ $? == 1 ]]; then
-		printf "Error - %s\n" $(basename ${py}) && deactivate && exit 1
-	fi
-	printf "\n\n"
-done
+# for py in $0*.py; do
+# 	printf "Running - %s\n" $(basename ${py})
+# 	python "${py}"
+# 	if [[ $? == 1 ]]; then
+# 		printf "Error - %s\n" $(basename ${py}) && deactivate && exit 1
+# 	fi
+# 	printf "\n\n"
+# done
 
 
-deactivate
+# deactivate

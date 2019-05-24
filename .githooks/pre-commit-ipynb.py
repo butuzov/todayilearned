@@ -19,20 +19,20 @@ def main():
     for parent, _, files in walk(root):
         for readme in [f for f in files if f == "readme.ipynb"]:
             readme_dir = parent.replace(root+'/', "");
-            args = [ "git", "ls-files", "--error-unmatch",
-                            f"{readme_dir}/{readme}"]
+            # args = [ "git", "ls-files", "--error-unmatch",
+            #                 f"{readme_dir}/{readme}"]
 
-            cp = run(args, capture_output=True)
+            # cp = run(args, capture_output=True)ipn
 
-            # skip untracked files
-            if cp.returncode == 1:
-                continue
+            # # skip untracked files
+            # if cp.returncode == 1:
+            #     continue
 
 
-            # exit if error?
-            if cp.returncode > 1 :
-                print(cp.stderr.decode(), file=sys.stderr)
-                sys.exit(cp.returncode)
+            # # exit if error?
+            # if cp.returncode > 1 :
+            #     print(cp.stderr.decode(), file=sys.stderr)
+            #     sys.exit(cp.returncode)
 
             # parse readme.ipynb into readme.md
             cp = run( ["jupyter", "nbconvert", f"{readme_dir}/{readme}", "--to", \
@@ -92,6 +92,7 @@ def clean_value(v):
 
     return new_v
 
+
 def clean_icecream_normilize(c):
     ic_group  = re.findall(re.compile('^(\s*ic\((.*)\))', re.MULTILINE), c)
     ic_output = re.findall(re.compile('^(\s{1,}(ic>) (.*?):(.+?))\n\n', re.MULTILINE|re.DOTALL), c)
@@ -130,6 +131,7 @@ def clean_icecream_normilize(c):
         c = c.replace(p[0], v[:-1], 1)
 
     return c
+
 
 def clean_empty_code_blocks(c):
     """
