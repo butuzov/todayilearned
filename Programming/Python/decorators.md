@@ -1,5 +1,11 @@
 
 
+## todo
+
+```python
+# reprlib.recursive_repr
+```
+
 # Decorators
 
 [PEP 3129](https://www.python.org/dev/peps/pep-3129/), [PEP 318](https://www.python.org/dev/peps/pep-0318/)
@@ -194,6 +200,14 @@ def _(arg, verbose=False):
         print("Enumerate this:")
     for i, elem in enumerate(arg):
         print(i, elem)
+
+import collections
+@fun.register(collections.abc.Sequence)
+def _(arg, verbose=False):
+    if verbose:
+        print("Sequence:")
+    for i, elem in enumerate(arg):
+        print(i, elem)
 ```
 
 ```python
@@ -225,18 +239,18 @@ fun([123,12,3,123,12,3,12,3], True)
 ```python
 # list available implementations
 print(fun.registry.keys())
-output > dict_keys([<class 'object'>, <class 'int'>, <class 'list'>])
+output > dict_keys([<class 'object'>, <class 'int'>, <class 'list'>, <class 'collections.abc.Sequence'>])
 
 # --- checking implementations....
 
 # default implementation
 print(fun.dispatch(str))
-output > <function fun at 0x10f2766a8>
+output > <function _ at 0x10d648ae8>
 print(fun.dispatch(float))
-output > <function fun at 0x10f2766a8>
+output > <function fun at 0x10d648ea0>
 # existing implementation
 print(fun.dispatch(int))
-output > <function _ at 0x10f276378>
+output > <function _ at 0x10d6481e0>
 ```
 
     <function __main__._(arg: int, verbose=False)>
@@ -329,6 +343,20 @@ print(root.n)
 output > 16
 print(root.root)
 output > 8.0
+```
+
+### `@dataclass`
+
+```python
+import dataclasses
+
+@dataclasses.dataclass
+class Point:
+    x: float
+    y: float
+    z: float = 0.0
+ print(Point(1.5, 2.5))
+ output > Point(x=1.5, y=2.5, z=0.0)
 ```
 
 ### Context Managers and `@contextmanager`
