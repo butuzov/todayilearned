@@ -1,11 +1,3 @@
-
-
-## todo
-
-```python
-# reprlib.recursive_repr
-```
-
 # Decorators
 
 [PEP 3129](https://www.python.org/dev/peps/pep-3129/), [PEP 318](https://www.python.org/dev/peps/pep-0318/)
@@ -72,6 +64,34 @@ print(name('oleg'))
 output > 'My name is slim shady'
 ```
 
+Alternate `repr()` implementation provided by [reprlib](https://docs.python.org/3/library/reprlib.html)
+
+```python
+from reprlib import recursive_repr
+
+class ascii():
+    def __init__(self, char:str) -> None:
+        if len(char) > 1:
+            raise ValueError("Accepting only single chars")
+            
+        self.char = char
+    def __repr__(self) -> str:
+        return "{} is {}".format(self.char, ord(self.char))
+
+class lister(list):
+    
+    @recursive_repr()
+    def __repr__(self):
+        return '<' + ' , '.join(map(repr, self)) + '>'
+    
+l = lister()
+l.append(ascii('a'))
+l.append(ascii('b'))
+l.append(ascii('c'))
+print(l) 
+output > '<a is 97 , b is 98 , c is 99>'
+```
+
 or using a wrapper inside wrapper inside decorator
 
 ## `functools`'s decorators
@@ -86,16 +106,25 @@ def fib1(n):
 def fib2(n): 
     return n if n < 2 else (fib2(n-1)+fib2(n-2))
 
-%timeit fib1(35)
-%timeit fib2(35)
+# no limits 
+@functools.lru_cache(maxsize=None)
+def fib3(n): 
+    return n if n < 2 else (fib3(n-1)+fib3(n-2))
+
+%timeit fib1(12)
+%timeit fib2(12)
+%timeit fib3(12)
 
 # cache info
 print(fib2.cache_info())
-output > CacheInfo(hits=81111143, misses=36, maxsize=35, currsize=35)
+output > CacheInfo(hits=81111120, misses=13, maxsize=35, currsize=13)
+print(fib3.cache_info())
+output > CacheInfo(hits=81111120, misses=13, maxsize=None, currsize=13)
 ```
 
-    6.23 s ± 22.3 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
-    117 ns ± 0.485 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+    97.2 µs ± 402 ns per loop (mean ± std. dev. of 7 runs, 10000 loops each)
+    115 ns ± 0.846 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+    112 ns ± 0.776 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
 
 ####  `functools.wraps` - allows to mask wrapper function name
 
@@ -169,9 +198,9 @@ class Weight:
     
     def __eq__(self, other):
         return self.value == other.value
-
-print(Weight('5 kg') < Weight('4999 gr'))
-output > False
+ 
+print(Weight('5 kg') == Weight('5000 gr'))
+output > True
 ```
 
 ### `functools.singledispatch`
@@ -214,7 +243,23 @@ def _(arg, verbose=False):
 fun("its not so funny", True)
 ```
 
-    Let me just say, its not so funny
+    Sequence:
+    0 i
+    1 t
+    2 s
+    3  
+  n
+    5 o
+    6 t
+    7  
+    8 s
+    9 o
+    10  
+    11 f
+    12 u
+    13 n
+    14 n
+    15 y
 
 ```python
 fun(12312, True)
@@ -245,12 +290,12 @@ output > dict_keys([<class 'object'>, <class 'int'>, <class 'list'>, <class 'col
 
 # default implementation
 print(fun.dispatch(str))
-output > <function _ at 0x10d648ae8>
+output > <function _ at 0x10df6dbf8>
 print(fun.dispatch(float))
-output > <function fun at 0x10d648ea0>
+output > <function fun at 0x10df2cf28>
 # existing implementation
 print(fun.dispatch(int))
-output > <function _ at 0x10d6481e0>
+output > <function _ at 0x10df2ca60>
 ```
 
     <function __main__._(arg: int, verbose=False)>
@@ -296,8 +341,9 @@ class Power(AbstractPower):
             self.power,
             self.__class__.power(self.number, self.power)
         )
-    print(Power(2, 2))
-    output > Power(2^2) is 4
+
+print(Power(2, 2))
+output > Power(2^2) is 4
 print(Power.cube(2))
 output > Power(2^4) is 16
 print(Power.cube(2))
@@ -329,7 +375,7 @@ class Root:
 
 root = Root(4)
 print(root)
-output > <__main__.Root object at 0x10f1ef630>
+output > <__main__.Root object at 0x10df08d68>
 print(root.n)
 output > 4
 print(root.n)
@@ -388,5 +434,12 @@ def goodbye():
     print("Ciao...")
     
 exit(0)
-output >  Ciao...
 ```
+
+    ERROR:root:Invalid alias: The name clear can't be aliased because it is another magic command.
+    ERROR:root:Invalid alias: The name more can't be aliased because it is another magic command.
+    ERROR:root:Invalid alias: The name less can't be aliased because it is another magic command.
+    ERROR:root:Invalid alias: The name man can't be aliased because it is another magic command.
+
+    Ciao...
+
