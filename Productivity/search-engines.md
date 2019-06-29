@@ -4,6 +4,8 @@
 
 ### Google
 
+Source: https://www.reddit.com/r/AskReddit/comments/5t3rk4
+
  Keyword            | Description           | Example
 --------------------|-----------------------|----------------------------
 `-word`             | Exclude Word          | `serenity -2019`
@@ -11,13 +13,14 @@
 `*`                 | wildcard for words    | `my * revenge`
 `related:domain`    | related domains       | `related:news.ycombinator.com`
 `OR`                | or search             | `black OR white`
+<code>&vert;</code> | or search             | `black | white`
 `..`                | range search          | `tv series 2006..2013`
 `time *where*`      | time at some place    | `time Mexico`
 `filetype:pdf`      | filetype search       | `stochastic math filetype:pdf`
 
 ### DuckDuckGO
 
-Will work in (almost) same way as google. If you need google add `!g` at the beginng of your search term.
+Will work in (almost) same way as google. If you need google add `!g` at the begining of your search term.
 
 ### Twitter
 https://twitter.com/search-home
@@ -56,7 +59,7 @@ Most of tips can be found on [official page](https://help.github.com/articles/se
 
 ## Pro Tips
 
- * Bookmarkelets for regular search (recent news in the field)
+ * Bookmarkelet for regular twitter search on term for a week period
 
   ```javascript
   // Twitter Search for Recent Tips in Go Programming
@@ -71,3 +74,4 @@ Most of tips can be found on [official page](https://help.github.com/articles/se
     window.location.href=`https://twitter.com/search?l=&q=${encodeURI(q)}&src=typd`;
   })();
   ```
+  * [ifttt: Save tweets featuring specific content to a spreadsheet](https://ifttt.com/applets/P45PCZKW-save-tweets-featuring-specific-content-to-a-spreadsheet)
