@@ -88,6 +88,10 @@ Tool for Compression/decompression using Lempel-Ziv coding
 
 ![](images/network.jpg)
 
+### `@conntrack`
+
+![](images/conntrack.jpg)
+
 ### `curl`
 
 Transfer a URL.
@@ -109,9 +113,11 @@ curl -Ls $URL -o $FILE
 
 ### `iptables`
 
-```bash
-echo 123
-```
+![](images/iptables.jpg)
+
+---
+
+![](images/iptables-graph.jpg)
 
 ### `mrt`
 
@@ -123,6 +129,32 @@ mrt --udp
 mrt --tcp
 mrt --sctp
 ```
+
+### `@nc`
+
+![](images/nc.jpg)
+
+### `@traceroute`
+
+`todo`
+
+### `@tshark`
+
+Wireshark cli
+
+![](images/tshark.jpg)
+
+### `@tc`
+
+![](images/tc.jpg)
+
+### `@socat`
+
+![](images/socat.jpg)
+
+### `ss`
+
+![](images/ss.jpg)
 
 ### `ssh`
 
@@ -165,13 +197,17 @@ Use locally available keys to authorise logins on a remote machine
 
  * https://www.thegeekstuff.com/2008/10/6-awesome-linux-cd-command-hacks-productivity-tip3-for-geeks/
 
-### `mdfind` - macOS Spotfline Search
+### `mdfind` 
+
+macOS Spotfline Search
 
 ```bash
 mdfind search phraze -onlyin "/Volumes/SharedDocuments" | less
 ```
 
-### `find` - Walk a file hierarchy
+### `find`
+
+Walk a file hierarchy
 
 ![find by Julia Evans](images/find.jpg)
 
@@ -286,7 +322,9 @@ find . -type f -name "*html" | pax -w -f jw-htmlfiles.tar
 find . -perm -u+s              # search for files with SUID set.   
 ```
 
-### `ls` - List directory contents
+### `ls` 
+
+List directory contents
 
 ```bash
 # Usage Examples
@@ -410,14 +448,14 @@ Send signals to processes, or list signals
 
 ```bash
 # kill it with a fire (no safety)
-kill -9 ${PROC_ID}
-kill -KILL ${PROC_ID}
+kill -9 "${PROC_ID}"
+kill -KILL "${PROC_ID}"
 
 # kill it gracefuly
-kill - TERM ${PROC_ID}
+kill - TERM "${PROC_ID}"
 
 # kill it gracefuly
-kill - TERM ${PROC_ID}
+kill - TERM "${PROC_ID}"
 ```
 
 ### `last`
@@ -494,7 +532,9 @@ x86_64
 * [How to check OS and version using a Linux command](https://unix.stackexchange.com/questions/88644)
 * [How do I identify which Linux distro is running?](https://unix.stackexchange.com/questions/35183)
 
-### `date` - Print or set the system date and time
+### `date`
+
+Print or set the system date and time
 
 ```bash
 date                            # will print date
@@ -515,7 +555,9 @@ cal -d 2018-02
 
 ## Utils
 
-### `@xargs` - Pass arguments for execution
+### `xargs` 
+
+Pass arguments for execution
 
 ![](images/xargs.jpg)
 The xargs utility reads space, tab, newline and end-of-file delimited strings from the standard input and executes utility with the strings as arguments.
@@ -571,7 +613,29 @@ Undefined behavior may occur if utility reads from the standard input.
 
 The xargs utility exits immediately (without processing any further input) if a command line cannot be assembled, utility cannot be invoked, an invocation of utility is terminated by a signal, or an invocation of utility exits with a value of 255.
 
-### `sort` - Sort lines of text files
+### `uniq` 
+
+Report or omit repeated lines
+
+```bash
+echo "This is a line." >> "list.txt"
+echo "This is a line." >> "list.txt"
+echo "This is a line." >> "list.txt"
+uniq list.txt
+
+# counter
+uniq -c list.txt
+
+# only print duplicates (counter > 1)
+uniq -d myfile.txt
+
+# only print uniq (counter == 1)
+uniq -u myfile.txt
+```
+
+### `sort` 
+
+Sort lines of text files
 
 ![](images/sort.jpg)
 
@@ -603,9 +667,11 @@ Allocate memory, or map files or devices into memory
 
 ![](images/mmap.jpg)
 
-### `@strace`
+### `strace`
 
 * https://zipizap.wordpress.com/tag/strace/
+* https://jvns.ca/strace-zine-v3.pdf
+* https://johntellsall.blogspot.com/2016/10/tip-use-strace-to-debug-issues-inside.html
 
 ```bash
 # Trace the Execution of an Executable
@@ -649,11 +715,34 @@ strace find /usr 2>&1 | grep ioctl
 
 ### `dtruss`
 
-Available on `macOS` intead `dtrace`.
+Available on `macOS` instead `dtrace`.
 
 ```bash
 sudo dtrace cat romeo-and-juliet.txt
 > get your syscalls back
+```
+
+### `ldd` 
+
+Shared Libraries fro an binaryexecutable
+
+```bash
+# verbose
+ldd -v /usr/bin/ls
+
+# unused direct deps
+ldd -u /usr/bin/ls
+
+# only dynamic executables
+ldd -r /usr/bin/ls
+```
+
+### `otool` 
+
+For mac users instead `ldd`
+
+```bash
+otool -L /usr/local/opt/coreutils/libexec/gnubin/ls
 ```
 
 ### `time`
@@ -760,7 +849,9 @@ test 4 -lt 6 && echo 1 || echo 0
 
 ## Files (Operations)
 
-### `less` - Opposite of more
+### `less`
+
+Opposite of more
 
 ![less by Julia Evans](images/less.jpg)
 
@@ -827,7 +918,9 @@ less +6 And_Then_There_Were_None.txt # Same, but strting from 6th line.
 *  mx – mark the current position with the letter `x`.
 *  ‘x – go to the marked position `x`.
 
-### `more` - Opposite of Less 
+### `more` 
+
+Opposite of Less 
 
 See `less`
 
@@ -837,7 +930,9 @@ See `less`
 
 * http://www.theunixschool.com/2012/07/10-examples-of-paste-command-usage-in.html    
 
-### `awk` - Pattern-directed scanning and processing language
+### `awk`
+
+Pattern-directed scanning and processing language
 
 ![awk by Julia Evans](images/awk.jpg)
 
@@ -1015,7 +1110,9 @@ wc -cmlw And_Then_There_Were_None.txt
 > 29 173 953 953 And_Then_There_Were_None.txt
 ```
 
-### `split` - Split a file into pieces
+### `split` 
+
+Split a file into pieces
 
 ```bash
 # We will split our CSV into new_filename every 500 lines
@@ -1029,7 +1126,9 @@ ls
 find . -type f -exec mv '{}' '{}'.csv \;
 ```
 
-### `cut` - Remove sections from each line of files
+### `cut` 
+
+Remove sections from each line of files
 
 ```bash
 # Cut is for removing columns. To illustrate, if we only wanted the
@@ -1051,7 +1150,9 @@ cat filename.csv | cut -d, -f 2 | sort | uniq | wc -l
 cat filename.csv | cut -d, -f 2 | sort | uniq -c | head
 ```
 
-### `head` - Output the first lines of files
+### `head`
+
+Output the first lines of files
 
 ![](images/head-tail.jpg)
 
@@ -1064,7 +1165,9 @@ head romeo-and-juliet.txt -n 1                          # setting a number of li
 head */list.cvs -n 20                                   # read more then one file
 ```
 
-### `tail` - Output the last part of files
+### `tail` 
+
+Output the last part of files
 
 ```bash
 # Examples -----------------
@@ -1109,12 +1212,15 @@ passwd                  # change your password
 passwd butuzov          # change passowrd for user butuzov (if you are working under root)
 ```
 
-### `chown` - Change file owner and group
+### `chown` 
 
-```python
-```bash
+Change file owner and group
 
-### `chmod` - Change file mode bits
+`todo`
+
+### `chmod`
+
+Change file mode bits
 
 ```bash
 # Usage Examples
