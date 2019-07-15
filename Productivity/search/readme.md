@@ -1,26 +1,14 @@
-# Searching Tips
+# Search Tips
 
 ## Search Engines
+1. [Google](google.md)
+1. [DuckDuckGo](google.md#duckduckgo)
+1. [Twitter](#twitter)
+1. [Github](#github)
 
-### Google
+## [ProPips](pro-tips)
 
-Source: https://www.reddit.com/r/AskReddit/comments/5t3rk4
-
- Keyword            | Description           | Example
---------------------|-----------------------|----------------------------
-`-word`             | Exclude Word          | `serenity -2019`
-`site:domain.zone`  | Search in domain zone | `serenity site:ua`
-`*`                 | wildcard for words    | `my * revenge`
-`related:domain`    | related domains       | `related:news.ycombinator.com`
-`OR`                | or search             | `black OR white`
-<code>&vert;</code> | or search             | `black | white`
-`..`                | range search          | `tv series 2006..2013`
-`time *where*`      | time at some place    | `time Mexico`
-`filetype:pdf`      | filetype search       | `stochastic math filetype:pdf`
-
-### DuckDuckGO
-
-Will work in (almost) same way as google. If you need google add `!g` at the begining of your search term.
+----
 
 ### Twitter
 https://twitter.com/search-home
