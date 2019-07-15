@@ -197,6 +197,75 @@ Use locally available keys to authorise logins on a remote machine
 
  * https://www.thegeekstuff.com/2008/10/6-awesome-linux-cd-command-hacks-productivity-tip3-for-geeks/
 
+### `quota`
+
+Disk usage and limits
+
+```bash
+quota -v
+```
+
+### `mount`
+
+mount file system
+
+```bash
+# mount /dev/file into /mnt/hdd path
+mount /dev/file /mnt/hdd
+
+# samba
+mount -r smbfs -o username=user,password=pass / /winclient/share /nmt/share
+
+# directory into directory
+# also https://unix.stackexchange.com/questions/198590
+mount -o bind /nmt/share /nmt/shared
+mount --bind  /nmt/share /nmt/shared
+# updating mount with readonly readonly
+mount -o remount,ro,bind /nmt/shared
+```
+
+### `umount`
+
+unmount file system
+
+```bash
+umount /dev/file
+```
+
+### `df`
+
+```bash
+# short report
+df
+```
+
+### `du`
+
+```bash
+
+# heavy directories
+du -h /directory/path | grep '[0-9\,]\+G' # comma in size
+du -h /directory/path | grep '[0-9\.]\+G' # dots in size
+
+# summary 
+du -sh .
+
+# depth limiting
+du -h --max-depth 3 .  
+du -hd 3 .
+
+# stay in filesystem and don't follow symlinks
+du -Pshx .
+
+# biggest dirs
+du -xm / | sort -rn
+# or top 25 
+du -xm / | sort -rn | head -25
+
+# bigger then 
+du -kx / | awk '{ if ($1 > 500000) { print $0} }'
+```
+
 ### `mdfind` 
 
 macOS Spotfline Search
@@ -246,6 +315,11 @@ find . -iname foo -type f                       # same thing, but only files
 #------------------------------------
 find . -type f \( -name "*.c" -o -name "*.sh" \)                       # *.c and *.sh files
 find . -type f \( -name "*cache" -o -name "*xml" -o -name "*html" \)   # three patterns
+
+# dealing with size 
+# --------------------------------------------
+find / -size +10000k                                              # filesize > 10000k
+find / -mount -type d -exec du -s "{}" \; | sort -n               # find directories and sort by size
 
 # find files that don't match a pattern (-not)
 # --------------------------------------------
@@ -1216,7 +1290,13 @@ passwd butuzov          # change passowrd for user butuzov (if you are working u
 
 Change file owner and group
 
-`todo`
+```
+# allow cpesific user to read and write to /etc/hosts
+chmod +a "$USER allow read,write" /etc/hosts
+
+```
+
+see also [chmod](chmod)
 
 ### `chmod`
 
