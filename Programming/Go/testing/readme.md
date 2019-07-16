@@ -1,8 +1,10 @@
 # Testing in Go
 
 * [ ] [Testing in Go](testing.ipynb)
-* [x] [Testinfy/Assert](testify.ipynb)
-* [x] [Visual Studio Code](vsc.ipynb) Integration 
+    * [ ] testing/quick
+    * [ ] testing/iotest
+* [x] [Testinfy/Assert](testify.md)
+* [x] [Visual Studio Code](vsc.md) Integration 
 * [ ] Github Integration 
 * [ ] Testify Mocking
 * [ ] Benchmarking
