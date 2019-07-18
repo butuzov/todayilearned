@@ -1,5 +1,9 @@
 
-# Testing (Examples)
+# Testing - Examples & Documentation
+
+* http://whipperstacker.com/2015/09/30/go-documentation-godoc-godoc-godoc-org-and-go-doc/
+
+### Online Documentation
 
 ```bash
 # opening browser window wich will be available in a moment.
@@ -8,6 +12,19 @@ open http://localhost:3000/
 # run godoc server on the port 300 with .1m update interval.
 godoc -http=:3000 -index_interval=.1m
 ```
+
+### Offline documentation
+
+https://gitlab.com/CRThaze/static-godoc
+
+```bash
+# example
+./static-godoc -v -pkg-name "demo" -root "/Users/butuzov/go/src/demo"
+```
+
+### Ongoing cli doc
+
+`go doc <pkg>`
 
 ## Package Header 
 
