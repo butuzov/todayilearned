@@ -6,6 +6,7 @@
 
 **Resources:**
 * https://coderwall.com/t/terminal/popular
+* https://explainshell.com/
 
 ## Archives
 
@@ -86,112 +87,7 @@ Tool for Compression/decompression using Lempel-Ziv coding
 
 ## Network
 
-![](images/network.jpg)
-
-### `@conntrack`
-
-![](images/conntrack.jpg)
-
-### `curl`
-
-Transfer a URL.
-
-`curl`  is  a  tool  to  transfer  data from or to a server, using one of the supported protocols (DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS,  TELNET  and TFTP). The command is designed to work without user interaction.
-
-![julia evans](images/curl.jpg)
-
-```bash
-# aliased curl download
-dl="curl -LO $URL"
-
-# save files as
-curl -L $URL -o $FILE
-
-# keep it silent
-curl -Ls $URL -o $FILE
-```
-
-### `iptables`
-
-![](images/iptables.jpg)
-
----
-
-![](images/iptables-graph.jpg)
-
-### `mrt`
-
-A network diagnostic tool
-
-```bash
-mrt
-mrt --udp
-mrt --tcp
-mrt --sctp
-```
-
-### `@nc`
-
-![](images/nc.jpg)
-
-### `@traceroute`
-
-`todo`
-
-### `@tshark`
-
-Wireshark cli
-
-![](images/tshark.jpg)
-
-### `@tc`
-
-![](images/tc.jpg)
-
-### `@socat`
-
-![](images/socat.jpg)
-
-### `ss`
-
-![](images/ss.jpg)
-
-### `ssh`
-
-`ssh`q (SSH client) is a program for logging into a remote machine and for executing commands on a remote machine
-
-![OpenSSH SSH client](images/ssh.jpg)
-
-```bash
-
-# Proxy Jump
-ssh -J user@example.com me@internal-host.lan
-
-# Running Command on remote host
-ssh made.ua "echo 1"
-
-# Bastion
-ssh made.ua "ssh internal.made.ua \"echo 1\""
-
-# Create ~/media.tag.gz on hqweb3
-ssh made.ua "ssh internal.made.ua \"tar -zcvf ~/media.tar.gz -C /mnt media &> /dev/null\""
-
-# Copy Over remote hosts
-ssh made.ua "scp oleg@internal.made.ua:~/media.tar.gz ~/media.tar.gz"
-```
-
-### `ssh-keygen`
-
-Authentication key generation, management and conversion
-
-```bash
-# Removes keys from hostname
-ssh-keygen -R <hostname>
-```
-
-### `@ssh-copy-id`
-
-Use locally available keys to authorise logins on a remote machine
+See [`network.ipynb`](network.ipynb).
 
 ## File System 
 
