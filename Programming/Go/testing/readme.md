@@ -22,7 +22,12 @@
 * `Examples` and generating documentations [ipynb](docs.ipynb), [markdown](docs.md)
 * `Benchmarks` [ipynb](benchmarking.ipynb), [markdown](benchmarking.md)
 * Testing
-  * `testing/quick`
+  * `testing/quick` 
+
+### Mocking
+
+* https://rogchap.com/2019/06/25/mocking-grpc-in-go/
+* https://blog.codecentric.de/2019/07/gomock-vs-testify/
 
 ### Third Party Libraries
 
