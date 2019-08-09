@@ -1,20 +1,5 @@
 # Visual Studio Code & Extensions Tips
 
-<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=6 orderedList=false} -->
-
-<!-- code_chunk_output -->
-
-* [Ui & Editing](#ui-editing)
-	* [Keyboard Shortcuts: Editing (Custom)](#keyboard-shortcuts-editing-custom)
-	* [Keyboard Shortcuts: Multiline Cursor (MLC) Editor](#keyboard-shortcuts-multiline-cursor-mlc-editor)
-	* [Keyboard Shortcuts: Panels and Sidebars (Custom)](#keyboard-shortcuts-panels-and-sidebars-custom)
-* [Extension: Markdown Oreview Enhanced](#extension-markdown-oreview-enhanced)
-		* [Tips & Tricks](#tips-tricks)
-		* [Keyboard Shortcuts (Custom)](#keyboard-shortcuts-custom)
-		* [Markdown Styling](#markdown-styling)
-
-<!-- /code_chunk_output -->
-
 ## Ui & Editing
 
 ### Keyboard Shortcuts: Editing (Custom)
@@ -23,7 +8,7 @@
 | <kbd>⇧</kbd> <kbd>^</kbd> <kbd>D</kbd>                | Copy Line Up
 | <kbd>⌘</kbd> <kbd>/</kbd>                             | Toggle comments
 
-### Keyboard Shortcuts: Multiline Cursor (MLC) Editor 
+### Keyboard Shortcuts: Multiline Cursor (MLC) Editor
 |        Shortcut                                          | Description
 |----------------------------------------------------------|-------------------
 | <kbd>⇧</kbd> <kbd>⌥</kbd> <kbd>⌘</kbd> <kbd>↓</kbd>      | Column Selection
@@ -33,14 +18,17 @@
 |        Shortcut                                            | Description
 |------------------------------------------------------------|-------------------
 | <kbd>⌘</kbd> <kbd>B</kbd>                                 | Open in split window
-| <kbd>⌘</kbd> <kbd>'</kbd>                                 | Toggle Console Position 
+| <kbd>⌘</kbd> <kbd>'</kbd>                                 | Toggle Console Position
 | <kbd>⌘</kbd> <kbd>\\</kbd>                                | Toggle Console Visibility
 | <kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>\\</kbd>                   | Toggle Sidebar Visibility
 | <kbd>⌥</kbd> <kbd>\\</kbd>                                | Split editor to right
 | <kbd>⌘</kbd> <kbd>0-9</kbd>                               | Switch to edit window
 | <kbd>^</kbd> <kbd>Space</kbd>                              | Snippets Menu
 
- 
+
+## Snippets
+
+ * https://snippet-generator.app/
 
 ## Extension: Markdown Oreview Enhanced
 

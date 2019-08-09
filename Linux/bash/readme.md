@@ -101,6 +101,17 @@ Disk usage and limits
 quota -v
 ```
 
+### `rsunc`
+
+Sync
+
+```bash
+# sync A into B
+rsync -avu --delete "/path/to/A" "/path/to/B"
+# Sync A contents into B
+rsync -avu --delete "/path/to/A/" "/path/to/B"
+```
+
 ### `mount`
 
 mount file system
@@ -818,6 +829,17 @@ test 4 -lt 6 && echo 1 || echo 0
 `n1 -le n2`          | True if the integer n1 is algebraically less than or equal to the integer n2.
 
 ## Files (Operations)
+
+### `tee` 
+
+Pipe output to file and screen
+
+```bash
+echo 123123 | tee - a result.txt
+> 123123
+cat result.txt 
+> 123123
+```
 
 ### `less`
 
