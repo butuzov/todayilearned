@@ -1,5 +1,13 @@
-# Various Useful Tools
+# Various Useful Tools/Links
 
+
+## Github OSS (who )
+
+  * [Github Projects rated by issues categorized by languages](https://www.codetriage.com/)
+
+## Big-O
+
+  * https://www.bigocheatsheet.com
 
 ## Graphs Visualization
 
@@ -27,3 +35,15 @@
 ## Runtimes (code running runtimes)
 
   * [on-line runtime for different languages](https://tio.run).
+
+## Images
+
+ * [Optimize](https://squoosh.app/)
+ * [Colorize (effects)](https://colourise.sg/#colorize)
+ * [Triangulate](https://snorpey.github.io/triangulation/)
+ * [Polygonize image (effects)](https://wattenberger.com/photoronoi)
+ * [Spiralling (effects)](https://spiralbetty.com/)
+ * [Remove Background](https://www.remove.bg/)
+ * [Captioning for images (Image Recognition)](https://www.captionbot.ai/)
+ * [Uglify for images](https://image-uglifier.glitch.me/)
+ * https://cleanmock.com/
