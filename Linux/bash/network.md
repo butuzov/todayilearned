@@ -17,6 +17,7 @@
 * [ifstat](http://gael.roualland.free.fr/ifstat/) - &nbsp;report network interfaces bandwidth.
 * [iftop](http://www.ex-parrot.com/pdw/iftop/) - &nbsp;– display bandwidth usage.
 * [ip](https://access.redhat.com/sites/default/files/attachments/rh_ip_command_cheatsheet_1214_jcs_print.pdf) - &nbsp;(PDF file) –&nbsp;a&nbsp;command&nbsp;with more features that ifconfig (net-tools).
+* [ipcalc] - ipnetwork calculator.
 * [iperf3](https://github.com/esnet/iperf) -  – network bandwidth measurement tool. (above screenshot <a href="https://stacklinux.com/" target="_blank" rel="noopener">Stacklinux VPS</a>)
 * [iproute2](https://wiki.linuxfoundation.org/networking/iproute2) - collection of utilities for controlling&nbsp;TCP/IP.
 * [iptables](https://netfilter.org/) -  – take control of network traffic.
