@@ -1,5 +1,7 @@
 # Google Cloud Platform
 
+* https://github.com/dennyzhang/cheatsheet-gcp-A4/
+
 ## Configuration
 
   * [Kubernetes Engine: `kubectl config`](https://medium.com/google-cloud/b6270d2b656c)
@@ -20,6 +22,13 @@ gcloud config configurations activate default
 gcloud config configurations delete <NAME>
 ```
 
+## General
+
+```bash
+gcloud version
+gcloud info
+gcloud components list
+```
 
 ## Projects
 
@@ -49,11 +58,24 @@ gcloud projects list --format='json' | jq '.[] | select (.projectId | test("go")
 ```
 
 
-## Kubernetes
+## GKE (Google Kubernetes Engine)
 
   * [Kubernetes Engine: `kubectl config`](https://medium.com/google-cloud/b6270d2b656c)
 
 ```bash
+# Display a list of credentialed accounts
+gcloud auth list
+# Set the active account
+gcloud config set account <ACCOUNT>
+# Set kubectl context
+gcloud container clusters get-credentials <cluster-name>
+# Change region
+gcloud config set compute/region us-west
+# Change zone
+gcloud config set compute/zone us-west1-b
+# List all container clusters
+gcloud container clusters list
+
 # default project will be used?
 gcloud container clusters create kubecluster
 # within project
@@ -179,4 +201,45 @@ gcloud services list
 
 # enable service
 gcloud services enable cloudfunctions.googleapis.com
+```
+
+
+# Buckets
+```bash
+# List all buckets and files
+gsutil ls
+gsutil ls -lh gs://<bucket-name>
+# Download file
+gsutil cp gs://<bucket-name>/<dir-path>/package-1.1.tgz .
+# Upload file
+gsutil cp <filename> gs://<bucket-name>/<directory>/
+# Cat file
+gsutil cat gs://<bucket-name>/<filepath>/
+# Delete file
+gsutil rm gs://<bucket-name>/<filepath>
+# Move file
+gsutil mv <src-filepath> gs://<bucket-name>/<directory>/<dest-filepath>
+# Copy folder
+gsutil cp -r ./conf gs://<bucket-name>/
+# Show disk usage
+gsutil du -h gs://<bucket-name/<directory>
+# Create bucket
+gsutil mb gs://<bucket-name>
+# Caculate file sha1sum
+gsha1sum syslog-migration-10.0.2.tgz
+shasum syslog-migration-10.0.2.tgz
+# Gsutil help
+gsutil help
+gsutil help cp
+gsutil help options
+
+# Security
+# Make all files readable
+gsutil -m acl set -R -a public-read gs://<bucket-name>/
+# Config auth
+gsutil config -a
+# Grant bucket access
+gsutil iam ch user:denny@gmail.com:objectCreator,objectViewer gs://<bucket-name>
+# Remove bucket access
+gsutil iam ch -d user:denny@gmail.com:objectCreator,objectViewer gs://<bucket-name>
 ```
