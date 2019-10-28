@@ -4,7 +4,7 @@
 1. [Google](google.md)
 1. [DuckDuckGo](google.md#duckduckgo)
 1. [Twitter](#twitter)
-1. [Github](#github)
+1. [Github](github.md)
 
 ## [ProPips](pro-tips)
 
@@ -24,25 +24,12 @@ https://twitter.com/search-home
 `to:techcrunch`                     | Sent to person "techcrunch".
 `@mashable`                         | Rreferencing person "mashable".
 `"happy hour" near:"san francisco"` | Containing the exact phrase "happy hour" and sent near "san francisco".
-`near:NYC within:15mi`              |sent within 15 miles of "NYC".
-`superhero since:2010-12-27`        |containing "superhero" and sent since date "2010-12-27" (year-month-day).
-`ftw until:2010-12-27`              |containing "ftw" and sent up to date "2010-12-27".
-`hilarious filter:links`            |containing "hilarious" and linking to URLs.
-`news source:"Twitter Lite"`        |containing "news" and entered via Twitter Lite
+`near:NYC within:15mi`              | Sent within 15 miles of "NYC".
+`superhero since:2010-12-27`        | Containing "superhero" and sent since date "2010-12-27" (year-month-day).
+`ftw until:2010-12-27`              | Containing "ftw" and sent up to date "2010-12-27".
+`hilarious filter:links`            | Containing "hilarious" and linking to URLs.
+`news source:"Twitter Lite"`        | Containing "news" and entered via Twitter Lite
 
-
-### Github
-
-https://github.com/search
-
-Most of tips can be found on [official page](https://help.github.com/articles/searching-code/).
-
- Keyword        | Description           | Example
-----------------|-----------------------|----------------------------
-`filename`      | Search by Filename    | `filename:serverless.yml`
-`in:file`       | Search in Files       | `in:file func main`
-`in:path`       | Search in Path        | `in:path tips.pdf`
-`extension:pdf` | Search by Extension   | `in:path extension:pdf tips`
 
 
 ## Pro Tips
@@ -62,4 +49,5 @@ Most of tips can be found on [official page](https://help.github.com/articles/se
     window.location.href=`https://twitter.com/search?l=&q=${encodeURI(q)}&src=typd`;
   })();
   ```
+
   * [ifttt: Save tweets featuring specific content to a spreadsheet](https://ifttt.com/applets/P45PCZKW-save-tweets-featuring-specific-content-to-a-spreadsheet)
