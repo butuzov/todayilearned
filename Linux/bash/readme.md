@@ -1,4 +1,3 @@
-
 # Linux/Unix/macOS Shell Commands
 
 * https://en.wikipedia.org/wiki/List_of_Unix_commands
@@ -90,6 +89,16 @@ Tool for Compression/decompression using Lempel-Ziv coding
 See [`network.ipynb`](network.ipynb).
 
 ## File System 
+
+### `dd`
+
+```bash
+# if -input
+# of -output 
+dd if=/dev/xvdf of=/dev/null bs=1M
+# 300 times copy 1 mb of data from random to file
+dd if=/dev/random of=data/file bs=1m count=300
+```
 
  * https://www.thegeekstuff.com/2008/10/6-awesome-linux-cd-command-hacks-productivity-tip3-for-geeks/
 
@@ -1072,6 +1081,8 @@ printf "%4s;" {1..4}
 ### `sed`
 
 ![Stream Editor sed by Julia Evans](images/sed.jpg)
+
+https://www.grymoire.com/Unix/Sed.html#uh-43
 
 ### `tr`
 
