@@ -1,5 +1,10 @@
 # Git
 
+## Reading List
+
+* [Start Using Git on the Command Line Like a Pro in Five Minutes](https://medium.com/better-programming/start-using-git-on-the-command-line-like-a-pro-in-5-minutes-36a6e0007e9f)
+
+---
 
 ## How do I update a GitHub forked repository? ([`stackoverflow.com/q/7244321`](https://stackoverflow.com/q/7244321/))
 
@@ -28,4 +33,3 @@ git push -f origin master
 git log --full-history -- content/docs/examples/
 ```
 
-## Empty Branch
