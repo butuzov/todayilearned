@@ -6,6 +6,16 @@
 
 ---
 
+## [Creating Orphaned branches](https://stackoverflow.com/questions/1384325)
+
+```bash
+git checkout --orphan gh-pages
+git rm -rf .
+<do work>
+git add your files
+git commit -m 'Initial commit'
+```
+
 ## How do I update a GitHub forked repository? ([`stackoverflow.com/q/7244321`](https://stackoverflow.com/q/7244321/))
 
 ```bash
