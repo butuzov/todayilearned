@@ -334,6 +334,8 @@ ls -A      # Show also hidden files  but not . and ..
 ls -i      # Inodes numbers
 ls -ln     # UID/GID
 
+# POSIX RegExps
+ls -l backup[^[:lower:]^[:digit:]][[:punct:]][^:alpha:]*
 ```
 
  inode  | Type-Permissions | Number of Links | Owner   | Group | Size | Last-Modified | Name
@@ -662,6 +664,7 @@ Allocate memory, or map files or devices into memory
 * https://zipizap.wordpress.com/tag/strace/
 * https://jvns.ca/strace-zine-v3.pdf
 * https://johntellsall.blogspot.com/2016/10/tip-use-strace-to-debug-issues-inside.html
+* https://theartofmachinery.com/2019/11/14/deployment_debugging_strace.html
 
 ```bash
 # Trace the Execution of an Executable
