@@ -8,6 +8,10 @@
 
 ## Python
 
+### scalene
+
+* https://github.com/emeryberger/scalene
+
 ### cProfile
 * `Talks`
   * https://speakerdeck.com/rwarren/a-brief-intro-to-profiling-in-python
@@ -36,8 +40,23 @@ cProfile.run('re.compile("foo|bar")')
 
 ## Go
 
+### PProf
+
+
 * Talks
   * [Slides](https://speakerdeck.com/filosottile/you-latency-and-profiling-at-golanguk-2017)
+
+* Other
+  * https://github.com/fwessels/GolangPerf
+  * https://rakyll.org/custom-profiles/
+  * https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/
+
+
+### Profefe
+
+  * https://github.com/profefe/profefe
+  * https://gianarb.it/blog/go-continuous-profiling-profefe
+
 
 ## Linux
 
