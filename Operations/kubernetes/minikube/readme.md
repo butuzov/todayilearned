@@ -61,6 +61,12 @@ or using insecure registry
 cat images.txt | xargs -I {} sh -c "docker pull localhost:5000/{}"
 ```
 
+### Build from source (bew key)
+
+```bash
+brew reinstall --build-from-source minikube
+```
+
 ### Kubernetes
 
 in addition to kubernetes functionality minikube has
@@ -91,30 +97,64 @@ minikube addons list
 minikube dashboard --url &
 ```
 
+### Multinode support
+ ```bash
+> minikube node --help
+Operations on nodes
+
+Available Commands:
+  add         Adds a node to the given cluster.
+  delete      Deletes a node from a cluster.
+  start       Starts a node.
+  stop        Stops a node in a cluster.
+
+> minikube node add
+> minikube status
+```
+
 ### `--help`
 
 `minikube --help`
 
-* `addons`         Modify minikube's kubernetes addons
-* `cache`          Add or delete an image from the local cache.
-* `completion`     Outputs minikube shell completion for the given shell (bash or zsh)
-* `config`         Modify minikube config
-* `dashboard`      Access the kubernetes dashboard running within the minikube cluster
-* `delete`         Deletes a local kubernetes cluster
-* `docker-env`     Sets up docker env variables; similar to '$(docker-machine env)'
-* `help`           Help about any command
-* `ip`             Retrieves the IP address of the running cluster
-* `kubectl`        Run kubectl
-* `logs`           Gets the logs of the running instance, used for debugging minikube, not user code
-* `mount`          Mounts the specified directory into minikube
-* `profile`        Profile gets or sets the current minikube profile
-* `service`        Gets the kubernetes URL(s) for the specified service in your local cluster
-* `ssh`            Log into or run a command on a machine with SSH; similar to 'docker-machine ssh'
-* `ssh-key`        Retrieve the ssh identity key path of the specified cluster
+Minikube is a CLI tool that provisions and manages single-node Kubernetes clusters optimized for development workflows.
+
+#### Basic Commands:
 * `start`          Starts a local kubernetes cluster
 * `status`         Gets the status of a local kubernetes cluster
 * `stop`           Stops a running local kubernetes cluster
-* `tunnel`         tunnel makes services of type LoadBalancer accessible on localhost
-* `update-check`   Print current and latest version number
+* `delete`         Deletes a local kubernetes cluster
+* `dashboard`      Access the kubernetes dashboard running within the minikube cluster
+* `pause`          pause containers
+* `unpause`        unpause Kubernetes
+
+#### Images Commands:
+* `docker-env`     Sets up docker env variables; similar to '$(docker-machine env)'
+* `podman-env`     Sets up podman env variables; similar to '$(podman-machine env)'
+* `cache`          Add or delete an image from the local cache.
+
+#### Configuration and Management Commands:
+* `addons`         Modify minikube's kubernetes addons
+* `config`         Modify minikube config
+* `profile`        Profile gets or sets the current minikube profile
 * `update-context` Verify the IP address of the running cluster in kubeconfig.
+
+#### Networking and Connectivity Commands:
+* `service`        Gets the kubernetes URL(s) for the specified service in your local cluster
+* `tunnel`         tunnel makes services of type LoadBalancer accessible on localhost
+
+#### Advanced Commands:
+* `mount`          Mounts the specified directory into minikube
+* `ssh`            Log into or run a command on a machine with SSH; similar to 'docker-machine ssh'
+* `kubectl`        Run kubectl
+* `node`           Node operations
+
+#### Troubleshooting Commands:
+* `ssh-key`        Retrieve the ssh identity key path of the specified cluster
+* `ip`             Retrieves the IP address of the running cluster
+* `logs`           Gets the logs of the running instance, used for debugging minikube, not user code.
+* `update-check`   Print current and latest version number
 * `version`        Print the version of minikube
+* `options`        Show a list of global command-line options (applies to all commands).
+
+#### Other Commands:
+* `completion`     Outputs minikube shell completion for the given shell (bash or zsh)
