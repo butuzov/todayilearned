@@ -31,6 +31,14 @@ tmux rename-session -t 0 <name>
 * `^b` + `n` - switch to new
 * `^b` + `NUM` - switch to window Num
 
+## Resizing panes
+
+*`^b`+`:`, then `:resize-pane` with following `-L` or (`-R`, `-D`, `-U`)
+
+```
+:resize-pane -D (Resizes the current pane down by 1 cell)
+:resize-pane -R 7 (Resizes the current pane right by 7 cells)
+```
 
 
 ## Unsorted (`^b` + `?` result)
@@ -108,3 +116,7 @@ bind-key    -T copy-mode-vi C-c               send-keys -X cancel
 bind-key    -T copy-mode-vi C-d               send-keys -X halfpage-down
 bind-key    -T copy-mode-vi C-e               send-keys -X scroll-down
 ```
+
+## Lead Key
+
+Can be changed in `~/.tmux.conf`
