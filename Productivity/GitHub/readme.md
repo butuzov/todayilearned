@@ -1,4 +1,25 @@
-# Github
+# GitHub
+
+<!-- TOC depthfrom:2 depthto:4 -->
+
+- [Code Reviews](#code-reviews)
+- [Search](#search)
+
+<!-- /TOC -->
+
+## Code Reviews
+
+  * Use `L10:L50` - to highlight code with a link.
+  * Use `L10-L50` - to link code while Code Review.
+  * Suggesting Changes
+
+  ```
+      ```suggestion
+      code goes here.
+      ```
+  ```
+
+## Search
 
 https://github.com/search
 

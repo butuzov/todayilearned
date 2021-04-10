@@ -4,7 +4,7 @@
 1. [Google](google.md)
 1. [DuckDuckGo](google.md#duckduckgo)
 1. [Twitter](#twitter)
-1. [Github](github.md)
+1. [Github](../GitHub)
 
 ## [ProPips](pro-tips)
 
