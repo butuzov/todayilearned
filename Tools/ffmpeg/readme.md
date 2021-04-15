@@ -18,7 +18,6 @@ Based on personal experience & this HN thread https://news.ycombinator.com/item?
 - [Streams](#streams)
     - [Extract specific video and audio stream](#extract-specific-video-and-audio-stream)
 - [Convert](#convert)
-    - [](#)
     - [Timers](#timers)
     - [Mass Convert](#mass-convert)
     - [h264:](#h264)
@@ -26,6 +25,7 @@ Based on personal experience & this HN thread https://news.ycombinator.com/item?
     - [No recompress](#no-recompress)
     - [Convert with Presets](#convert-with-presets)
 - [Misc](#misc)
+    - [Youtube Supported Formats](#youtube-supported-formats)
     - [Get jpeg snapshot](#get-jpeg-snapshot)
     - [Metadata](#metadata)
     - [Disposition](#disposition)
@@ -176,6 +176,10 @@ Rotation Types (`-vf`)
 
 
 ## Misc
+
+### Youtube Supported Formats
+
+![](cmp-of-youtube-media-types.png)
 
 ### Get jpeg snapshot
 
