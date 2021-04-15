@@ -12,6 +12,7 @@
     - [How to see what happened to the file in path of the repo?](#how-to-see-what-happened-to-the-file-in-path-of-the-repo)
 - [Rebase](#rebase)
     - [Rebase Changes from upstream into your branch](#rebase-changes-from-upstream-into-your-branch)
+    - [Edit Old Commits](#edit-old-commits)
 
 <!-- /TOC -->
 ## Reading List
@@ -68,3 +69,11 @@ git checkout target
 git rebase master
 ```
 
+### [Edit Old Commits](https://stackoverflow.com/questions/1186535/how-to-modify-a-specified-commit)
+
+```bash
+git rebase --interactive 'bbc643cd^'
+# edit to commit
+git commit --all --amend
+git rebase --continue
+```
