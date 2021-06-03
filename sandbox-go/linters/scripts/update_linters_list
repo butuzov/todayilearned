@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+VERSION=1.41.1
+ARCHIVE=$(printf  https://github.com/golangci/golangci-lint/archive/v%s.tar.gz $VERSION)
+
+
+list_golangcilint() {
+    ls -1 $1/*.go | \
+    grep -v gofmt_common | \
+    grep -v gofmt_test | \
+    grep -v govet_test | \
+    grep -v util | \
+    grep -v megacheck | \
+    sed 's/rowerrcheck/rowserrcheck/g' | \
+    xargs -I {} sh -c "basename {} .go" | \
+    sort
+}
+
+list_go() {
+    ls -1 $1/*.go | \
+    xargs -I {} sh -c "basename {} .go" | \
+    sed "s/_test//" | \
+    sort
+}
+
+
+
+curl -Ls $ARCHIVE > $TMPDIR/$(basename $ARCHIVE)
+tar xf $(printf $TMPDIR/v%s.tar.gz $VERSION) --directory $TMPDIR
+
+
+LINTERS_NEW=$(list_golangcilint $(printf $TMPDIR/golangci-lint-%s/pkg/golinters $VERSION))
+LINTERS_OLD=$(list_go $(pwd)/testdata)
+
+
+
+# checks the current files if they in currently supported linters.
+for RULE in $LINTERS_OLD; do
+    w=$(echo $LINTERS_NEW | grep -w $RULE)
+    if [[ -z $w ]]; then
+        printf "${RED}(delete): %s${NC}\n" $RULE
+    fi
+done
+
+# whats are new linters?
+for RULE in $LINTERS_NEW; do
+    if echo $LINTERS_OLD | grep -w $RULE >  /dev/null;  then
+        if [[ $1 == "-verbose" ]]; then
+            printf "${GREEN}(exists): %s${NC}\n" $RULE
+        fi
+    else
+        printf "${YELLOW}  (need): %s${NC}\n" $RULE
+    fi
+done
+
+
+
+
+# unlink $TMPDIR/$(basename $ARCHIVE)
+# rm -r $(printf $TMPDIR/golangci-lint-%s $VERSION)

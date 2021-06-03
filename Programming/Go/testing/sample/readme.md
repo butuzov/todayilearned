@@ -1,1 +1,0 @@
-## sample of the tested package

@@ -1,15 +1,23 @@
 #!/usr/bin/env bash
 
-# . ~/Desktop/jupyter/bin/activate
+export path
 
-# for py in $0*.py; do
-# 	printf "Running - %s\n" $(basename ${py})
-# 	python "${py}"
-# 	if [[ $? == 1 ]]; then
-# 		printf "Error - %s\n" $(basename ${py}) && deactivate && exit 1
-# 	fi
-# 	printf "\n\n"
-# done
+for version in  3.{6,7,8,9}; do
+  PY_PATH="/usr/local/opt/python@${version}/bin"
+  if [[ -d $PY_PATH ]] && [[ $PATH != "*$PY_PATH*" ]]; then
+    PATH="/usr/local/opt/python@${version}/bin:${PATH}"
+  fi
+done
+export PATH
+
+for py in $0*.py; do
+	printf "Running - %s\n" $(basename ${py})
+	python3 "${py}"
+	if [[ $? == 1 ]]; then
+		printf "Error - %s\n" $(basename ${py}) && exit 1
+	fi
+
+	printf "\n\n"
+done
 
 
-# deactivate

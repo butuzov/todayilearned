@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+set -f
+
+# save linter results
+
+make check-gocritic 1>tmp.gocritic.check.txt 2>/dev/null
+
+GOCRITIC_CURRENT_RULES=$(\
+  curl -s https://go-critic.github.io/overview.html | \
+  grep  -Eoi '^\s*<a.*>([a-zA-Z0-9]{1,})</a>'        | \
+  tr  '[:upper:]' '[:lower:]' | \
+  sed "s/^  //" | \
+  sed "s/<\\/a>//" | \
+  awk -F">" '{print $2}' | \
+  grep -v checkers | \
+  sort )
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+
+
+find_in_file() {
+    CHECK=$1
+
+    # not found example
+    if [[ -z $(grep "$CHECK.go" tmp.gocritic.check.txt) ]]; then
+        echo 3;
+        return;
+    fi
+
+
+    if [[ -z $(grep "$CHECK.go" tmp.gocritic.check.txt | grep -i "$CHECK:") ]]; then
+        echo 2;
+        return
+    fi
+
+    echo $(grep "$CHECK.go" tmp.gocritic.check.txt | grep -i "$CHECK:" | head -1 );
+    return;
+}
+
+# grep go tmp.gocritic.check.txt
+
+# GOCRITIC_CURRENT_RULES=" appendcombine "
+
+
+for RULE in $GOCRITIC_CURRENT_RULES; do
+
+    RESULT="$(find_in_file $RULE)"
+    if [[ $RESULT == 1 ]]; then
+    #     # not found in results
+        echo "not found in results"
+    elif [[ $RESULT == 3 ]]; then
+        printf "${RED}[404] %s${NC}\n" $RULE
+    elif [[ $RESULT == 2 ]]; then
+    #     # not found in file
+        printf "${YELLOW}[410] %s${NC}\n" $RULE
+    else
+
+        printf "${GREEN}[200] %s: %s${NC}\n" $RULE "$(echo "$RESULT" | awk 'BEGIN { FS="/" } { print $2 }')"
+    fi
+
+#   example=$(printf "testdata-gocritic/%s.go" $RULE)
+#   if [[ ! -f $example ]]; then
+#     printf "${YELLOW} (need): %s${NC}\n" $RULE
+#   fi
+done

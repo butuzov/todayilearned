@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+list_go() {
+    ls -1 $1/*.go | \
+    xargs -I {} sh -c "basename {} .go" | \
+    sed "s/_test//" | \
+    sort
+}
+
+LINTERS=$(list_go $(pwd)/testdata)
+
+
+FAILED=""
+printf "Testing Examples Directory\n"
+
+
+printf "%s\n" "---------------------------"
+
+for RULE in $LINTERS; do
+    exists=$(cat check.log | grep "($RULE)")
+    if [[ ! -z $exists ]];  then
+        exists=$(cat check.log | grep -E "$RULE.*.go" | grep "($RULE)")
+        if [[ ! -z $exists ]];  then
+            if [[ $1 == "-verbose" ]]; then
+                printf "${GREEN}     (pass): %s${NC}\n" $RULE
+            fi
+
+        else
+            printf "${YELLOW}  (example): %s${NC}\n" $RULE
+            FAILED="YES"
+        fi
+    else
+        printf "${RED}  (trigger): %s${NC}\n" $RULE
+        FAILED="YES"
+    fi
+done
+
+
+
+if [[ $FAILED == "YES" ]]; then
+    printf "%s\n" "----------------------------"
+    printf "${RED}  (trigger): %s${NC}\n" "Linter isn't triggered"
+    printf "${YELLOW}  (example): %s${NC}\n" "Example isn't working"
+    exit 1
+fi

@@ -1,0 +1,16 @@
+# this yaml is source of "fixed" settings, that should appear in final file
+# .golangci.ongoing.yaml
+
+run:
+  modules-download-mode: mod
+  build-tags: []
+
+issues:
+  fix: false
+
+linters-settings:
+  goheader:
+    values:
+      const:
+        title: TITLE
+    template: MY {{title}}

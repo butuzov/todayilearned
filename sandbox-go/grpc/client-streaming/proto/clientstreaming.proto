@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+
+option go_package = "proto;clientstreaming_proto";
+
+package ua.made.clientstreaming;
+
+service Calculator {
+  rpc Avg(stream google.protobuf.UInt64Value)
+      returns (google.protobuf.DoubleValue);
+}

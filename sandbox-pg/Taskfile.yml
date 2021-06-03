@@ -1,0 +1,22 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  DOCKERCOMPOSE: -f  docker-compose.yaml -p pgsandbox
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+
+  up: docker-compose {{.DOCKERCOMPOSE}} up -d && sleep 5 &&  open "http://localhost:5440"
+  logs: docker-compose {{.DOCKERCOMPOSE}} logs postgresql
+  down:  docker-compose {{.DOCKERCOMPOSE}} down
+  teardown:  docker-compose {{.DOCKERCOMPOSE}} down -v
+
+  shell: docker exec -it sandboxpg-dbserver psql -U user -h localhost -d northwind
+
+  ps: docker-compose {{.DOCKERCOMPOSE}} ps
+  ls: docker-compose {{.DOCKERCOMPOSE}} ps

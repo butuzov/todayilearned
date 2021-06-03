@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+
+  app_alpine:
+    image: "butuzov/goapp-alpine:latest"
+    build:
+      context: .
+      dockerfile: alpine.Dockerfile
+    ports:
+      - 8093:8091
+    environment:
+      APP_PORT: 8091
+    networks:
+      - docker-network
+
+  app_buster:
+    image: "butuzov/goapp-debian:latest"
+    build:
+      context: .
+      dockerfile: debian.Dockerfile
+    ports:
+      - 8092:8091
+    environment:
+      APP_PORT: 8091
+    networks:
+      - docker-network
+
+networks:
+  docker-network:
+    driver: bridge

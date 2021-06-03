@@ -1,0 +1,45 @@
+{
+  "name": "serverless",
+  "version": "2.46.0",
+  "description": "Serverless Framework - Build web, mobile and IoT applications with serverless architectures using AWS Lambda, Azure Functions, Google CloudFunctions & more",
+  "preferGlobal": true,
+  "homepage": "https://serverless.com/framework/docs/",
+  "author": "serverless.com",
+  "repository": "serverless/serverless",
+  "keywords": [
+    "serverless",
+    "lambda"
+  ],
+  "main": "lib/Serverless.js",
+  "bin": {
+    "serverless": "./bin/serverless.js",
+    "sls": "./bin/serverless.js"
+  },
+  "dependencies": {
+    "@serverless/cli": "^1.5.2",
+    "yaml-ast-parser": "0.0.43"
+  },
+  "eslintConfig": {
+    "extends": "@serverless/eslint-config/node",
+    "root": true
+  },
+  "eslintIgnore": [
+    "!/.github",
+    "!/test/fixtures/programmatic/locallyInstalledServerless/node_modules/**"
+  ],
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ],
+    "*.{css,html,js,json,md,yaml,yml}": [
+      "prettier -c"
+    ]
+  },
+  "scripts": {
+    "commitlint": "commitlint -f HEAD@{15}"
+  },
+  "engines": {
+    "node": ">=10.0"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+
+option go_package = "proto;serverstreaming_proto";
+
+package ua.made.serverstreaming;
+
+service Calculator {
+  rpc Fibonacci(google.protobuf.UInt64Value)
+      returns (stream google.protobuf.UInt64Value);
+}

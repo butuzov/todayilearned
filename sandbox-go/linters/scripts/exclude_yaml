@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+
+VERSION=1.38.0
+ARCHIVE=$(printf  https://github.com/golangci/golangci-lint/archive/v%s.tar.gz $VERSION)
+
+
+list_golangcilint() {
+    ls -1 $1/*.go | \
+    grep -v gofmt_common | \
+    grep -v gofmt_test | \
+    grep -v govet_test | \
+    xargs -I {} sh -c "basename {} .go" | \
+    sort
+}
+
+
+list_go() {
+    ls -1 $1/*.go | \
+    xargs -I {} sh -c "basename {} .go" | \
+    sort
+}
+
+LINTERS_EXAMPLES=$(list_go $(pwd)/testdata)
+
+curl -Ls $ARCHIVE > $TMPDIR/$(basename $ARCHIVE)
+tar xf $(printf $TMPDIR/v%s.tar.gz $VERSION) --directory $TMPDIR
+
+
+LINTERS_NEW=$(list_golangcilint $(printf $TMPDIR/golangci-lint-%s/pkg/golinters $VERSION))
+
+
+echo "issues:"
+echo "  exclude-rules:"
+
+for RULE in $LINTERS_EXAMPLES; do
+  echo  "  - path:  ${RULE}.go"
+
+  RULE="${RULE/_test/}"
+  RULE="${RULE/.go/}"
+
+  echo  "    linters: [" $(echo ${LINTERS_NEW/$RULE/} | sed 's/ /, /g' )  "]"
+  printf "\n"
+done
+
+
+unlink $TMPDIR/$(basename $ARCHIVE)
+rm -r $(printf $TMPDIR/golangci-lint-%s $VERSION)

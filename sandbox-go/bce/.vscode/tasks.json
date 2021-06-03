@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Go: Bounds Check",
+            "type": "shell",
+            "command": "go tool compile -d=ssa/check_bce/debug=1 ${file} && for _ in '${fileDirname}/*.o'; do unlink $_ ; done",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage":false,
+                "clear": true,
+            },
+            "problemMatcher": [
+                "$go"
+            ]
+        }
+    ]
+}

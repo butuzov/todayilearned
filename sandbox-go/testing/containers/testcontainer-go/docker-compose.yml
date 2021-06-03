@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+
+  postgresql:
+    image: postgres:alpine
+    ports: [ "5432:5432" ]
+    environment:
+      POSTGRES_DB: db_name
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: db_pass
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: "exit 0"
+    restart: "on-failure"
+    networks: [ "go_develop" ]
+
+networks:
+  go_develop:
+    driver: bridge
+
+volumes:
+  postgres: {}

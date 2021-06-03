@@ -1,0 +1,55 @@
+# `bce` - Bounds Check Elimination
+
+## Reading List
+
+* https://go101.org/article/bounds-check-elimination.html
+* https://docs.google.com/document/d/1vdAEAjYdzjnPA9WDOQ1e4e05cYVMpqSxJYZT33Cqw2g/edit
+* [Aliaksandr Valialkin: Использование unsafe в Go: плюсы и минусы: BCE Part](https://youtu.be/rxGgdAGhE9k?t=1909)
+* [Agniva De Sarker - Common Patterns for Bounds Check Elimination](https://youtu.be/5toTS6kSWHA)
+* https://en.wikipedia.org/wiki/Bounds-checking_elimination
+
+
+## Checking
+
+### terminal
+
+```shell
+alias bce="go tool compile -d=ssa/check_bce/debug=1 ${1}"
+bce example.go
+```
+
+Messages:
+
+- `IsInBounds`
+- `IsSliceInBounds`
+
+
+### Using `tasks.json` in VSCode
+
+1. Command Pallet
+2. Task: Run Task
+3. GO: Bound Checks
+
+```json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Go: Bounds Check",
+            "type": "shell",
+            "command": "go tool compile -d=ssa/check_bce/debug=1 ${file} && for _ in '${fileDirname}/*.o'; do unlink $_ ; done",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage":false,
+                "clear": true,
+            },
+            "problemMatcher": [
+                "$go"
+            ]
+        }
+    ]
+}
+```

@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+
+
+GOCRITIC_CURRENT_RULES=$(\
+  curl -s https://go-critic.github.io/overview.html | \
+  grep  -Eoi '^\s*<a.*>([a-zA-Z0-9]{1,})</a>'        | \
+  tr  '[:upper:]' '[:lower:]' | \
+  sed "s/^  //" | \
+  sed "s/<\\/a>//" | \
+  awk -F">" '{print $2}' | \
+  grep -v checkers | \
+  sort )
+
+
+GOCRITIC_CURRENT_FILES=$( \
+  ls -1 testdata-gocritic | \
+  xargs -I {} sh -c "basename {} .go" | \
+  sort )
+
+# new, not exists in examples
+for RULE in $GOCRITIC_CURRENT_RULES; do
+  example=$(printf "testdata-gocritic/%s.go" $RULE)
+  if [[ ! -f $example ]]; then
+    printf "${YELLOW} (need): %s${NC}\n" $RULE
+  fi
+done
+
+# old, no more relevant
+for RULE in $GOCRITIC_CURRENT_FILES; do
+  w=$(echo $GOCRITIC_CURRENT_RULES | grep -w $RULE)
+  if [[ -z $w ]]; then
+    printf "${RED}(remove): %s${NC}\n" $RULE
+  fi
+done
+
+if [[ $1 == "-verbose" ]]; then
+    for RULE in $GOCRITIC_CURRENT_FILES; do
+        w=$(echo $GOCRITIC_CURRENT_RULES | grep -w $RULE)
+        if [[ ! -z $w ]]; then
+            printf "${GREEN}(exits): %s${NC}\n" $RULE
+        fi
+    done
+fi
