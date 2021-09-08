@@ -4,7 +4,6 @@ proto-general:
 	protoc \
 		-I . \
 		-I /usr/local/include \
-		-I ${GOPATH}/src \
 		--go_out=. \
 		example/example.proto \
 		--experimental_allow_proto3_optional

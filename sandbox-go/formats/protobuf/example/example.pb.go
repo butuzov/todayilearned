@@ -325,6 +325,86 @@ func (*Main) Descriptor() ([]byte, []int) {
 	return file_example_example_proto_rawDescGZIP(), []int{1}
 }
 
+type ChannelMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to ChannelAction:
+	//	*ChannelMessage_Register
+	//	*ChannelMessage_Unregister
+	ChannelAction isChannelMessage_ChannelAction `protobuf_oneof:"ChannelAction"`
+}
+
+func (x *ChannelMessage) Reset() {
+	*x = ChannelMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_example_example_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ChannelMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChannelMessage) ProtoMessage() {}
+
+func (x *ChannelMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_example_example_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChannelMessage.ProtoReflect.Descriptor instead.
+func (*ChannelMessage) Descriptor() ([]byte, []int) {
+	return file_example_example_proto_rawDescGZIP(), []int{2}
+}
+
+func (m *ChannelMessage) GetChannelAction() isChannelMessage_ChannelAction {
+	if m != nil {
+		return m.ChannelAction
+	}
+	return nil
+}
+
+func (x *ChannelMessage) GetRegister() string {
+	if x, ok := x.GetChannelAction().(*ChannelMessage_Register); ok {
+		return x.Register
+	}
+	return ""
+}
+
+func (x *ChannelMessage) GetUnregister() string {
+	if x, ok := x.GetChannelAction().(*ChannelMessage_Unregister); ok {
+		return x.Unregister
+	}
+	return ""
+}
+
+type isChannelMessage_ChannelAction interface {
+	isChannelMessage_ChannelAction()
+}
+
+type ChannelMessage_Register struct {
+	Register string `protobuf:"bytes,1,opt,name=register,proto3,oneof"`
+}
+
+type ChannelMessage_Unregister struct {
+	Unregister string `protobuf:"bytes,2,opt,name=unregister,proto3,oneof"`
+}
+
+func (*ChannelMessage_Register) isChannelMessage_ChannelAction() {}
+
+func (*ChannelMessage_Unregister) isChannelMessage_ChannelAction() {}
+
 // Nested Message
 type Example_Message struct {
 	state         protoimpl.MessageState
@@ -337,7 +417,7 @@ type Example_Message struct {
 func (x *Example_Message) Reset() {
 	*x = Example_Message{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_example_example_proto_msgTypes[2]
+		mi := &file_example_example_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -350,7 +430,7 @@ func (x *Example_Message) String() string {
 func (*Example_Message) ProtoMessage() {}
 
 func (x *Example_Message) ProtoReflect() protoreflect.Message {
-	mi := &file_example_example_proto_msgTypes[2]
+	mi := &file_example_example_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -384,7 +464,7 @@ type Main_Derivative struct {
 func (x *Main_Derivative) Reset() {
 	*x = Main_Derivative{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_example_example_proto_msgTypes[4]
+		mi := &file_example_example_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -397,7 +477,7 @@ func (x *Main_Derivative) String() string {
 func (*Main_Derivative) ProtoMessage() {}
 
 func (x *Main_Derivative) ProtoReflect() protoreflect.Message {
-	mi := &file_example_example_proto_msgTypes[4]
+	mi := &file_example_example_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -464,12 +544,18 @@ var file_example_example_proto_rawDesc = []byte{
 	0x52, 0x03, 0x62, 0x61, 0x72, 0x22, 0x2a, 0x0a, 0x04, 0x4d, 0x61, 0x69, 0x6e, 0x1a, 0x22, 0x0a,
 	0x0a, 0x44, 0x65, 0x72, 0x69, 0x76, 0x61, 0x74, 0x69, 0x76, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x76,
 	0x61, 0x6c, 0x75, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75,
-	0x65, 0x2a, 0x43, 0x0a, 0x06, 0x43, 0x6f, 0x6c, 0x6f, 0x72, 0x73, 0x12, 0x08, 0x0a, 0x04, 0x4e,
-	0x4f, 0x4e, 0x45, 0x10, 0x00, 0x12, 0x07, 0x0a, 0x03, 0x52, 0x45, 0x44, 0x10, 0x01, 0x12, 0x0b,
-	0x0a, 0x07, 0x43, 0x52, 0x49, 0x4d, 0x53, 0x4f, 0x4e, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x47,
-	0x52, 0x45, 0x45, 0x4e, 0x10, 0x02, 0x12, 0x0a, 0x0a, 0x06, 0x59, 0x45, 0x4c, 0x4c, 0x4f, 0x57,
-	0x10, 0x03, 0x1a, 0x02, 0x10, 0x01, 0x42, 0x0b, 0x5a, 0x09, 0x2e, 0x2f, 0x65, 0x78, 0x61, 0x6d,
-	0x70, 0x6c, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x22, 0x61, 0x0a, 0x0e, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x4d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x12, 0x1c, 0x0a, 0x08, 0x72, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x08, 0x72, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65,
+	0x72, 0x12, 0x20, 0x0a, 0x0a, 0x75, 0x6e, 0x72, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x0a, 0x75, 0x6e, 0x72, 0x65, 0x67, 0x69, 0x73,
+	0x74, 0x65, 0x72, 0x42, 0x0f, 0x0a, 0x0d, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x41, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x2a, 0x43, 0x0a, 0x06, 0x43, 0x6f, 0x6c, 0x6f, 0x72, 0x73, 0x12, 0x08,
+	0x0a, 0x04, 0x4e, 0x4f, 0x4e, 0x45, 0x10, 0x00, 0x12, 0x07, 0x0a, 0x03, 0x52, 0x45, 0x44, 0x10,
+	0x01, 0x12, 0x0b, 0x0a, 0x07, 0x43, 0x52, 0x49, 0x4d, 0x53, 0x4f, 0x4e, 0x10, 0x01, 0x12, 0x09,
+	0x0a, 0x05, 0x47, 0x52, 0x45, 0x45, 0x4e, 0x10, 0x02, 0x12, 0x0a, 0x0a, 0x06, 0x59, 0x45, 0x4c,
+	0x4c, 0x4f, 0x57, 0x10, 0x03, 0x1a, 0x02, 0x10, 0x01, 0x42, 0x0b, 0x5a, 0x09, 0x2e, 0x2f, 0x65,
+	0x78, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -485,22 +571,23 @@ func file_example_example_proto_rawDescGZIP() []byte {
 }
 
 var file_example_example_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_example_example_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_example_example_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_example_example_proto_goTypes = []interface{}{
 	(Colors)(0),             // 0: Colors
 	(Example_Shape)(0),      // 1: Example.Shape
 	(*Example)(nil),         // 2: Example
 	(*Main)(nil),            // 3: Main
-	(*Example_Message)(nil), // 4: Example.Message
-	nil,                     // 5: Example.LocalizationEntry
-	(*Main_Derivative)(nil), // 6: Main.Derivative
+	(*ChannelMessage)(nil),  // 4: ChannelMessage
+	(*Example_Message)(nil), // 5: Example.Message
+	nil,                     // 6: Example.LocalizationEntry
+	(*Main_Derivative)(nil), // 7: Main.Derivative
 }
 var file_example_example_proto_depIdxs = []int32{
-	4, // 0: Example.messages:type_name -> Example.Message
+	5, // 0: Example.messages:type_name -> Example.Message
 	0, // 1: Example.color:type_name -> Colors
 	1, // 2: Example.shape:type_name -> Example.Shape
-	6, // 3: Example.other:type_name -> Main.Derivative
-	5, // 4: Example.localization:type_name -> Example.LocalizationEntry
+	7, // 3: Example.other:type_name -> Main.Derivative
+	6, // 4: Example.localization:type_name -> Example.LocalizationEntry
 	5, // [5:5] is the sub-list for method output_type
 	5, // [5:5] is the sub-list for method input_type
 	5, // [5:5] is the sub-list for extension type_name
@@ -539,6 +626,18 @@ func file_example_example_proto_init() {
 			}
 		}
 		file_example_example_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ChannelMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_example_example_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Example_Message); i {
 			case 0:
 				return &v.state
@@ -550,7 +649,7 @@ func file_example_example_proto_init() {
 				return nil
 			}
 		}
-		file_example_example_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_example_example_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Main_Derivative); i {
 			case 0:
 				return &v.state
@@ -567,13 +666,17 @@ func file_example_example_proto_init() {
 		(*Example_Header)(nil),
 		(*Example_Subheader)(nil),
 	}
+	file_example_example_proto_msgTypes[2].OneofWrappers = []interface{}{
+		(*ChannelMessage_Register)(nil),
+		(*ChannelMessage_Unregister)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_example_example_proto_rawDesc,
 			NumEnums:      2,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

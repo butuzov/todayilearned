@@ -29,7 +29,6 @@ hello-world-proto: ## Generate Protobuf File
 	protoc \
 		-I . \
 		-I /usr/local/include \
-		-I ${GOPATH}/src \
 		--go_out=helloworld/. \
 		--go-grpc_out=helloworld/. \
 		helloworld/proto/example.proto \
