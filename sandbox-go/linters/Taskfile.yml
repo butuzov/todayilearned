@@ -1,0 +1,21 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    sources:
+    - ./testdata-revive/*.go
+    - ./scripts/revive_checks
+    - ./Makefile
+    method: timestamp
+    cmds:
+    - ./scripts/revive_updates
+    # - cmd: make check-revive
+      # ignore_error: true
+    - ./scripts/revive_checks
+
+    silent: true
