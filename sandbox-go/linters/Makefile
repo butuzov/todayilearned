@@ -72,7 +72,7 @@ config: ## Updates Configs
 	# exhaisive struct settings.
 	@ yq ea -i 'del(.linters-settings.exhaustivestruct.struct-patterns)' .golangci.ongoing.yaml
 
-	@ yq ea -i '.linters-settings.blocked.modules += "gopkg.in\/yaml.v2' .golangci.ongoing.yaml
+
 # ~~~ Checks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 GOLANGCI_BIN := golangci-lint-$(VERSION)
