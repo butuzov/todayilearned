@@ -2,6 +2,8 @@
 $go get github.com/davecgh/go-spew/spew
 
 import "github.com/davecgh/go-spew/spew"
+
+stderr >>> go: downloading github.com/davecgh/go-spew v1.1.1
 ```
 
 ## `reflect` package 
@@ -30,6 +32,33 @@ type Test struct {
     Hi string `json:"hi,omitempty"`
     hi string 
 }
+```
+
+```go
+h := Test{Hi:"Ola!", hi:"privit"}
+```
+
+```go
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+type Test struct {
+	Hi string `json:"hi,omitempty"`
+	hi string
+}
+
+func main() {
+	h := Test{Hi: "Ola!", hi: "privit"}
+	fmt.Println(reflect.ValueOf(h).FieldByName("hi").String())
+}
+```
+
+```go
+reflect.ValueOf(h).FieldByName("hi").String()
 ```
 
 ```go
