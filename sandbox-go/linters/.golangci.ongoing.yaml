@@ -84,6 +84,12 @@ linters-settings:
     # the regex is used to ignore names within pkg. (default "fmt:.*").
     # see https://github.com/kisielk/errcheck#the-deprecated-method for details
     ignore: fmt:.*,io/ioutil:^Read.*
+    # list of functions to exclude from checking, where each entry is a single function to exclude.
+    # see https://github.com/kisielk/errcheck#excluding-functions for details
+    exclude-functions:
+      - io/ioutil.ReadFile
+      - io.Copy(*bytes.Buffer)
+      - io.Copy(os.Stdout)
   errorlint:
     # Check whether fmt.Errorf uses the %w verb for formatting errors. See the readme for caveats
     errorf: true
@@ -123,8 +129,20 @@ linters-settings:
   goconst:
     # minimal length of string constant, 3 by default
     min-len: 3
-    # minimal occurrences count to trigger, 3 by default
+    # minimum occurrences of constant string count to trigger issue, 3 by default
     min-occurrences: 3
+    # ignore test files, false by default
+    ignore-tests: false
+    # look for existing constants matching the values, true by default
+    match-constant: true
+    # search also for duplicated numbers, false by default
+    numbers: false
+    # minimum value, only works with goconst.numbers, 3 by default
+    min: 3
+    # maximum value, only works with goconst.numbers, 3 by default
+    max: 3
+    # ignore when constant is not used as function argument, true by default
+    ignore-calls: true
   gocritic:
     # Which checks should be enabled; can't be combined with 'disabled-checks';
     # See https://go-critic.github.io/overview#checks-overview
@@ -504,6 +522,11 @@ linters-settings:
       - .Wrap(
       - .Wrapf(
       - .WithMessage(
+      - .WithMessagef(
+      - .WithStack(
+    ignorePackageGlobs:
+      - encoding/*
+      - github.com/pkg/*
   wsl:
     # See https://github.com/bombsimon/wsl/blob/master/doc/configuration.md for
     # documentation of available settings. These are the defaults for
