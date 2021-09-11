@@ -1,3 +1,4 @@
+// file-header-check
 package testdata
 
 func bare1() (int, int, error) {

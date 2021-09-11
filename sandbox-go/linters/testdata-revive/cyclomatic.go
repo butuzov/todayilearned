@@ -1,6 +1,4 @@
-// Test of cyclomatic complexity.
-
-// Package pkg ...
+// file-header-check
 package testdata
 
 import "log"

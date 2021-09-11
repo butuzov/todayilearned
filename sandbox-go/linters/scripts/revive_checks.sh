@@ -42,7 +42,6 @@ find_in_file() {
 }
 
 
-
 for RULE in $REVIVE_CURRENT_RULES; do
 
     RESULT="$(find_in_file $RULE)"
@@ -55,7 +54,8 @@ for RULE in $REVIVE_CURRENT_RULES; do
     #     # not found in file
         printf "${YELLOW}[410] %s${NC}\n" $RULE
     else
-        printf "${GREEN}[200] %s: %s${NC}\n" $RULE "$(echo "$RESULT" | awk 'BEGIN { FS=":" } { print $5 }')"
+        # printf "${GREEN}[200] %s: %s${NC}\n" $RULE "$(echo "$RESULT" | awk 'BEGIN { FS=":" } { print $5 }')"
+        foo="1"
     fi
 
 #   example=$(printf "testdata-gocritic/%s.go" $RULE)

@@ -1,3 +1,4 @@
+// file-header-check
 package testdata
 
 func g(f func() bool) string {

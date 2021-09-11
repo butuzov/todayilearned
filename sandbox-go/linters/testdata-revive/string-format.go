@@ -1,5 +1,6 @@
 // Test string literal regex checks
 
+// file-header-check
 package testdata
 
 func stringFormatMethod1(a, b string) {

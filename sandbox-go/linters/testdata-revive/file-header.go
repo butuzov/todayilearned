@@ -1,4 +1,4 @@
-// baz baz qux
-// qux foo
+// fil1e-hea1der-ch1eck
+package testdata
 
-package testdata // MATCH /the file doesn't have an appropriate header/
+func foo() {}

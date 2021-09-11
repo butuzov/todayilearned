@@ -1,3 +1,4 @@
+// file-header-check
 package testdata
 
 func foobar_arglim(a, b, c, d int) { // MATCH /maximum number of arguments per function exceeded; max 3 but got 4/

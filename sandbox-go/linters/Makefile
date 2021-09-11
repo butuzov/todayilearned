@@ -15,7 +15,7 @@ endef
 
 # ~~ [ golangci-lint ] ~~~ https://github.com/golangci/golangci-lint ~~~~~~~~~~~~~~~~~~~~~
 
-VERSION ?= 1.40.1
+VERSION ?= 1.42.1
 
 GOLANGCI := $(shell command -v golangci-lint || echo "bin/golangci-lint")
 golangci-lint: bin/golangci-lint ## Installs golangci-lint (linter)
@@ -84,6 +84,10 @@ edit:
 
 check-gocritic: ## Go-Critic
 	$(GOLANGCI_BIN) run -v -c .golangci.gocritic.yaml testdata-gocritic
+
+check-revive: ## revive
+	$(GOLANGCI_BIN) run -c .golangci.revive.yaml testdata-revive
+
 
 CONFIG ?= .golangci.ongoing.yaml
 check: clean ##

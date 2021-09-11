@@ -13,7 +13,6 @@ REVIVE_CURRENT_RULES=$(\
     sort | \
     uniq)
 
-echo $REVIVE_CURRENT_RULES=
 
 REVIVE_CURRENT_FILES=$( \
   ls -1 testdata-revive | \

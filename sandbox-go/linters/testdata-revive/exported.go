@@ -1,4 +1,5 @@
 // Package golint comment
+// file-header-check
 package testdata
 
 // Test case for the configuration option tp replace the word "stutters" by "repetitive" failure messages

@@ -1,6 +1,4 @@
-// Test of confusing-naming rule.
-
-// Package pkg ...
+// file-header-check
 package testdata
 
 type foo struct{}

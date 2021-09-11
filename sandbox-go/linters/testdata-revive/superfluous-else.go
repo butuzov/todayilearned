@@ -1,6 +1,7 @@
 // Test of return+else warning.
 
 // Package pkg ...
+// file-header-check
 package testdata
 
 import (

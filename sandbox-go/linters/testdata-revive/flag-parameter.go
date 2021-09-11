@@ -1,3 +1,4 @@
+// file-header-check
 package testdata
 
 func foo(a bool, b int) { // MATCH /parameter 'a' seems to be a control flag, avoid control coupling/

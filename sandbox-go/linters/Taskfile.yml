@@ -9,13 +9,13 @@ tasks:
   default:
     sources:
     - ./testdata-revive/*.go
-    - ./scripts/revive_checks
+    - ./scripts/revive_checks.sh
     - ./Makefile
     method: timestamp
     cmds:
-    - ./scripts/revive_updates
+    - ./scripts/revive_updates.sh
     # - cmd: make check-revive
       # ignore_error: true
-    - ./scripts/revive_checks
+    - ./scripts/revive_checks.sh
 
     silent: true

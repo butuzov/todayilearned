@@ -1,3 +1,4 @@
+// file-header-check
 package testdata
 
 func foo(a float64, b string, c int, d string) {

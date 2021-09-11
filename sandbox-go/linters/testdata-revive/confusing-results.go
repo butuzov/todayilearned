@@ -1,3 +1,4 @@
+// file-header-check
 package testdata
 
 func getfoo() (int, int, error) { // MATCH /unnamed results of the same type may be confusing, consider using named results/

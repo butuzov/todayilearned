@@ -1,5 +1,6 @@
 // Test of empty-lines.
 
+// file-header-check
 package testdata
 
 import "time"

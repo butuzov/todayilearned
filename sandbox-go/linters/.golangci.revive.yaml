@@ -26,7 +26,8 @@ linters:
 linters-settings:
   revive:
 #     # see https://github.com/mgechev/revive#available-rules for details.
-    # ignore-generated-header: true
+    ignore-generated-header: true
+    confidence: 0.5
     severity: warning
     rules:
       - name: add-constant
@@ -133,7 +134,7 @@ linters-settings:
 
       - name: file-header
         severity: warning
-        arguments: "This is the text that must appear at the top of source files."
+        arguments: "file-header-check"
 
 
       - name: flag-parameter
@@ -240,6 +241,15 @@ linters-settings:
       - name: unused-parameter
         severity: warning
 
+      - name: package-comments
+        severity: warning
+
+      - name: increment-decrement
+        severity: warning
+
+      - name: range
+        severity: warning
+
       - name: unreachable-code
         severity: warning
 
@@ -255,7 +265,7 @@ linters-settings:
         - - "ID"
           - "VM"
 
-      - name: var-naming
+      - name: var-declaration
         severity: warning
 
       - name: waitgroup-by-value

@@ -1,5 +1,6 @@
 // Test of empty-blocks.
 
+// file-header-check
 package testdata
 
 func earlyRet() bool {

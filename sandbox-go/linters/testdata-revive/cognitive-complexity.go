@@ -1,6 +1,5 @@
-// Test of cognitive complexity.
+// file-header-check
 
-// Package pkg ...
 package testdata
 
 import (

@@ -134,7 +134,7 @@ parameter          |        |          |              |           | x
 
 - [ ] gocognit
 - [ ] cyclop
-- [ ] revive
+- [x] revive
 
 ## Metalinters
 
@@ -143,7 +143,7 @@ parameter          |        |          |              |           | x
 `// research`
 ### `revive`
 
-`// research`
+All rules covered, not all checks are usefull - see `.golangci.revive.yaml`.
 
 ### `staticcheck`
 

@@ -1,3 +1,4 @@
+// file-header-check
 package testdata
 
 func foo() (a, b, c, d) { // MATCH /maximum number of return results per function exceeded; max 3 but got 4/

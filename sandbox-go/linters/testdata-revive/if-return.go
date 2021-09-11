@@ -1,6 +1,7 @@
 // Test of redundant if err != nil
 
 // Package pkg ...
+// file-header-check
 package testdata
 
 func f() error {
