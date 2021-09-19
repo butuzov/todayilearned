@@ -1,11 +1,12 @@
 package testecho
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -55,17 +56,29 @@ func Handler(db map[string]string) http.Handler {
 	})
 
 	g := e.Group("/restricted", middleware.JWTWithConfig(middleware.JWTConfig{
-		Claims:     &TokenClaim{},
-		SigningKey: secret,
+
+		ParseTokenFunc: func(auth string, c echo.Context) (interface{}, error) {
+			// claims are of type `jwt.MapClaims` when token is created with `jwt.Parse`
+			token, err := jwt.Parse(auth, verifyTokenWithKey)
+			if err != nil {
+				return nil, err
+			}
+			if !token.Valid {
+				return nil, errors.New("invalid token")
+			}
+
+			return token, nil
+		},
 	}))
 
 	g.POST("", func(ctx echo.Context) error {
-		var (
-			user   = ctx.Get("user").(*jwt.Token)
-			claims = user.Claims.(*TokenClaim)
-		)
+		user := ctx.Get("user").(*jwt.Token)
 
-		return ctx.String(http.StatusOK, fmt.Sprintf("Welcome, %s\n", claims.Name))
+		if claims, ok := user.Claims.(jwt.MapClaims); ok {
+			return ctx.String(http.StatusOK, fmt.Sprintf("Welcome, %s\n", claims["Name"]))
+		}
+
+		return ctx.String(http.StatusOK, fmt.Sprintf("Welcome"))
 	})
 
 	return e

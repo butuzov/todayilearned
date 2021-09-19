@@ -20,7 +20,7 @@ func proxyRequests(base string) echo.MiddlewareFunc {
 	proxy := middleware.ProxyWithConfig(middleware.ProxyConfig{
 		Balancer: middleware.NewRandomBalancer([]*middleware.ProxyTarget{
 			{
-				Name: "direct-debit-settings",
+				Name: "endpoint-service-name",
 				URL:  upstream,
 			},
 		}),

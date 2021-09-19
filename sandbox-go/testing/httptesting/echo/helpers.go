@@ -3,7 +3,7 @@ package testecho
 import (
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 var secret = []byte("secret")

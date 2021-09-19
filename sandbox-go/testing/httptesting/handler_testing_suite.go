@@ -26,7 +26,7 @@ func (suite *HandlerTestSuite) TearDownSuite() {
 	suite.server.Close()
 }
 
-func (suite *HandlerTestSuite) TestPulic() {
+func (suite *HandlerTestSuite) TestPublic() {
 	expect := Expect(suite.server.URL, suite.T())
 
 	e := expect.GET("/public").Expect()
