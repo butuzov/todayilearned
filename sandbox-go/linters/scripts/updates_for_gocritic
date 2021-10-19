@@ -8,7 +8,7 @@ NC='\033[0m' # No Color
 
 
 GOCRITIC_CURRENT_RULES=$(\
-  curl -s https://go-critic.github.io/overview.html | \
+  curl -s https://go-critic.com/overview.html | \
   grep  -Eoi '^\s*<a.*>([a-zA-Z0-9]{1,})</a>'        | \
   tr  '[:upper:]' '[:lower:]' | \
   sed "s/^  //" | \

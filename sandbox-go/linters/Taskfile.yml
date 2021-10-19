@@ -7,6 +7,22 @@ vars:
 
 tasks:
   default:
+    cmds:
+    - hello world
+
+  gocritic:
+    sources:
+    - ./testdata-gocritic/*.go
+    - ./Makefile
+    method: timestamp
+    cmds:
+    - cmd: make check-gocritic
+      ignore_error: true
+    - ./scripts/gocritic_golangcilint
+
+    silent: true
+
+  revive:
     sources:
     - ./testdata-revive/*.go
     - ./scripts/revive_checks.sh

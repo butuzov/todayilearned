@@ -7,7 +7,7 @@ set -f
 gocritic check -enableAll ./testdata-gocritic/... 2> tmp.gocritic.gocritic.txt
 
 GOCRITIC_CURRENT_RULES=$(\
-  curl -s https://go-critic.github.io/overview.html | \
+  curl -s  https://go-critic.com/overview.html | \
   grep  -Eoi '^\s*<a.*>([a-zA-Z0-9]{1,})</a>'        | \
   tr  '[:upper:]' '[:lower:]' | \
   sed "s/^  //" | \
@@ -20,7 +20,6 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
-
 
 
 find_in_file() {
