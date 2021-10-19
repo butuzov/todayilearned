@@ -2,11 +2,11 @@ package testdata_gocritic
 
 // Example for the rule: methodExprCall
 
-type foo struct{}
+type foobar struct{}
 
-func (f1 foo) bar(f2 foo) {}
+func (f1 foobar) bar() {}
 
 func _() {
-	// f := foo{}
-	// foo.bar(f)
+	f := foobar{}
+	foobar.bar(f)
 }

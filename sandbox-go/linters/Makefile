@@ -75,8 +75,8 @@ config: ## Updates Configs
 
 # ~~~ Checks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-GOLANGCI_BIN := golangci-lint-$(VERSION)
-# GOLANGCI_BIN ?= golangci-lint
+# GOLANGCI_BIN := golangci-lint-$(VERSION)
+GOLANGCI_BIN ?= golangci-lint
 
 
 edit:

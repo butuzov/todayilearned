@@ -14,6 +14,7 @@ require (
 	github.com/sirupsen/logrus v1.8.1
 	github.com/uudashr/go-module v0.0.0-20200529023307-c90a4239ad70
 	golang.org/x/mod v0.4.2
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/klog v1.0.0
 	knative.dev/serving v0.25.1

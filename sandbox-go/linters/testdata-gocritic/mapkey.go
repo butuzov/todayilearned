@@ -2,9 +2,9 @@ package testdata_gocritic
 
 // Example for the rule: mapKey
 
-func _() {
-	_ = map[string]int{
-		" foo": 1,
-		"bar ": 2,
-	}
+var out = map[string]int{
+	" foo": 1,
+	"foo":  2,
+	"bar":  3,
+	"bar ": 4,
 }

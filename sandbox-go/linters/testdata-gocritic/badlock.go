@@ -8,7 +8,7 @@ func _() {
 	d := 0
 	mu := sync.Mutex{}
 	mu.Lock()
-	d += 1
+	d++
 	mu.Unlock()
 	_ = d
 }

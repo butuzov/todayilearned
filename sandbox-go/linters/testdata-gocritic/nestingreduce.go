@@ -6,7 +6,7 @@ type Typos struct {
 	Bool bool
 }
 
-func body()
+func body() {}
 
 func _(a []Typos) {
 	for _, v := range a {

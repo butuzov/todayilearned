@@ -5,8 +5,7 @@ package testdata_gocritic
 func _(n int) {
 	if n > 10 {
 	} else {
-		if x := n > 10; x {
+		if x := n < 8; x {
 		}
 	}
-
 }

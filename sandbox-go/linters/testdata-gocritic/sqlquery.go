@@ -15,7 +15,7 @@ func _(host, port, user, password, dbname string) {
 		println(err)
 	}
 
-	rows, _ := db.Query("select id from tb")
+	rows, _ := db.Query("UPDATE tb SET d=1")
 	for rows.Next() {
 		// handle rows
 	}
