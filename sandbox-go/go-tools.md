@@ -1,13 +1,20 @@
+`$talks`
+- [GopherCon 2017: Keith Randall - Generating Better Machine Code with SSA](https://www.softwaretalks.io/v/11883/gophercon-2017-keith-randall-generating-better-machine-code-with-ssa)
+- [Debug code generation in Go](https://archive.fosdem.org/2020/schedule/event/debugcodegenerationgo/)
+
+
 # Go Tools
 
-## `go tool compile` 
+## `go tool`
+
+### `go tool compile` 
 
 https://golang.org/cmd/compile/
 
-####  `$GOOS`
+#####  `$GOOS`
 The list of valid GOOS values includes android, darwin, dragonfly, freebsd, linux, nacl, netbsd, openbsd, plan9, solaris, windows, and zos. 
 
-#### `$GOARCH`
+##### `$GOARCH`
 
 On the other hand, the list of valid GOARCH values includes 386, amd64, amd64p32, arm, armbe, arm64, arm64be, ppc64, ppc64le, mips, mipsle, mips64, mips64le, mips64p32, mips64p32le, ppc, s390, s390x, sparc, and sparc64.
 
@@ -24,6 +31,35 @@ go tool compile package.go && ls -la
 ```
 
 
+### `go tool objdump`
+
+```shell
+# dump go-asm
+go tool objdump ./prj 
+
+// dump source code of the main.main
+go tool objdump -S -s main.main ./prj 
+```
+
+### `go tool nm` 
+
+Nm lists the symbols defined or used by an object file, archive, or executable.
+
+Types are:
+
+- T	text (code) segment symbol
+- t	static text segment symbol
+- R	read-only data segment symbol
+- r	static read-only data segment symbol
+- D	data segment symbol
+- d	static data segment symbol
+- B	bss segment symbol
+- b	static bss segment symbol
+- C	constant address
+- U	referenced but undefined symbol
+
+`go tool nm ./prj | grep smthing` 
+
 ## `go build`
 
 
@@ -31,10 +67,51 @@ https://golang.org/cmd/buildid/
 
 ```bash
 
-# Verbose output of the build process
-go build -x main.go
+# show $WORK directory 
+go build --work .
 
+# Dry run + -work
+go build -n .
+
+# Explicit output of the build process
+go build -x .
+
+# Escape analysis
+go build -gcflags="-m"
+# more info
+go build -gcflags="-m=5"
+
+# go ASM
+go build -gcflags="-S"
+
+# disbale optimizations
+go build -gcflags="-N" .
+# disable inlining
+go build -gcflags="-l" .
+# disable both
+go build -gcflags="-N -l" .
+
+
+# bce checks https://go101.org/article/bounds-check-elimination.html
+go build -gcflags="-d=ssa/check_bce/debug=1"
+
+# generate ssa dump
+GOSSAFUNC=main go build .
+
+# Garbage collector liveness bitmap generation.
+# https://docs.studygolang.com/src/cmd/compile/internal/liveness/plive.go
+# go build -gcflags="-live" .
+go build -gcflags="-live=2" .
+
+
+# adding extras
+go build -gcflags="-bench=bench.out"
+go build -gcflags="-race" # race detector
+go build -gcflags="-memprofile=profile.out"
+go build -gcflags="-traceprofile=trace.out"
 ```
+
+- [ ] TODO: https://www.softwaretalks.io/v/11883/gophercon-2017-keith-randall-generating-better-machine-code-with-ssa
 
 ## `go mod` - Go Modules
 
