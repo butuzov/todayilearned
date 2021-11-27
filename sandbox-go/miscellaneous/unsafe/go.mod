@@ -1,4 +1,4 @@
-module github.com/butuzov/sandbox/unsafe
+module unsafedemos
 
 go 1.16
 
