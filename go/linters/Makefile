@@ -15,7 +15,7 @@ endef
 
 # ~~ [ golangci-lint ] ~~~ https://github.com/golangci/golangci-lint ~~~~~~~~~~~~~~~~~~~~~
 
-VERSION ?= 1.42.1
+VERSION ?= 1.43.0
 
 GOLANGCI := $(shell command -v golangci-lint || echo "bin/golangci-lint")
 golangci-lint: bin/golangci-lint ## Installs golangci-lint (linter)

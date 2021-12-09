@@ -1,3 +1,6 @@
+# This file contains all available configuration options
+# with their default values.
+
 # options for analysis running
 run:
   # default concurrency is a available CPU number
@@ -60,6 +63,18 @@ output:
   sort-results: false
 # all available settings of specific linters
 linters-settings:
+  bidichk:
+    # The following configurations check for all mentioned invisible unicode
+    # runes. It can be omitted because all runes are enabled by default.
+    left-to-right-embedding: true
+    right-to-left-embedding: true
+    pop-directional-formatting: true
+    left-to-right-override: true
+    right-to-left-override: true
+    left-to-right-isolate: true
+    right-to-left-isolate: true
+    first-strong-isolate: true
+    pop-directional-isolate: true
   cyclop:
     # the maximal code complexity to report
     max-complexity: 10
@@ -90,6 +105,23 @@ linters-settings:
       - io/ioutil.ReadFile
       - io.Copy(*bytes.Buffer)
       - io.Copy(os.Stdout)
+  errchkjson:
+    # with check-error-free-encoding set to true, errchkjson does warn about errors
+    # from json encoding functions that are safe to be ignored,
+    # because they are not possible to happen (default false)
+    #
+    # if check-error-free-encoding is set to true and errcheck linter is enabled,
+    # it is recommended to add the following exceptions to prevent from false positives:
+    #
+    #     linters-settings:
+    #       errcheck:
+    #         exclude-functions:
+    #           - encoding/json.Marshal
+    #           - encoding/json.MarshalIndent
+    #           - (*encoding/json.Encoder).Encode
+    check-error-free-encoding: false
+    # if report-no-exported is true, encoding a struct without exported fields is reported as issue (default false)
+    report-no-exported: false
   errorlint:
     # Check whether fmt.Errorf uses the %w verb for formatting errors. See the readme for caveats
     errorf: true
@@ -100,10 +132,14 @@ linters-settings:
   exhaustive:
     # check switch statements in generated files also
     check-generated: false
-    # indicates that switch statements are to be considered exhaustive if a
-    # 'default' case is present, even if all enum members aren't listed in the
-    # switch
+    # presence of "default" case in switch statements satisfies exhaustiveness,
+    # even if all enum members are not listed
     default-signifies-exhaustive: false
+    # enum members matching the supplied regex do not have to be listed in
+    # switch statements to satisfy exhaustiveness
+    ignore-enum-members: ""
+    # consider enums only in package scopes, not in inner scopes
+    package-scope-only: false
   exhaustivestruct: {}
   forbidigo:
     # Forbid the following identifiers (identifiers are written using regexp):
@@ -123,9 +159,6 @@ linters-settings:
   gocognit:
     # minimal code complexity to report, 30 by default (but we recommend 10-20)
     min-complexity: 10
-  nestif:
-    # minimal complexity of if statements to report, 5 by default
-    min-complexity: 4
   goconst:
     # minimal length of string constant, 3 by default
     min-len: 3
@@ -148,7 +181,14 @@ linters-settings:
     # See https://go-critic.github.io/overview#checks-overview
     # To check which checks are enabled run `GL_DEBUG=gocritic golangci-lint run`
     # By default list of stable checks is used.
-    enabled-checks: [ruleguard, nestingreduce, truncatecmp, unnamedresult]
+    enabled-checks:
+      - unnamedresult
+      - ruleguard
+      - truncateCmp
+      - ruleguard
+      - nestingreduce
+      - truncatecmp
+      - unnamedresult
     # Which checks should be disabled; can't be combined with 'enabled-checks'; default is empty
     disabled-checks:
       - regexpMust
@@ -185,8 +225,36 @@ linters-settings:
         # whether to check test functions (default true)
         skipTestFuncs: true
       ruleguard:
-        # path to a gorules file for the ruleguard checker
-        rules: ''
+        # Enable debug to identify which 'Where' condition was rejected.
+        # The value of the parameter is the name of a function in a ruleguard file.
+        #
+        # When a rule is evaluated:
+        # If:
+        #   The Match() clause is accepted; and
+        #   One of the conditions in the Where() clause is rejected,
+        # Then:
+        #   ruleguard prints the specific Where() condition that was rejected.
+        #
+        # The flag is passed to the ruleguard 'debug-group' argument.
+        debug: 'emptyDecl'
+        # Deprecated, use 'failOn' param.
+        # If set to true, identical to failOn='all', otherwise failOn=''
+        failOnError: false
+        # Determines the behavior when an error occurs while parsing ruleguard files.
+        # If flag is not set, log error and skip rule files that contain an error.
+        # If flag is set, the value must be a comma-separated list of error conditions.
+        # - 'all':    fail on all errors.
+        # - 'import': ruleguard rule imports a package that cannot be found.
+        # - 'dsl':    gorule file does not comply with the ruleguard DSL.
+        failOn: dsl
+        # Comma-separated list of file paths containing ruleguard rules.
+        # If a path is relative, it is relative to the directory where the golangci-lint command is executed.
+        # The special '${configDir}' variable is substituted with the absolute directory containing the golangci config file.
+        # Glob patterns such as 'rules-*.go' may be specified.
+        rules: '${configDir}/ruleguard/rules-*.go,${configDir}/myrule1.go'
+      tooManyResultsChecker:
+        # maximum number of results (default 5)
+        maxResults: 10
       truncateCmp:
         # whether to skip int/uint/uintptr types (default true)
         skipArchDependent: true
@@ -306,6 +374,12 @@ linters-settings:
     # Available rules: https://github.com/securego/gosec#available-rules
     excludes:
       - G204
+    # Exclude generated files
+    exclude-generated: true
+    # Filter out the issues with a lower severity than the given value. Valid options are: low, medium, high.
+    severity: "low"
+    # Filter out the issues with a lower confidence than the given value. Valid options are: low, medium, high.
+    confidence: "low"
     # To specify the configuration of rules.
     # The configuration of rules is not fully documented by gosec:
     # https://github.com/securego/gosec#configuration
@@ -372,6 +446,27 @@ linters-settings:
       # see https://github.com/julz/importas#use-regular-expression for details
       - pkg: knative.dev/serving/pkg/apis/(\w+)/(v[\w\d]+)
         alias: $1$2
+  ireturn:
+    # ireturn allows using `allow` and `reject` settings at the same time.
+    # Both settings are lists of the keywords and regular expressions matched to interface or package names.
+    # keywords:
+    # - `empty` for `interface{}`
+    # - `error` for errors
+    # - `stdlib` for standard library
+    # - `anon` for anonymous interfaces
+
+    # By default, it allows using errors, empty interfaces, anonymous interfaces,
+    # and interfaces provided by the standard library.
+    allow:
+      - anon
+      - error
+      - empty
+      - stdlib
+      # You can specify idiomatic endings for interface
+      - (or|er)$
+    # Reject patterns
+    reject:
+      - github.com\/user\/package\/v4\.Type
   lll:
     # max line length, lines longer will be reported. Default is 120.
     # '\t' is counted as 1 character by default, and can be changed with the tab-width option
@@ -394,6 +489,32 @@ linters-settings:
   nakedret:
     # make an issue if func has more lines of code than this setting and it has naked returns; default is 30
     max-func-lines: 30
+  nestif:
+    # minimal complexity of if statements to report, 5 by default
+    min-complexity: 4
+  nilnil:
+    # By default, nilnil checks all returned types below.
+    checked-types:
+      - ptr
+      - func
+      - iface
+      - map
+      - chan
+  nlreturn:
+    # size of the block (including return statement that is still "OK")
+    # so no return split required.
+    block-size: 1
+  nolintlint:
+    # Disable to ensure that all nolint directives actually have an effect. Default is false.
+    allow-unused: false
+    # Disable to ensure that nolint directives don't have a leading space. Default is true.
+    allow-leading-space: true
+    # Exclude following linters from requiring an explanation.  Default is [].
+    allow-no-explanation: []
+    # Enable to require an explanation of nonzero length after each nolint directive. Default is false.
+    require-explanation: true
+    # Enable to require nolint directives to mention the specific linter being suppressed. Default is false.
+    require-specific: true
   prealloc:
     # XXX: we don't recommend using this linter before doing performance profiling.
     # For most programs usage of prealloc will be a premature optimization.
@@ -422,17 +543,6 @@ linters-settings:
     ignore: ""
     # include method names and field names (i.e., qualified names) in checks
     q: false
-  nolintlint:
-    # Enable to ensure that nolint directives are all used. Default is true.
-    allow-unused: false
-    # Disable to ensure that nolint directives don't have a leading space. Default is true.
-    allow-leading-space: true
-    # Exclude following linters from requiring an explanation.  Default is [].
-    allow-no-explanation: []
-    # Enable to require an explanation of nonzero length after each nolint directive. Default is false.
-    require-explanation: true
-    # Enable to require nolint directives to mention the specific linter being suppressed. Default is false.
-    require-specific: true
   rowserrcheck:
     packages:
       - github.com/jmoiron/sqlx
@@ -499,6 +609,10 @@ linters-settings:
       first: true
       name: true
       begin: true
+  tenv:
+    # The option `all` will run against whole test files (`_test.go`) regardless of method/function signatures.
+    # By default, only methods that take `*testing.T`, `*testing.B`, and `testing.TB` as arguments are checked.
+    all: false
   unparam:
     # Inspect exported functions, default is false. Set to true if no external program/library imports your code.
     # XXX: if you enable this setting, unparam will report a lot of false-positives in text editors:
@@ -508,6 +622,36 @@ linters-settings:
   unused:
     # Select the Go version to target. The default is '1.13'.
     go: "1.15"
+  varnamelen:
+    # The longest distance, in source lines, that is being considered a "small scope." (defaults to 5)
+    # Variables used in at most this many lines will be ignored.
+    max-distance: 5
+    # The minimum length of a variable's name that is considered "long." (defaults to 3)
+    # Variable names that are at least this long will be ignored.
+    min-name-length: 3
+    # Check method receiver names. (defaults to false)
+    check-receiver: false
+    # Check named return values. (defaults to false)
+    check-return: false
+    # Ignore "ok" variables that hold the bool return value of a type assertion. (defaults to false)
+    ignore-type-assert-ok: false
+    # Ignore "ok" variables that hold the bool return value of a map index. (defaults to false)
+    ignore-map-index-ok: false
+    # Ignore "ok" variables that hold the bool return value of a channel receive. (defaults to false)
+    ignore-chan-recv-ok: false
+    # Optional list of variable names that should be ignored completely. (defaults to empty list)
+    ignore-names:
+      - err
+    # Optional list of variable declarations that should be ignored completely. (defaults to empty list)
+    # Entries must be in the form of "<variable name> <type>" or "<variable name> *<type>" for
+    # variables, or "const <name>" for constants.
+    ignore-decls:
+      - c echo.Context
+      - t testing.T
+      - f *foo.Bar
+      - e error
+      - i int
+      - const C
   whitespace:
     multi-if: false # Enforces newlines (or comments) after every multi-line if statement
     multi-func: false # Enforces newlines (or comments) after every multi-line function signature
@@ -524,6 +668,8 @@ linters-settings:
       - .WithMessage(
       - .WithMessagef(
       - .WithStack(
+    ignoreSigRegexps:
+      - \.New.*Error\(
     ignorePackageGlobs:
       - encoding/*
       - github.com/pkg/*
@@ -735,7 +881,7 @@ severity:
   # selected out format.
   # - Code climate: https://docs.codeclimate.com/docs/issues#issue-severity
   # -   Checkstyle: https://checkstyle.sourceforge.io/property_types.html#severity
-  # -       Github: https://help.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-error-message
+  # -       GitHub: https://help.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-error-message
   default-severity: error
   # The default value is false.
   # If set to true severity-rules regular expressions become case sensitive.
