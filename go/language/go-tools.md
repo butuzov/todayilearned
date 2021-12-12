@@ -248,9 +248,6 @@ env GOOS=darwin go list -f '{{ .GoFiles }}' github.com/pkg/term
 ```
 
 
-## `go test`
-[Go testing Package](testing)
-
 ```shell
 # Coverage for local packages except osme of them...
 

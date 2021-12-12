@@ -1,6 +1,4 @@
-# Go Tips & Tricks
-
-Check on weekly basics in twitter
+# Go General Tips & Tricks
 
 ## Compiler
 
@@ -111,14 +109,121 @@ outHeader.Cap = inHeader.Cap * 8
 
 Implement for a same data Mutable for unsorted (so it can be sorted), and Immutable for a sorted.
 
-## unsorted
+## Interfaces
 
-#golang perf tip: use benchcmd along with benchstat to benchmark and compare the performance of a standalone program or script.
+Dynamic Interface
+
+```go
+// interface checking 
+import "bytes"
+
+// doesn't work in jupyter
+buf := bytes.Buffer{}
+if f, ok := &buf.(interface { 
+    Write(p []byte) (n int, err error)
+}); ok {
+    f.Write([]byte("foobar"))
+}
+```
+
+## Testing & Benching
+
+`#golang perf` tip: use `benchcmd` along with `benchstat` to benchmark and compare the performance of a standalone program or script.
 
 For example, I'm using it now to benchmark the speed of a Go code generator!
 
-https://github.com/golang/tools/tree/master/cmd/benchcmp
-https://github.com/aclements/go-misc/blob/master/benchcmd/main.go
+- https://github.com/golang/tools/tree/master/cmd/benchcmp
+- https://github.com/aclements/go-misc/blob/master/benchcmd/main.go
 
-ci at tip
-https://github.com/go-reform/reform/blob/2342d78b8a0dc22240fe5649b9293cfc71c02535/.github/workflows/ci.yaml
+## Continues Integration
+
+### `github actions`
+
+#### Using local builders with [`act`](https://github.com/nektos/act)
+
+1. `butuzov/dots` -> `butuzov/act-go`
+2. `.actrc`
+
+   ```
+   --platform ubuntu-latest=butuzov/act-go:latest --env DRY_RUN=1
+   ```
+
+#### Using TIP version in Github actions
+
+_(GitHub Search Terms: `go build tip matrix`)_
+
+```yaml
+---
+name: Clean
+on:
+  schedule:
+    # run every day
+    - cron: "0 0 * * *"
+
+jobs:
+  clean-caches:
+    name: Clean caches
+    timeout-minutes: 5
+
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version:
+          - 1.15.x
+        os: [ubuntu-latest]
+        may-fail: [false]
+        include:
+          - go-version: tip
+            os: ubuntu-latest
+            may-fail: true
+
+    continue-on-error: ${{ matrix.may-fail }}
+    runs-on: ${{ matrix.os }}
+
+    env:
+      GOFLAGS: -v -mod=readonly
+
+    steps:
+      - name: Set up Go release
+        if: matrix.go-version != 'tip'
+        env:
+          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
+          GOFLAGS: ""
+        uses: percona-platform/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Set up Go tip
+        if: matrix.go-version == 'tip'
+        run: |
+          git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
+          cd $HOME/gotip/src
+          ./make.bash
+          echo "GOROOT=$HOME/gotip" >> $GITHUB_ENV
+          echo "$HOME/gotip/bin" >> $GITHUB_PATH
+
+      - name: Check out code into the Go module directory
+        uses: percona-platform/checkout@v2
+        with:
+          lfs: true
+
+      - name: Enable Go modules cache
+        uses: percona-platform/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ matrix.os }}-go-${{ matrix.go-version }}-modules-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ matrix.os }}-go-${{ matrix.go-version }}-modules-
+
+      - name: Enable Go build cache
+        uses: percona-platform/cache@v2
+        with:
+          path: ~/.cache/go-build
+          key: ${{ matrix.os }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-${{ hashFiles('**') }}
+          restore-keys: |
+            ${{ matrix.os }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-
+            ${{ matrix.os }}-go-${{ matrix.go-version }}-build-
+
+      - name: Clean Go modules cache
+        run: go clean -modcache
+```
