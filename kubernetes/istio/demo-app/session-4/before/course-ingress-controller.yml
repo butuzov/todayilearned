@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: course-istio-gateway
+  annotations:
+    kubernetes.io/ingress.class: "istio"
+
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /books
+        backend:
+          serviceName: books
+          servicePort: 3000
+      - path: /frontend
+        backend:
+          serviceName: frontend
+          servicePort: 3000
+      - path: /authors
+        backend:
+          serviceName: authors
+          servicePort: 3000
+      - path: /httpbin
+        backend:
+          serviceName: httpbin
+          servicePort: 3000

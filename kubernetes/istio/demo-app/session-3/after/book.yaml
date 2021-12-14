@@ -1,0 +1,134 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: books
+  labels:
+    app: books
+    service: books
+    project: istio-course
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3000
+      name: http
+  selector:
+    app: books
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: servicemesh-books
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: books-v2
+  labels:
+    app: books
+    version: v2
+    project: istio-course
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: books
+      version: v2
+      project: istio-course
+  template:
+    metadata:
+      labels:
+        app: books
+        version: v2
+        project: istio-course
+    spec:
+      serviceAccountName: servicemesh-books
+      containers:
+        - name: books
+          image: butuzov/demoapp-books:v2
+          imagePullPolicy: IfNotPresent #Or use Always to download it from dockerhub
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: "/healthcheck/liveness"
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: "/healthcheck/readiness"
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "50M"
+              cpu: "0.25"
+            limits:
+              memory: "100M"
+              cpu: "0.45"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: books-v2-1
+  labels:
+    app: books
+    version: v2.1
+    project: istio-course
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: books
+      version: v2.1
+      project: istio-course
+  template:
+    metadata:
+      labels:
+        app: books
+        version: v2.1
+        project: istio-course
+    spec:
+      serviceAccountName: servicemesh-books
+      containers:
+        - name: books
+          image: butuzov/demoapp-books:v2.1
+          imagePullPolicy: IfNotPresent #Or use Always to download it from dockerhub
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: "/healthcheck/liveness"
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: "/healthcheck/readiness"
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "50M"
+              cpu: "0.25"
+            limits:
+              memory: "100M"
+              cpu: "0.45"

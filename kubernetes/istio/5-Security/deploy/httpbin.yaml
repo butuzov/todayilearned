@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: httpbin
+  name: httpbin
+spec:
+  containers:
+  - image: docker.io/kennethreitz/httpbin
+    name: httpbin
+    resources: {}
+status: {}

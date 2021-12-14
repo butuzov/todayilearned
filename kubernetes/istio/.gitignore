@@ -1,0 +1,4 @@
+*.pptx
+*.docx
+.ipynb_checkpoints
+convert.py

@@ -1,0 +1,32 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: authors
+spec:
+  host: authors
+  subsets:
+  - name: v2
+    labels:
+      version: v2.2
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: authors
+spec:
+  hosts:
+  - authors
+  gateways:
+  http:
+  - name: "fault injection"
+    # fault:
+    #   delay:
+    #     percentage:
+    #       value: 20.0
+    #     fixedDelay: 1s
+    route:
+    - destination:
+        host: authors
+        subset: v2
