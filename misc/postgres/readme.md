@@ -1,5 +1,5 @@
 <h1>Table of Contents<span class="tocSkip"></span></h1>
-<div class="toc"><ul class="toc-item"><li><span><a href="#psql" data-toc-modified-id="psql-1"><span class="toc-item-num">1&nbsp;&nbsp;</span><code>psql</code></a></span><ul class="toc-item"><li><span><a href="#psql-Customizations" data-toc-modified-id="psql-Customizations-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>psql Customizations</a></span></li><li><span><a href="#Describe-&amp;-List" data-toc-modified-id="Describe-&amp;-List-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Describe &amp; List</a></span></li><li><span><a href="#Connect" data-toc-modified-id="Connect-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Connect</a></span></li><li><span><a href="#Import-&amp;-export" data-toc-modified-id="Import-&amp;-export-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Import &amp; export</a></span></li></ul></li><li><span><a href="#Tooling" data-toc-modified-id="Tooling-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Tooling</a></span></li><li><span><a href="#⭕-Data-Types" data-toc-modified-id="⭕-Data-Types-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>⭕ Data Types</a></span><ul class="toc-item"><li><span><a href="#Numerics" data-toc-modified-id="Numerics-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Numerics</a></span><ul class="toc-item"><li><span><a href="#Serials" data-toc-modified-id="Serials-3.1.1"><span class="toc-item-num">3.1.1&nbsp;&nbsp;</span>Serials</a></span></li></ul></li><li><span><a href="#Textual" data-toc-modified-id="Textual-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Textual</a></span><ul class="toc-item"><li><span><a href="#String-Functions" data-toc-modified-id="String-Functions-3.2.1"><span class="toc-item-num">3.2.1&nbsp;&nbsp;</span>String Functions</a></span></li></ul></li><li><span><a href="#Temporal-Data" data-toc-modified-id="Temporal-Data-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Temporal Data</a></span></li><li><span><a href="#Arrays" data-toc-modified-id="Arrays-3.4"><span class="toc-item-num">3.4&nbsp;&nbsp;</span>Arrays</a></span><ul class="toc-item"><li><span><a href="#Array-Slicing-and-Splicing" data-toc-modified-id="Array-Slicing-and-Splicing-3.4.1"><span class="toc-item-num">3.4.1&nbsp;&nbsp;</span>Array Slicing and Splicing</a></span></li><li><span><a href="#Array-Containment-Checks" data-toc-modified-id="Array-Containment-Checks-3.4.2"><span class="toc-item-num">3.4.2&nbsp;&nbsp;</span>Array Containment Checks</a></span></li></ul></li></ul></li><li><span><a href="#⭕-Identifiers" data-toc-modified-id="⭕-Identifiers-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>⭕ Identifiers</a></span></li><li><span><a href="#⭕-Database" data-toc-modified-id="⭕-Database-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>⭕ Database</a></span></li><li><span><a href="#⭕-Tables-&amp;-Indexes" data-toc-modified-id="⭕-Tables-&amp;-Indexes-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>⭕ Tables &amp; Indexes</a></span></li><li><span><a href="#⭕-Database" data-toc-modified-id="⭕-Database-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>⭕ Database</a></span></li><li><span><a href="#Querying-for-Data" data-toc-modified-id="Querying-for-Data-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Querying for Data</a></span><ul class="toc-item"><li><span><a href="#DISTINCT" data-toc-modified-id="DISTINCT-8.1"><span class="toc-item-num">8.1&nbsp;&nbsp;</span><code>DISTINCT</code></a></span></li><li><span><a href="#WHERE-&amp;-OREDER-BY" data-toc-modified-id="WHERE-&amp;-OREDER-BY-8.2"><span class="toc-item-num">8.2&nbsp;&nbsp;</span><code>WHERE</code> &amp; <code>OREDER BY</code></a></span></li><li><span><a href="#AND,--OR-and-NOT" data-toc-modified-id="AND,--OR-and-NOT-8.3"><span class="toc-item-num">8.3&nbsp;&nbsp;</span><code>AND</code>,  <code>OR</code> and <code>NOT</code></a></span></li><li><span><a href="#BETWEEN" data-toc-modified-id="BETWEEN-8.4"><span class="toc-item-num">8.4&nbsp;&nbsp;</span><code>BETWEEN</code></a></span></li><li><span><a href="#Agregate-with-MIN,-MAX,-SUM-&amp;-AVG" data-toc-modified-id="Agregate-with-MIN,-MAX,-SUM-&amp;-AVG-8.5"><span class="toc-item-num">8.5&nbsp;&nbsp;</span>Agregate with <code>MIN</code>, <code>MAX</code>, <code>SUM</code> &amp; <code>AVG</code></a></span></li><li><span><a href="#Agregate-with--COUNT(*)" data-toc-modified-id="Agregate-with--COUNT(*)-8.6"><span class="toc-item-num">8.6&nbsp;&nbsp;</span>Agregate with  <code>COUNT(*)</code></a></span></li><li><span><a href="#Agregate-Group-Contcat" data-toc-modified-id="Agregate-Group-Contcat-8.7"><span class="toc-item-num">8.7&nbsp;&nbsp;</span>Agregate Group Contcat</a></span><ul class="toc-item"><li><span><a href="#⭕-TODO:-AGGREGATE" data-toc-modified-id="⭕-TODO:-AGGREGATE-8.7.1"><span class="toc-item-num">8.7.1&nbsp;&nbsp;</span>⭕ <code>TODO: AGGREGATE</code></a></span></li></ul></li><li><span><a href="#LIKE" data-toc-modified-id="LIKE-8.8"><span class="toc-item-num">8.8&nbsp;&nbsp;</span><code>LIKE</code></a></span></li><li><span><a href="#SIMILAR-TO-~" data-toc-modified-id="SIMILAR-TO-~-8.9"><span class="toc-item-num">8.9&nbsp;&nbsp;</span>SIMILAR TO <code>~</code></a></span></li><li><span><a href="#Dealing-with-NULL" data-toc-modified-id="Dealing-with-NULL-8.10"><span class="toc-item-num">8.10&nbsp;&nbsp;</span>Dealing with <code>NULL</code></a></span></li><li><span><a href="#GROUP-BY" data-toc-modified-id="GROUP-BY-8.11"><span class="toc-item-num">8.11&nbsp;&nbsp;</span><code>GROUP BY</code></a></span><ul class="toc-item"><li><span><a href="#⭕-TODO:-WITH-ROLLUP" data-toc-modified-id="⭕-TODO:-WITH-ROLLUP-8.11.1"><span class="toc-item-num">8.11.1&nbsp;&nbsp;</span>⭕ <code>TODO: WITH ROLLUP</code></a></span></li></ul></li><li><span><a href="#HAVING" data-toc-modified-id="HAVING-8.12"><span class="toc-item-num">8.12&nbsp;&nbsp;</span><code>HAVING</code></a></span></li><li><span><a href="#UNION" data-toc-modified-id="UNION-8.13"><span class="toc-item-num">8.13&nbsp;&nbsp;</span><code>UNION</code></a></span></li><li><span><a href="#INTERSECT" data-toc-modified-id="INTERSECT-8.14"><span class="toc-item-num">8.14&nbsp;&nbsp;</span><code>INTERSECT</code></a></span></li><li><span><a href="#EXCEPT" data-toc-modified-id="EXCEPT-8.15"><span class="toc-item-num">8.15&nbsp;&nbsp;</span><code>EXCEPT</code></a></span></li><li><span><a href="#RETURNING" data-toc-modified-id="RETURNING-8.16"><span class="toc-item-num">8.16&nbsp;&nbsp;</span><code>RETURNING</code></a></span></li></ul></li><li><span><a href="#⭕-Indexes" data-toc-modified-id="⭕-Indexes-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>⭕ Indexes</a></span></li><li><span><a href="#⭕-SQL-Expressions" data-toc-modified-id="⭕-SQL-Expressions-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>⭕ SQL Expressions</a></span></li><li><span><a href="#⭕-Updating-Data" data-toc-modified-id="⭕-Updating-Data-11"><span class="toc-item-num">11&nbsp;&nbsp;</span>⭕ Updating Data</a></span></li><li><span><a href="#Joins" data-toc-modified-id="Joins-12"><span class="toc-item-num">12&nbsp;&nbsp;</span>Joins</a></span><ul class="toc-item"><li><span><a href="#INNER-JOIN" data-toc-modified-id="INNER-JOIN-12.1"><span class="toc-item-num">12.1&nbsp;&nbsp;</span><code>INNER JOIN</code></a></span></li><li><span><a href="#LEFT-(OUTTER)-JOIN" data-toc-modified-id="LEFT-(OUTTER)-JOIN-12.2"><span class="toc-item-num">12.2&nbsp;&nbsp;</span><code>LEFT (OUTTER) JOIN</code></a></span></li><li><span><a href="#LEFT-(OUTTER)-JOIN-*" data-toc-modified-id="LEFT-(OUTTER)-JOIN-*-12.3"><span class="toc-item-num">12.3&nbsp;&nbsp;</span><code>LEFT (OUTTER) JOIN</code> <sup>*</sup></a></span></li><li><span><a href="#RIGHT-(OUTTER)-JOIN" data-toc-modified-id="RIGHT-(OUTTER)-JOIN-12.4"><span class="toc-item-num">12.4&nbsp;&nbsp;</span><code>RIGHT (OUTTER) JOIN</code></a></span></li><li><span><a href="#RIGHT-(OUTTER)-JOIN-*" data-toc-modified-id="RIGHT-(OUTTER)-JOIN-*-12.5"><span class="toc-item-num">12.5&nbsp;&nbsp;</span><code>RIGHT (OUTTER) JOIN</code> <sup>*</sup></a></span></li><li><span><a href="#FULL-JOIN" data-toc-modified-id="FULL-JOIN-12.6"><span class="toc-item-num">12.6&nbsp;&nbsp;</span><code>FULL JOIN</code></a></span></li><li><span><a href="#CROSS-JOIN" data-toc-modified-id="CROSS-JOIN-12.7"><span class="toc-item-num">12.7&nbsp;&nbsp;</span><code>CROSS JOIN</code></a></span></li><li><span><a href="#SELF-JOIN" data-toc-modified-id="SELF-JOIN-12.8"><span class="toc-item-num">12.8&nbsp;&nbsp;</span><code>SELF JOIN</code></a></span></li><li><span><a href="#USING-keyword" data-toc-modified-id="USING-keyword-12.9"><span class="toc-item-num">12.9&nbsp;&nbsp;</span><code>USING</code> keyword</a></span></li><li><span><a href="#NATURAL-JOIN" data-toc-modified-id="NATURAL-JOIN-12.10"><span class="toc-item-num">12.10&nbsp;&nbsp;</span><code>NATURAL JOIN</code></a></span></li></ul></li><li><span><a href="#SubQueries" data-toc-modified-id="SubQueries-13"><span class="toc-item-num">13&nbsp;&nbsp;</span>SubQueries</a></span><ul class="toc-item"><li><span><a href="#EXISTS" data-toc-modified-id="EXISTS-13.1"><span class="toc-item-num">13.1&nbsp;&nbsp;</span><code>EXISTS</code></a></span></li><li><span><a href="#ANY" data-toc-modified-id="ANY-13.2"><span class="toc-item-num">13.2&nbsp;&nbsp;</span><code>ANY</code></a></span></li></ul></li><li><span><a href="#⭕-Views" data-toc-modified-id="⭕-Views-14"><span class="toc-item-num">14&nbsp;&nbsp;</span>⭕ Views</a></span><ul class="toc-item"><li><span><a href="#Droping-Views" data-toc-modified-id="Droping-Views-14.1"><span class="toc-item-num">14.1&nbsp;&nbsp;</span>Droping Views</a></span></li><li><span><a href="#Create-Or-Replace-Views" data-toc-modified-id="Create-Or-Replace-Views-14.2"><span class="toc-item-num">14.2&nbsp;&nbsp;</span>Create Or Replace Views</a></span></li><li><span><a href="#Inserting-Into-the-Views" data-toc-modified-id="Inserting-Into-the-Views-14.3"><span class="toc-item-num">14.3&nbsp;&nbsp;</span>Inserting Into the Views</a></span><ul class="toc-item"><li><span><a href="#TODO:-Adding-checks-to-prevent-bypassing-filters" data-toc-modified-id="TODO:-Adding-checks-to-prevent-bypassing-filters-14.3.1"><span class="toc-item-num">14.3.1&nbsp;&nbsp;</span>TODO: Adding checks to prevent bypassing filters</a></span></li></ul></li></ul></li><li><span><a href="#⭕-Importing-and-Exporting-data" data-toc-modified-id="⭕-Importing-and-Exporting-data-15"><span class="toc-item-num">15&nbsp;&nbsp;</span>⭕ Importing and Exporting data</a></span></li><li><span><a href="#⭕-User-Variables" data-toc-modified-id="⭕-User-Variables-16"><span class="toc-item-num">16&nbsp;&nbsp;</span>⭕ User Variables</a></span></li><li><span><a href="#⭕-Prepared-Statements" data-toc-modified-id="⭕-Prepared-Statements-17"><span class="toc-item-num">17&nbsp;&nbsp;</span>⭕ Prepared Statements</a></span></li><li><span><a href="#⭕-Stored-Procedures-and-Functions" data-toc-modified-id="⭕-Stored-Procedures-and-Functions-18"><span class="toc-item-num">18&nbsp;&nbsp;</span>⭕ Stored Procedures and Functions</a></span><ul class="toc-item"><li><span><a href="#⭕-Procedures" data-toc-modified-id="⭕-Procedures-18.1"><span class="toc-item-num">18.1&nbsp;&nbsp;</span>⭕ Procedures</a></span></li><li><span><a href="#Functions:-SQL" data-toc-modified-id="Functions:-SQL-18.2"><span class="toc-item-num">18.2&nbsp;&nbsp;</span>Functions: SQL</a></span><ul class="toc-item"><li><span><a href="#OUT-parameters" data-toc-modified-id="OUT-parameters-18.2.1"><span class="toc-item-num">18.2.1&nbsp;&nbsp;</span><code>OUT</code> parameters</a></span></li><li><span><a href="#DEFAULT-parameters" data-toc-modified-id="DEFAULT-parameters-18.2.2"><span class="toc-item-num">18.2.2&nbsp;&nbsp;</span>DEFAULT parameters</a></span></li><li><span><a href="#DECLARE-Variables" data-toc-modified-id="DECLARE-Variables-18.2.3"><span class="toc-item-num">18.2.3&nbsp;&nbsp;</span><code>DECLARE</code> Variables</a></span></li><li><span><a href="#⭕-TODO-IF/ELSEIF" data-toc-modified-id="⭕-TODO-IF/ELSEIF-18.2.4"><span class="toc-item-num">18.2.4&nbsp;&nbsp;</span>⭕ TODO IF/ELSEIF</a></span></li><li><span><a href="#SETOF-[table]" data-toc-modified-id="SETOF-[table]-18.2.5"><span class="toc-item-num">18.2.5&nbsp;&nbsp;</span>SETOF <code>[table]</code></a></span></li></ul></li><li><span><a href="#RETURN-NEXT" data-toc-modified-id="RETURN-NEXT-18.3"><span class="toc-item-num">18.3&nbsp;&nbsp;</span><code>RETURN NEXT</code></a></span></li><li><span><a href="#Quick-Proofing" data-toc-modified-id="Quick-Proofing-18.4"><span class="toc-item-num">18.4&nbsp;&nbsp;</span>Quick Proofing</a></span></li></ul></li><li><span><a href="#Counter" data-toc-modified-id="Counter-19"><span class="toc-item-num">19&nbsp;&nbsp;</span>Counter</a></span></li><li><span><a href="#⭕-Built-in-Functions" data-toc-modified-id="⭕-Built-in-Functions-20"><span class="toc-item-num">20&nbsp;&nbsp;</span>⭕ Built-in Functions</a></span><ul class="toc-item"><li><span><a href="#regexp_matches" data-toc-modified-id="regexp_matches-20.1"><span class="toc-item-num">20.1&nbsp;&nbsp;</span><code>regexp_matches</code></a></span></li><li><span><a href="#NULLIF(a,b)---returns-NULL-if-a-==-b" data-toc-modified-id="NULLIF(a,b)---returns-NULL-if-a-==-b-20.2"><span class="toc-item-num">20.2&nbsp;&nbsp;</span><code>NULLIF(a,b)</code> - returns <code>NULL</code> if <code>a == b</code></a></span></li><li><span><a href="#COALESCE(a,b)---prefer-b-if-a-==-null" data-toc-modified-id="COALESCE(a,b)---prefer-b-if-a-==-null-20.3"><span class="toc-item-num">20.3&nbsp;&nbsp;</span><code>COALESCE(a,b)</code> - prefer <code>b</code> if <code>a == null</code></a></span></li><li><span><a href="#CASE-...-END---if-else-blocks" data-toc-modified-id="CASE-...-END---if-else-blocks-20.4"><span class="toc-item-num">20.4&nbsp;&nbsp;</span><code>CASE</code> ... <code>END</code> - if else blocks</a></span></li></ul></li><li><span><a href="#⭕-Triggers" data-toc-modified-id="⭕-Triggers-21"><span class="toc-item-num">21&nbsp;&nbsp;</span>⭕ Triggers</a></span></li><li><span><a href="#⭕-DataBase-Metadata" data-toc-modified-id="⭕-DataBase-Metadata-22"><span class="toc-item-num">22&nbsp;&nbsp;</span>⭕ DataBase Metadata</a></span></li><li><span><a href="#⭕-Document-Model" data-toc-modified-id="⭕-Document-Model-23"><span class="toc-item-num">23&nbsp;&nbsp;</span>⭕ Document Model</a></span></li></ul></div>
+<div class="toc"><ul class="toc-item"><li><span><a href="#psql" data-toc-modified-id="psql-1"><span class="toc-item-num">1&nbsp;&nbsp;</span><code>psql</code></a></span><ul class="toc-item"><li><span><a href="#psql-Customizations" data-toc-modified-id="psql-Customizations-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>psql Customizations</a></span></li><li><span><a href="#Describe-&amp;-List" data-toc-modified-id="Describe-&amp;-List-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Describe &amp; List</a></span></li><li><span><a href="#Connect" data-toc-modified-id="Connect-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Connect</a></span></li><li><span><a href="#Import-&amp;-export" data-toc-modified-id="Import-&amp;-export-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Import &amp; export</a></span></li></ul></li><li><span><a href="#Tooling" data-toc-modified-id="Tooling-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Tooling</a></span></li><li><span><a href="#Data-Types" data-toc-modified-id="Data-Types-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Data Types</a></span><ul class="toc-item"><li><span><a href="#Numerics" data-toc-modified-id="Numerics-3.1"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Numerics</a></span><ul class="toc-item"><li><span><a href="#Serials-/-Sequences" data-toc-modified-id="Serials-/-Sequences-3.1.1"><span class="toc-item-num">3.1.1&nbsp;&nbsp;</span>Serials / Sequences</a></span></li></ul></li><li><span><a href="#Textual" data-toc-modified-id="Textual-3.2"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Textual</a></span><ul class="toc-item"><li><span><a href="#String-Functions" data-toc-modified-id="String-Functions-3.2.1"><span class="toc-item-num">3.2.1&nbsp;&nbsp;</span>String Functions</a></span></li></ul></li><li><span><a href="#Temporal-Data" data-toc-modified-id="Temporal-Data-3.3"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>Temporal Data</a></span></li><li><span><a href="#Arrays" data-toc-modified-id="Arrays-3.4"><span class="toc-item-num">3.4&nbsp;&nbsp;</span>Arrays</a></span><ul class="toc-item"><li><span><a href="#Array-Slicing-and-Splicing" data-toc-modified-id="Array-Slicing-and-Splicing-3.4.1"><span class="toc-item-num">3.4.1&nbsp;&nbsp;</span>Array Slicing and Splicing</a></span></li><li><span><a href="#Array-Containment-Checks" data-toc-modified-id="Array-Containment-Checks-3.4.2"><span class="toc-item-num">3.4.2&nbsp;&nbsp;</span>Array Containment Checks</a></span></li></ul></li><li><span><a href="#Range-Types" data-toc-modified-id="Range-Types-3.5"><span class="toc-item-num">3.5&nbsp;&nbsp;</span>Range Types</a></span><ul class="toc-item"><li><span><a href="#Tables" data-toc-modified-id="Tables-3.5.1"><span class="toc-item-num">3.5.1&nbsp;&nbsp;</span>Tables</a></span></li><li><span><a href="#overlap-operator" data-toc-modified-id="overlap-operator-3.5.2"><span class="toc-item-num">3.5.2&nbsp;&nbsp;</span><code>overlap</code> operator</a></span></li><li><span><a href="#contains-Operator" data-toc-modified-id="contains-Operator-3.5.3"><span class="toc-item-num">3.5.3&nbsp;&nbsp;</span><code>contains</code> Operator</a></span></li></ul></li><li><span><a href="#JSON" data-toc-modified-id="JSON-3.6"><span class="toc-item-num">3.6&nbsp;&nbsp;</span><code>JSON</code></a></span><ul class="toc-item"><li><span><a href="#Selecting-JOSN" data-toc-modified-id="Selecting-JOSN-3.6.1"><span class="toc-item-num">3.6.1&nbsp;&nbsp;</span>Selecting JOSN</a></span></li></ul></li><li><span><a href="#JSONB" data-toc-modified-id="JSONB-3.7"><span class="toc-item-num">3.7&nbsp;&nbsp;</span><code>JSONB</code></a></span><ul class="toc-item"><li><span><a href="#Editing-JSONB-data" data-toc-modified-id="Editing-JSONB-data-3.7.1"><span class="toc-item-num">3.7.1&nbsp;&nbsp;</span>Editing JSONB data</a></span></li></ul></li><li><span><a href="#⭕-XML" data-toc-modified-id="⭕-XML-3.8"><span class="toc-item-num">3.8&nbsp;&nbsp;</span>⭕ XML</a></span></li><li><span><a href="#TSVector" data-toc-modified-id="TSVector-3.9"><span class="toc-item-num">3.9&nbsp;&nbsp;</span>TSVector</a></span><ul class="toc-item"><li><span><a href="#TSQueries" data-toc-modified-id="TSQueries-3.9.1"><span class="toc-item-num">3.9.1&nbsp;&nbsp;</span>TSQueries</a></span></li><li><span><a href="#Search-Dictionary" data-toc-modified-id="Search-Dictionary-3.9.2"><span class="toc-item-num">3.9.2&nbsp;&nbsp;</span>Search Dictionary</a></span></li></ul></li></ul></li><li><span><a href="#⭕-Identifiers" data-toc-modified-id="⭕-Identifiers-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>⭕ Identifiers</a></span></li><li><span><a href="#⭕-Database" data-toc-modified-id="⭕-Database-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>⭕ Database</a></span></li><li><span><a href="#⭕-Tables-&amp;-Indexes" data-toc-modified-id="⭕-Tables-&amp;-Indexes-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>⭕ Tables &amp; Indexes</a></span></li><li><span><a href="#⭕-Database" data-toc-modified-id="⭕-Database-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>⭕ Database</a></span></li><li><span><a href="#Querying-for-Data" data-toc-modified-id="Querying-for-Data-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Querying for Data</a></span><ul class="toc-item"><li><span><a href="#DISTINCT" data-toc-modified-id="DISTINCT-8.1"><span class="toc-item-num">8.1&nbsp;&nbsp;</span><code>DISTINCT</code></a></span></li><li><span><a href="#WHERE-&amp;-OREDER-BY" data-toc-modified-id="WHERE-&amp;-OREDER-BY-8.2"><span class="toc-item-num">8.2&nbsp;&nbsp;</span><code>WHERE</code> &amp; <code>OREDER BY</code></a></span></li><li><span><a href="#AND,--OR-and-NOT" data-toc-modified-id="AND,--OR-and-NOT-8.3"><span class="toc-item-num">8.3&nbsp;&nbsp;</span><code>AND</code>,  <code>OR</code> and <code>NOT</code></a></span></li><li><span><a href="#BETWEEN" data-toc-modified-id="BETWEEN-8.4"><span class="toc-item-num">8.4&nbsp;&nbsp;</span><code>BETWEEN</code></a></span></li><li><span><a href="#Agregate-with-MIN,-MAX,-SUM-&amp;-AVG" data-toc-modified-id="Agregate-with-MIN,-MAX,-SUM-&amp;-AVG-8.5"><span class="toc-item-num">8.5&nbsp;&nbsp;</span>Agregate with <code>MIN</code>, <code>MAX</code>, <code>SUM</code> &amp; <code>AVG</code></a></span></li><li><span><a href="#Agregate-with--COUNT(*)" data-toc-modified-id="Agregate-with--COUNT(*)-8.6"><span class="toc-item-num">8.6&nbsp;&nbsp;</span>Agregate with  <code>COUNT(*)</code></a></span></li><li><span><a href="#Agregate-Group-Contcat" data-toc-modified-id="Agregate-Group-Contcat-8.7"><span class="toc-item-num">8.7&nbsp;&nbsp;</span>Agregate Group Contcat</a></span><ul class="toc-item"><li><span><a href="#CREATE-AGGREGATE" data-toc-modified-id="CREATE-AGGREGATE-8.7.1"><span class="toc-item-num">8.7.1&nbsp;&nbsp;</span><code>CREATE AGGREGATE</code></a></span></li></ul></li><li><span><a href="#LIKE" data-toc-modified-id="LIKE-8.8"><span class="toc-item-num">8.8&nbsp;&nbsp;</span><code>LIKE</code></a></span></li><li><span><a href="#SIMILAR-TO-~" data-toc-modified-id="SIMILAR-TO-~-8.9"><span class="toc-item-num">8.9&nbsp;&nbsp;</span>SIMILAR TO <code>~</code></a></span></li><li><span><a href="#Dealing-with-NULL" data-toc-modified-id="Dealing-with-NULL-8.10"><span class="toc-item-num">8.10&nbsp;&nbsp;</span>Dealing with <code>NULL</code></a></span></li><li><span><a href="#GROUP-BY" data-toc-modified-id="GROUP-BY-8.11"><span class="toc-item-num">8.11&nbsp;&nbsp;</span><code>GROUP BY</code></a></span><ul class="toc-item"><li><span><a href="#⭕-TODO:-WITH-ROLLUP" data-toc-modified-id="⭕-TODO:-WITH-ROLLUP-8.11.1"><span class="toc-item-num">8.11.1&nbsp;&nbsp;</span>⭕ <code>TODO: WITH ROLLUP</code></a></span></li></ul></li><li><span><a href="#HAVING" data-toc-modified-id="HAVING-8.12"><span class="toc-item-num">8.12&nbsp;&nbsp;</span><code>HAVING</code></a></span></li><li><span><a href="#UNION" data-toc-modified-id="UNION-8.13"><span class="toc-item-num">8.13&nbsp;&nbsp;</span><code>UNION</code></a></span></li><li><span><a href="#INTERSECT" data-toc-modified-id="INTERSECT-8.14"><span class="toc-item-num">8.14&nbsp;&nbsp;</span><code>INTERSECT</code></a></span></li><li><span><a href="#EXCEPT" data-toc-modified-id="EXCEPT-8.15"><span class="toc-item-num">8.15&nbsp;&nbsp;</span><code>EXCEPT</code></a></span></li><li><span><a href="#RETURNING" data-toc-modified-id="RETURNING-8.16"><span class="toc-item-num">8.16&nbsp;&nbsp;</span><code>RETURNING</code></a></span></li></ul></li><li><span><a href="#⭕-Indexes" data-toc-modified-id="⭕-Indexes-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>⭕ Indexes</a></span></li><li><span><a href="#⭕-SQL-Expressions" data-toc-modified-id="⭕-SQL-Expressions-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>⭕ SQL Expressions</a></span></li><li><span><a href="#⭕-Updating-Data" data-toc-modified-id="⭕-Updating-Data-11"><span class="toc-item-num">11&nbsp;&nbsp;</span>⭕ Updating Data</a></span></li><li><span><a href="#Joins" data-toc-modified-id="Joins-12"><span class="toc-item-num">12&nbsp;&nbsp;</span>Joins</a></span><ul class="toc-item"><li><span><a href="#INNER-JOIN" data-toc-modified-id="INNER-JOIN-12.1"><span class="toc-item-num">12.1&nbsp;&nbsp;</span><code>INNER JOIN</code></a></span></li><li><span><a href="#LEFT-(OUTTER)-JOIN" data-toc-modified-id="LEFT-(OUTTER)-JOIN-12.2"><span class="toc-item-num">12.2&nbsp;&nbsp;</span><code>LEFT (OUTTER) JOIN</code></a></span></li><li><span><a href="#LEFT-(OUTTER)-JOIN-*" data-toc-modified-id="LEFT-(OUTTER)-JOIN-*-12.3"><span class="toc-item-num">12.3&nbsp;&nbsp;</span><code>LEFT (OUTTER) JOIN</code> <sup>*</sup></a></span></li><li><span><a href="#RIGHT-(OUTTER)-JOIN" data-toc-modified-id="RIGHT-(OUTTER)-JOIN-12.4"><span class="toc-item-num">12.4&nbsp;&nbsp;</span><code>RIGHT (OUTTER) JOIN</code></a></span></li><li><span><a href="#RIGHT-(OUTTER)-JOIN-*" data-toc-modified-id="RIGHT-(OUTTER)-JOIN-*-12.5"><span class="toc-item-num">12.5&nbsp;&nbsp;</span><code>RIGHT (OUTTER) JOIN</code> <sup>*</sup></a></span></li><li><span><a href="#FULL-JOIN" data-toc-modified-id="FULL-JOIN-12.6"><span class="toc-item-num">12.6&nbsp;&nbsp;</span><code>FULL JOIN</code></a></span></li><li><span><a href="#CROSS-JOIN" data-toc-modified-id="CROSS-JOIN-12.7"><span class="toc-item-num">12.7&nbsp;&nbsp;</span><code>CROSS JOIN</code></a></span></li><li><span><a href="#SELF-JOIN" data-toc-modified-id="SELF-JOIN-12.8"><span class="toc-item-num">12.8&nbsp;&nbsp;</span><code>SELF JOIN</code></a></span></li><li><span><a href="#USING-keyword" data-toc-modified-id="USING-keyword-12.9"><span class="toc-item-num">12.9&nbsp;&nbsp;</span><code>USING</code> keyword</a></span></li><li><span><a href="#NATURAL-JOIN" data-toc-modified-id="NATURAL-JOIN-12.10"><span class="toc-item-num">12.10&nbsp;&nbsp;</span><code>NATURAL JOIN</code></a></span></li></ul></li><li><span><a href="#SubQueries" data-toc-modified-id="SubQueries-13"><span class="toc-item-num">13&nbsp;&nbsp;</span>SubQueries</a></span><ul class="toc-item"><li><span><a href="#EXISTS" data-toc-modified-id="EXISTS-13.1"><span class="toc-item-num">13.1&nbsp;&nbsp;</span><code>EXISTS</code></a></span></li><li><span><a href="#ANY" data-toc-modified-id="ANY-13.2"><span class="toc-item-num">13.2&nbsp;&nbsp;</span><code>ANY</code></a></span></li></ul></li><li><span><a href="#Views" data-toc-modified-id="Views-14"><span class="toc-item-num">14&nbsp;&nbsp;</span>Views</a></span><ul class="toc-item"><li><span><a href="#Droping-Views" data-toc-modified-id="Droping-Views-14.1"><span class="toc-item-num">14.1&nbsp;&nbsp;</span>Droping Views</a></span></li><li><span><a href="#Create-Or-Replace-Views" data-toc-modified-id="Create-Or-Replace-Views-14.2"><span class="toc-item-num">14.2&nbsp;&nbsp;</span>Create Or Replace Views</a></span></li><li><span><a href="#Inserting-Into-the-Views" data-toc-modified-id="Inserting-Into-the-Views-14.3"><span class="toc-item-num">14.3&nbsp;&nbsp;</span>Inserting Into the Views</a></span><ul class="toc-item"><li><span><a href="#TODO:-Adding-checks-to-prevent-bypassing-filters" data-toc-modified-id="TODO:-Adding-checks-to-prevent-bypassing-filters-14.3.1"><span class="toc-item-num">14.3.1&nbsp;&nbsp;</span>TODO: Adding checks to prevent bypassing filters</a></span></li></ul></li></ul></li><li><span><a href="#⭕-Importing-and-Exporting-data" data-toc-modified-id="⭕-Importing-and-Exporting-data-15"><span class="toc-item-num">15&nbsp;&nbsp;</span>⭕ Importing and Exporting data</a></span></li><li><span><a href="#⭕-User-Variables" data-toc-modified-id="⭕-User-Variables-16"><span class="toc-item-num">16&nbsp;&nbsp;</span>⭕ User Variables</a></span></li><li><span><a href="#⭕-Prepared-Statements" data-toc-modified-id="⭕-Prepared-Statements-17"><span class="toc-item-num">17&nbsp;&nbsp;</span>⭕ Prepared Statements</a></span></li><li><span><a href="#⭕-Stored-Procedures-and-Functions" data-toc-modified-id="⭕-Stored-Procedures-and-Functions-18"><span class="toc-item-num">18&nbsp;&nbsp;</span>⭕ Stored Procedures and Functions</a></span><ul class="toc-item"><li><span><a href="#Procedures" data-toc-modified-id="Procedures-18.1"><span class="toc-item-num">18.1&nbsp;&nbsp;</span>Procedures</a></span></li><li><span><a href="#Functions:-SQL" data-toc-modified-id="Functions:-SQL-18.2"><span class="toc-item-num">18.2&nbsp;&nbsp;</span>Functions: SQL</a></span><ul class="toc-item"><li><span><a href="#OUT-parameters" data-toc-modified-id="OUT-parameters-18.2.1"><span class="toc-item-num">18.2.1&nbsp;&nbsp;</span><code>OUT</code> parameters</a></span></li><li><span><a href="#DEFAULT-parameters" data-toc-modified-id="DEFAULT-parameters-18.2.2"><span class="toc-item-num">18.2.2&nbsp;&nbsp;</span>DEFAULT parameters</a></span></li><li><span><a href="#DECLARE-Variables" data-toc-modified-id="DECLARE-Variables-18.2.3"><span class="toc-item-num">18.2.3&nbsp;&nbsp;</span><code>DECLARE</code> Variables</a></span></li><li><span><a href="#⭕-TODO-IF/ELSEIF" data-toc-modified-id="⭕-TODO-IF/ELSEIF-18.2.4"><span class="toc-item-num">18.2.4&nbsp;&nbsp;</span>⭕ TODO IF/ELSEIF</a></span></li><li><span><a href="#SETOF-[table]" data-toc-modified-id="SETOF-[table]-18.2.5"><span class="toc-item-num">18.2.5&nbsp;&nbsp;</span>SETOF <code>[table]</code></a></span></li></ul></li><li><span><a href="#RETURN-NEXT" data-toc-modified-id="RETURN-NEXT-18.3"><span class="toc-item-num">18.3&nbsp;&nbsp;</span><code>RETURN NEXT</code></a></span></li><li><span><a href="#Quick-Proofing" data-toc-modified-id="Quick-Proofing-18.4"><span class="toc-item-num">18.4&nbsp;&nbsp;</span>Quick Proofing</a></span></li></ul></li><li><span><a href="#Counter" data-toc-modified-id="Counter-19"><span class="toc-item-num">19&nbsp;&nbsp;</span>Counter</a></span></li><li><span><a href="#Built-in-Functions" data-toc-modified-id="Built-in-Functions-20"><span class="toc-item-num">20&nbsp;&nbsp;</span>Built-in Functions</a></span><ul class="toc-item"><li><span><a href="#regexp_matches" data-toc-modified-id="regexp_matches-20.1"><span class="toc-item-num">20.1&nbsp;&nbsp;</span><code>regexp_matches</code></a></span></li><li><span><a href="#NULLIF(a,b)---returns-NULL-if-a-==-b" data-toc-modified-id="NULLIF(a,b)---returns-NULL-if-a-==-b-20.2"><span class="toc-item-num">20.2&nbsp;&nbsp;</span><code>NULLIF(a,b)</code> - returns <code>NULL</code> if <code>a == b</code></a></span></li><li><span><a href="#COALESCE(a,b)---prefer-b-if-a-==-null" data-toc-modified-id="COALESCE(a,b)---prefer-b-if-a-==-null-20.3"><span class="toc-item-num">20.3&nbsp;&nbsp;</span><code>COALESCE(a,b)</code> - prefer <code>b</code> if <code>a == null</code></a></span></li><li><span><a href="#CASE-...-END---if-else-blocks" data-toc-modified-id="CASE-...-END---if-else-blocks-20.4"><span class="toc-item-num">20.4&nbsp;&nbsp;</span><code>CASE</code> ... <code>END</code> - if else blocks</a></span></li></ul></li><li><span><a href="#⭕-Triggers" data-toc-modified-id="⭕-Triggers-21"><span class="toc-item-num">21&nbsp;&nbsp;</span>⭕ Triggers</a></span></li><li><span><a href="#⭕-DataBase-Metadata" data-toc-modified-id="⭕-DataBase-Metadata-22"><span class="toc-item-num">22&nbsp;&nbsp;</span>⭕ DataBase Metadata</a></span></li><li><span><a href="#⭕-Document-Model-/-JSON" data-toc-modified-id="⭕-Document-Model-/-JSON-23"><span class="toc-item-num">23&nbsp;&nbsp;</span>⭕ Document Model / JSON</a></span></li></ul></div>
 
 ```python
 %load_ext sql
@@ -11,17 +11,18 @@ postgresql://user:password@postgresql:5432/northwind
 result >>> 'Connected: user@northwind'
 ```
 
+Log into `task shell`
+
 ## `psql`
 
-```sql
-# not supported
-#  \?
-```
+Log into shell with `task shell`
+
+Not all commands are supported via `jupyter` / [`pgspecial`](https://pypi.org/project/pgspecial/)
 
 ```sql
 \d
 
-stdout >>> 15 rows affected.
+stdout >>> 14 rows affected.
 ```
 
 <table>
@@ -79,12 +80,6 @@ stdout >>> 15 rows affected.
         <tr>
             <td>public</td>
             <td>orders</td>
-            <td>table</td>
-            <td>user</td>
-        </tr>
-        <tr>
-            <td>public</td>
-            <td>perf_test</td>
             <td>table</td>
             <td>user</td>
         </tr>
@@ -127,11 +122,20 @@ stdout >>> 15 rows affected.
     </tbody>
 </table>
 
+Existing commands
+
 - `\t` - tuples only
 - `\a` - no extra breaking elements (added by psql)
 - `\q query.sql` - rediect to sql.
 - `\o`  stop redirection.
 - `\i query.sql` - execute generated script
+- `\du`
+- `\dp`
+- `\ds`
+- `\dv`
+- `\db`
+- `\dn`
+- `\dm`
 
 ### psql Customizations
 
@@ -151,10 +155,12 @@ stdout >>> 15 rows affected.
 
 ### Describe & List
 
+(supported commands)
+
 ```sql
 \dt
 
-stdout >>> 15 rows affected.
+stdout >>> 14 rows affected.
 ```
 
 <table>
@@ -212,12 +218,6 @@ stdout >>> 15 rows affected.
         <tr>
             <td>public</td>
             <td>orders</td>
-            <td>table</td>
-            <td>user</td>
-        </tr>
-        <tr>
-            <td>public</td>
-            <td>perf_test</td>
             <td>table</td>
             <td>user</td>
         </tr>
@@ -390,7 +390,7 @@ stdout >>> 4 rows affected.
 ```sql
 \d+
 
-stdout >>> 15 rows affected.
+stdout >>> 14 rows affected.
 ```
 
 <table>
@@ -458,7 +458,7 @@ stdout >>> 15 rows affected.
             <td>order_details</td>
             <td>table</td>
             <td>user</td>
-            <td>128 kB</td>
+            <td>120 kB</td>
             <td>None</td>
         </tr>
         <tr>
@@ -467,14 +467,6 @@ stdout >>> 15 rows affected.
             <td>table</td>
             <td>user</td>
             <td>144 kB</td>
-            <td>None</td>
-        </tr>
-        <tr>
-            <td>public</td>
-            <td>perf_test</td>
-            <td>table</td>
-            <td>user</td>
-            <td>1616 MB</td>
             <td>None</td>
         </tr>
         <tr>
@@ -528,11 +520,6 @@ stdout >>> 15 rows affected.
     </tbody>
 </table>
 
-```sql
-# not supported by jupyter
-#  \d+ table_name
-```
-
 ### Connect
 
 `\c pg_catalog` - coonect ot db
@@ -560,12 +547,13 @@ Export as html with `-H` option.
 ## Tooling
 
 * https://rextester.com/l/postgresql_online_compiler
+* https://explain.depesz.com/ - (explain)
 
-## ⭕ Data Types
+## Data Types
 
 ### Numerics
 
-#### Serials
+#### Serials / Sequences
 
 ```sql
 DROP SEQUENCE IF EXISTS s; 
@@ -1119,26 +1107,6 @@ stdout >>> 1 rows affected.
 </table>
 
 ```sql
--- need datetime column
--- SELECT array(
---     SELECT DISTINCT date_part('year', log_ts)
---     FROM logs
---     ORDER BY date_part('year', log_ts)
--- );
-
-stdout >>> (psycopg2.errors.UndefinedTable) relation "logs" does not exist
-stdout >>> LINE 3:     FROM logs
-stdout >>>                  ^
-stdout >>> 
-stdout >>> [SQL: SELECT array(
-stdout >>>     SELECT DISTINCT date_part('year', log_ts)
-stdout >>>     FROM logs
-stdout >>>     ORDER BY date_part('year', log_ts)
-stdout >>> );]
-stdout >>> (Background on this error at: http://sqlalche.me/e/14/f405)
-```
-
-```sql
 SELECT string_to_array('CA.MA.TX', '.') As estados;
 
 stdout >>> 1 rows affected.
@@ -1178,20 +1146,47 @@ stdout >>> 1 rows affected.
     </tbody>
 </table>
 
-```python
---- log ts
-SELECT array_agg(log_ts ORDER BY log_ts) As x
-FROM logs
-WHERE log_ts BETWEEN '2011-01-01'::timestamptz AND '2011-01-15'::timestamptz;”
+```sql
+-- column to array
+SELECT array_agg(data.region_description) AS x
+FROM (SELECT * FROM region) as data
+
+stdout >>> 1 rows affected.
 ```
 
-```python
-“SELECT array_agg(f.t)
- FROM ( VALUES ('{Alex,Sonia}'::text[]),
-    ('{46,43}'::text[] ) ) As f(t);”
+<table>
+    <thead>
+        <tr>
+            <th>x</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>[&#x27;Eastern&#x27;, &#x27;Western&#x27;, &#x27;Northern&#x27;, &#x27;Southern&#x27;]</td>
+        </tr>
+    </tbody>
+</table>
 
-Excerpt From: Regina O. Obe. “PostgreSQL.” Apple Books.
+```sql
+-- select into arrray from values
+SELECT array_agg(f.t)
+FROM ( VALUES ('{Alex,Sonia}'::text[]), ('{46,43}'::text[] ) ) As f(t)
+
+stdout >>> 1 rows affected.
 ```
+
+<table>
+    <thead>
+        <tr>
+            <th>array_agg</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>[[&#x27;Alex&#x27;, &#x27;Sonia&#x27;], [&#x27;46&#x27;, &#x27;43&#x27;]]</td>
+        </tr>
+    </tbody>
+</table>
 
 ```sql
 SELECT unnest('{XOX, OXO, XOX}'::char(3)[]) As tic_tac_toe;
@@ -1281,19 +1276,23 @@ stdout >>> 3 rows affected.
 #### Array Slicing and Splicing
 
 ```sql
-SELECT fact_subcats[2:4] FROM census.lu_fact_types;
+SELECT d.y[2:3] FROM (SELECT ARRAY[2001, 2002, 2003, 2004] as y ) as d
 
-stdout >>> (psycopg2.errors.UndefinedTable) relation "census.lu_fact_types" does not exist
-stdout >>> LINE 1: SELECT fact_subcats[2:4] FROM census.lu_fact_types;
-stdout >>>                                       ^
-stdout >>> 
-stdout >>> [SQL: SELECT fact_subcats[2:4] FROM census.lu_fact_types;]
-stdout >>> (Background on this error at: http://sqlalche.me/e/14/f405)
+stdout >>> 1 rows affected.
 ```
 
-```python
-SELECT fact_subcats[1:2] || fact_subcats[3:4] FROM census.lu_fact_types
-```
+<table>
+    <thead>
+        <tr>
+            <th>y</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>[2002, 2003]</td>
+        </tr>
+    </tbody>
+</table>
 
 ```sql
 SELECT '{1,2,3}'::integer[] || 4 || 5 AS x;
@@ -1314,19 +1313,943 @@ stdout >>> 1 rows affected.
     </tbody>
 </table>
 
-```python
+```sql
 SELECT
-    fact_subcats[1] AS primero,
-    fact_subcats[array_upper(fact_subcats, 1)] As segundo
-FROM census.lu_fact_types;
+    d.c[1] AS primero,
+    d.c[array_upper(d.c, 1)] AS segundo
+    FROM (SELECT ARRAY[0,1,2,3,4] as c ) as d
+
+stdout >>> 1 rows affected.
 ```
+
+<table>
+    <thead>
+        <tr>
+            <th>primero</th>
+            <th>segundo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0</td>
+            <td>4</td>
+        </tr>
+    </tbody>
+</table>
 
 #### Array Containment Checks
 
 `=`, `<>`, `<`, `>`, `@>`, `<@`, and `&&`. 
 
-```python
-page 139
+```sql
+-- contains - is all of 2,3 subset of the 1,2,3
+SELECT '{1,2,3}'::int[] @> '{3,2}'::int[] AS contains
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>contains</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>True</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+-- contained - is all of 1,2,3 subset of the 2,3
+SELECT '{1,2,3}'::int[] <@ '{3,2}'::int[] AS contains
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>contains</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>False</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+-- && any elements in common
+SELECT '{1,2,3}'::int[] && '{3,2}'::int[] AS contains
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>contains</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>True</td>
+        </tr>
+    </tbody>
+</table>
+
+### Range Types
+
+* `int4range`, `int8range` - A range of integers. Integer ranges are discrete and subject to canonicalization.
+* `numrange` - A continuous range of decimals, floating-point numbers, or double-precision numbers.
+* `daterange` - A discrete date range of calendar dates without time zone awareness.
+* `tsrange`, `tstzrange` - A continuous date and time (`timestamp`) range allowing for fractional seconds. tstrange is not time zone−aware; `tstzrange` is time zone−aware.
+
+```sql
+SELECT '[2013-01-05,2013-08-13]'::daterange;
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>daterange</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>[2013-01-05, 2013-08-14)</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT '(0,)'::int8range;
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>int8range</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>[1, None)</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT '(2013-01-05 10:00,2013-08-13 14:00]'::tsrange;
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>tsrange</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>(2013-01-05 10:00:00, 2013-08-13 14:00:00]</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT daterange('2013-01-05','infinity','[]');
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>daterange</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>[2013-01-05, 9999-12-31]</td>
+        </tr>
+    </tbody>
+</table>
+
+#### Tables
+
+```sql
+DROP TABLE IF EXISTS employment;
+CREATE TABLE IF NOT EXISTS employment (
+    id serial PRIMARY KEY, 
+    employee varchar(20), 
+    period daterange);
+
+CREATE INDEX ix_employment_period ON employment USING gist (period); 
+
+INSERT INTO employment (employee,period)
+VALUES
+	('Alex','[2012-04-24, infinity)'::daterange),
+	('Sonia','[2011-04-24, 2012-06-01)'::daterange),
+	('Leo','[2012-06-20, 2013-04-20)'::daterange),
+	('Regina','[2012-06-20, 2013-04-20)'::daterange);
+
+stdout >>> Done.
+stdout >>> Done.
+stdout >>> Done.
+stdout >>> 4 rows affected.
+result >>> []
+```
+
+#### `overlap` operator
+
+```sql
+SELECT
+    e1.employee,
+    string_agg(DISTINCT e2.employee, ', ' ORDER BY e2.employee) As colleagues
+FROM employment AS e1 
+INNER JOIN employment AS e2
+-- first opverlats in perion with e2
+ON e1.period && e2.period
+-- excluding employee itself
+WHERE e1.employee <> e2.employee
+GROUP BY e1.employee;
+
+stdout >>> 4 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>employee</th>
+            <th>colleagues</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Alex</td>
+            <td>Leo, Regina, Sonia</td>
+        </tr>
+        <tr>
+            <td>Leo</td>
+            <td>Alex, Regina</td>
+        </tr>
+        <tr>
+            <td>Regina</td>
+            <td>Alex, Leo</td>
+        </tr>
+        <tr>
+            <td>Sonia</td>
+            <td>Alex</td>
+        </tr>
+    </tbody>
+</table>
+
+#### `contains` Operator
+
+```sql
+SELECT employee FROM employment 
+WHERE period @> CURRENT_DATE 
+GROUP BY employee;
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>employee</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Alex</td>
+        </tr>
+    </tbody>
+</table>
+
+### `JSON`
+
+```sql
+DROP TABLE IF EXISTS persons;
+CREATE TABLE persons (id serial PRIMARY KEY, person json);
+
+INSERT INTO persons (person)
+VALUES (
+    '{
+        "name":"Sonia",
+        "spouse":
+        {
+            "name":"Alex",
+            "parents":
+            {
+                "father":"Rafael",
+                "mother":"Ofelia"
+            },
+            "phones":
+            [
+                {
+                    "type":"work",
+                    "number":"619-722-6719"
+                },
+                {
+                    "type":"cell",
+                    "number":"619-852-5083"
+                }
+            ]
+        },
+        "children":
+        [
+            {
+                "name":"Brandon",
+                "gender":"M"
+            },
+            {
+                "name":"Azaleah",
+                "girl": true,
+                "phones": []
+            }
+        ]
+    }'
+);
+
+stdout >>> Done.
+stdout >>> Done.
+stdout >>> 1 rows affected.
+result >>> []
+```
+
+```sql
+SELECT person->'name' FROM persons;
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>?column?</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Sonia</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT person->'spouse'->'parents'->'father' FROM persons;
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>?column?</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Rafael</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT person#>array['spouse','parents','father'] FROM persons;
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>?column?</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Rafael</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT person->'children'->0->'name' FROM persons;
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>?column?</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Brandon</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT person->'spouse'->'parents'->>'father' FROM persons
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>?column?</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Rafael</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT json_array_elements(person->'children')->>'name' As name FROM persons;
+
+stdout >>> 2 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Brandon</td>
+        </tr>
+        <tr>
+            <td>Azaleah</td>
+        </tr>
+    </tbody>
+</table>
+
+#### Selecting JOSN
+
+```sql
+SELECT row_to_json(f) As x
+FROM (
+    SELECT id, json_array_elements(person->'children')->>'name' As cname FROM persons
+) As f;
+
+stdout >>> 2 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>x</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{&#x27;id&#x27;: 1, &#x27;cname&#x27;: &#x27;Brandon&#x27;}</td>
+        </tr>
+        <tr>
+            <td>{&#x27;id&#x27;: 1, &#x27;cname&#x27;: &#x27;Azaleah&#x27;}</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT row_to_json(f) As jsoned_row FROM persons As f;
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>jsoned_row</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{&#x27;id&#x27;: 1, &#x27;person&#x27;: {&#x27;name&#x27;: &#x27;Sonia&#x27;, &#x27;spouse&#x27;: {&#x27;name&#x27;: &#x27;Alex&#x27;, &#x27;parents&#x27;: {&#x27;father&#x27;: &#x27;Rafael&#x27;, &#x27;mother&#x27;: &#x27;Ofelia&#x27;}, &#x27;phones&#x27;: [{&#x27;type&#x27;: &#x27;work&#x27;, &#x27;number&#x27;: &#x27;619-722-6719&#x27;}, {&#x27;type&#x27;: &#x27;cell&#x27;, &#x27;number&#x27;: &#x27;619-852-5083&#x27;}]}, &#x27;children&#x27;: [{&#x27;name&#x27;: &#x27;Brandon&#x27;, &#x27;gender&#x27;: &#x27;M&#x27;}, {&#x27;name&#x27;: &#x27;Azaleah&#x27;, &#x27;girl&#x27;: True, &#x27;phones&#x27;: []}]}}</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+DROP TABLE IF EXISTS persons;
+
+stdout >>> Done.
+result >>> []
+```
+
+### `JSONB`
+
+```sql
+CREATE TABLE persons_b (id serial PRIMARY KEY, person jsonb);
+
+INSERT INTO persons_b (person)
+VALUES (
+    '{
+        "name":"Sonia",
+        "spouse":
+        {
+            "name":"Alex",
+            "parents":
+            {
+                "father":"Rafael",
+                "mother":"Ofelia"
+            },
+            "phones":
+            [
+                {
+                    "type":"work",
+                    "number":"619-722-6719"
+                },
+                {
+                    "type":"cell",
+                    "number":"619-852-5083"
+                }
+            ]
+        },
+        "children":
+        [
+            {
+                "name":"Brandon",
+                "gender":"M"
+            },
+            {
+                "name":"Azaleah",
+                "girl": true,
+                "phones": []
+            }
+        ]
+    }'
+);
+
+stdout >>> Done.
+stdout >>> 1 rows affected.
+result >>> []
+```
+
+```sql
+SELECT person As b FROM persons_b WHERE id = 1
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>b</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{&#x27;name&#x27;: &#x27;Sonia&#x27;, &#x27;spouse&#x27;: {&#x27;name&#x27;: &#x27;Alex&#x27;, &#x27;phones&#x27;: [{&#x27;type&#x27;: &#x27;work&#x27;, &#x27;number&#x27;: &#x27;619-722-6719&#x27;}, {&#x27;type&#x27;: &#x27;cell&#x27;, &#x27;number&#x27;: &#x27;619-852-5083&#x27;}], &#x27;parents&#x27;: {&#x27;father&#x27;: &#x27;Rafael&#x27;, &#x27;mother&#x27;: &#x27;Ofelia&#x27;}}, &#x27;children&#x27;: [{&#x27;name&#x27;: &#x27;Brandon&#x27;, &#x27;gender&#x27;: &#x27;M&#x27;}, {&#x27;girl&#x27;: True, &#x27;name&#x27;: &#x27;Azaleah&#x27;, &#x27;phones&#x27;: []}]}</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT person->>'name' As name
+FROM persons_b
+WHERE person @> '{"children":[{"name":"Brandon"}]}';
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Sonia</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+DROP INDEX IF EXISTS ix_persons_jb_person_gin;
+CREATE INDEX ix_persons_jb_person_gin ON persons_b USING gin (person);
+
+stdout >>> Done.
+stdout >>> Done.
+result >>> []
+```
+
+#### Editing JSONB data
+
+```sql
+-- Concatenation
+
+UPDATE persons_b
+SET person = person || '{"address": "Somewhere in San Diego, CA"}'::jsonb
+WHERE person @> '{"name":"Sonia"}'
+RETURNING person
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>person</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{&#x27;name&#x27;: &#x27;Sonia&#x27;, &#x27;spouse&#x27;: {&#x27;name&#x27;: &#x27;Alex&#x27;, &#x27;phones&#x27;: [{&#x27;type&#x27;: &#x27;work&#x27;, &#x27;number&#x27;: &#x27;619-722-6719&#x27;}, {&#x27;type&#x27;: &#x27;cell&#x27;, &#x27;number&#x27;: &#x27;619-852-5083&#x27;}], &#x27;parents&#x27;: {&#x27;father&#x27;: &#x27;Rafael&#x27;, &#x27;mother&#x27;: &#x27;Ofelia&#x27;}}, &#x27;address&#x27;: &#x27;Somewhere in San Diego, CA&#x27;, &#x27;children&#x27;: [{&#x27;name&#x27;: &#x27;Brandon&#x27;, &#x27;gender&#x27;: &#x27;M&#x27;}, {&#x27;girl&#x27;: True, &#x27;name&#x27;: &#x27;Azaleah&#x27;, &#x27;phones&#x27;: []}]}</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+-- drop adress from rows where name is sonia
+UPDATE persons_b
+    SET person = person - 'address'
+WHERE person @> '{"name":"Sonia"}';
+
+stdout >>> 1 rows affected.
+result >>> []
+```
+
+```sql
+UPDATE persons_b
+-- path denotion, update will work for second child of sonia, girsl wil be removed
+SET  person = person #- '{children,1,girl}'::text[]
+WHERE person @> '{"name":"Sonia"}'
+RETURNING person->'children'->1;
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>?column?</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{&#x27;name&#x27;: &#x27;Azaleah&#x27;, &#x27;phones&#x27;: []}</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+UPDATE persons_b 
+SET 
+person = jsonb_set(person,'{children,1,gender}'::text[],'"F"'::jsonb, true)
+WHERE person @> '{"name":"Sonia"}'
+RETURNING person
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>person</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{&#x27;name&#x27;: &#x27;Sonia&#x27;, &#x27;spouse&#x27;: {&#x27;name&#x27;: &#x27;Alex&#x27;, &#x27;phones&#x27;: [{&#x27;type&#x27;: &#x27;work&#x27;, &#x27;number&#x27;: &#x27;619-722-6719&#x27;}, {&#x27;type&#x27;: &#x27;cell&#x27;, &#x27;number&#x27;: &#x27;619-852-5083&#x27;}], &#x27;parents&#x27;: {&#x27;father&#x27;: &#x27;Rafael&#x27;, &#x27;mother&#x27;: &#x27;Ofelia&#x27;}}, &#x27;children&#x27;: [{&#x27;name&#x27;: &#x27;Brandon&#x27;, &#x27;gender&#x27;: &#x27;M&#x27;}, {&#x27;name&#x27;: &#x27;Azaleah&#x27;, &#x27;gender&#x27;: &#x27;F&#x27;, &#x27;phones&#x27;: []}]}</td>
+        </tr>
+    </tbody>
+</table>
+
+### ⭕ XML
+
+### TSVector
+
+```sql
+SELECT 'When a good man goes to war'::tsvector @@ 'good & war'::tsquery as Result
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>True</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT 'When a good man goes to war'::tsvector @@ to_tsquery('good & war') as Result
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>True</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT 'When a good man goes to war'::tsvector @@ 'good & war'::tsquery as Result
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>True</td>
+        </tr>
+    </tbody>
+</table>
+
+Search adjacent string combination
+
+```sql
+SELECT to_tsvector('When a good man goes to war') @@ to_tsquery('good <-> man') as Result
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>True</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT 'When a good man goes to war'::tsvector @@ to_tsquery('good <-> man') as Result
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>False</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT to_tsvector('When a good man goes to war') @@ to_tsquery('good <2> goes')  as Result
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>True</td>
+        </tr>
+    </tbody>
+</table>
+
+#### TSQueries
+
+```sql
+SELECT to_tsvector('good man goes') @@ to_tsquery('good <2> patel') as Result
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>result</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>False</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT to_tsquery('business & analytics');
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>to_tsquery</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>&#x27;busi&#x27; &amp; &#x27;analyt&#x27;</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT to_tsquery('english','business & analytics');
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>to_tsquery</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>&#x27;busi&#x27; &amp; &#x27;analyt&#x27;</td>
+        </tr>
+    </tbody>
+</table>
+
+#### Search Dictionary
+
+- https://stackoverflow.com/questions/41715609
+
+```sql
+\dt pg_catalog.pg_language
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>Schema</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Owner</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>pg_catalog</td>
+            <td>pg_language</td>
+            <td>table</td>
+            <td>user</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT plainto_tsquery('business analytics');
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>plainto_tsquery</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>&#x27;busi&#x27; &amp; &#x27;analyt&#x27;</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+-- combine tsquery (|| or condition)
+SELECT plainto_tsquery('business analyst') || phraseto_tsquery('data scientist');
+
+stdout >>> 1 rows affected.
+```
+
+<table>
+    <thead>
+        <tr>
+            <th>?column?</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>&#x27;busi&#x27; &amp; &#x27;analyst&#x27; | &#x27;data&#x27; &lt;-&gt; &#x27;scientist&#x27;</td>
+        </tr>
+    </tbody>
+</table>
+
+```sql
+SELECT 'lazy dog and datascientist'::tsquery
+
+stdout >>> (psycopg2.errors.SyntaxError) syntax error in tsquery: "lazy dog and datascientist"
+stdout >>> LINE 1: SELECT 'lazy dog and datascientist'::tsquery
+stdout >>>                ^
+stdout >>> 
+stdout >>> [SQL: SELECT 'lazy dog and datascientist'::tsquery]
+stdout >>> (Background on this error at: https://sqlalche.me/e/14/f405)
+```
+
+```sql
+-- add dataset
+SELECT left(title,50) As title, left(description,50) as description
+FROM film
+WHERE fts @@ to_tsquery('hunter & (scientist | chef)') AND title > ''
+
+stdout >>> (psycopg2.errors.UndefinedTable) relation "film" does not exist
+stdout >>> LINE 3: FROM film
+stdout >>>              ^
+stdout >>> 
+stdout >>> [SQL: -- add dataset
+stdout >>> SELECT left(title,50) As title, left(description,50) as description
+stdout >>> FROM film
+stdout >>> WHERE fts @@ to_tsquery('hunter & (scientist | chef)') AND title > '']
+stdout >>> (Background on this error at: https://sqlalche.me/e/14/f405)
 ```
 
 ## ⭕ Identifiers
@@ -1936,12 +2859,12 @@ stdout >>> 3 rows affected.
             <td>5042.200035095215</td>
         </tr>
         <tr>
-            <td>WELLI</td>
-            <td>6480.69997215271</td>
+            <td>BOLID</td>
+            <td>5297.800024032593</td>
         </tr>
         <tr>
-            <td>PRINI</td>
-            <td>5317.100019454956</td>
+            <td>SANTG</td>
+            <td>5735.1500153541565</td>
         </tr>
     </tbody>
 </table>
@@ -2032,7 +2955,7 @@ stdout >>> 1 rows affected.
 
 Alternative to `GROUP_CONCAT`
 
-#### ⭕ `TODO: AGGREGATE`
+#### `CREATE AGGREGATE`
 
 ```sql
 CREATE AGGREGATE group_concat (anyelement)
@@ -2285,18 +3208,6 @@ stdout >>> 7 rows affected.
             <td>5042.200035095215</td>
         </tr>
         <tr>
-            <td>WELLI</td>
-            <td>6480.69997215271</td>
-        </tr>
-        <tr>
-            <td>PRINI</td>
-            <td>5317.100019454956</td>
-        </tr>
-        <tr>
-            <td>ISLAT</td>
-            <td>6146.299984931946</td>
-        </tr>
-        <tr>
             <td>BOLID</td>
             <td>5297.800024032593</td>
         </tr>
@@ -2307,6 +3218,18 @@ stdout >>> 7 rows affected.
         <tr>
             <td>BSBEV</td>
             <td>6089.899990081787</td>
+        </tr>
+        <tr>
+            <td>WELLI</td>
+            <td>6480.69997215271</td>
+        </tr>
+        <tr>
+            <td>PRINI</td>
+            <td>5317.100019454956</td>
+        </tr>
+        <tr>
+            <td>ISLAT</td>
+            <td>6146.299984931946</td>
         </tr>
     </tbody>
 </table>
@@ -2478,10 +3401,10 @@ stdout >>> 2 rows affected.
     </thead>
     <tbody>
         <tr>
-            <td>Argentina</td>
+            <td>Italy</td>
         </tr>
         <tr>
-            <td>Spain</td>
+            <td>Venezuela</td>
         </tr>
     </tbody>
 </table>
@@ -2506,10 +3429,10 @@ stdout >>> 2 rows affected.
     </thead>
     <tbody>
         <tr>
-            <td>Argentina</td>
+            <td>Italy</td>
         </tr>
         <tr>
-            <td>Argentina</td>
+            <td>Italy</td>
         </tr>
     </tbody>
 </table>
@@ -2525,7 +3448,7 @@ data = UPDATE employees SET title_of_courtesy = 'Mrs' WHERE employee_id = 1 RETU
 data[0]
 
 stdout >>> 1 rows affected.
-result >>> (1, 'Davolio', 'Nancy', 'Sales Representative', 'Mrs', datetime.date(1948, 12, 8), datetime.date(1992, 5, 1), '507 - 20th Ave. E.\\nApt. 2A', 'Seattle', 'WA', '98122', 'USA', '(206) 555-9857', '5467', <memory at 0x7f5a92c41c40>, 'Education includes a BA in psychology from Colorado State University in 1970.  She also completed The Art of the Cold Call.  Nancy is a member of Toastmasters International.', 2, 'http://accweb/emmployees/davolio.bmp')
+result >>> (1, 'Davolio', 'Nancy', 'Sales Representative', 'Mrs', datetime.date(1948, 12, 8), datetime.date(1992, 5, 1), '507 - 20th Ave. E.\\nApt. 2A', 'Seattle', 'WA', '98122', 'USA', '(206) 555-9857', '5467', <memory at 0x7f308275b400>, 'Education includes a BA in psychology from Colorado State University in 1970.  She also completed The Art of the Cold Call.  Nancy is a member of Toastmasters International.', 2, 'http://accweb/emmployees/davolio.bmp')
 ```
 
 ```sql
@@ -2657,7 +3580,7 @@ stdout >>> 1 rows affected.
     </thead>
     <tbody>
         <tr>
-            <td>PostgreSQL 13.3 (Debian 13.3-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit</td>
+            <td>PostgreSQL 13.4 (Debian 13.4-4.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit</td>
         </tr>
     </tbody>
 </table>
@@ -2931,44 +3854,44 @@ stdout >>> 5 rows affected.
     </thead>
     <tbody>
         <tr>
-            <td>1996-07-22</td>
-            <td>Chef Anton&#x27;s Gumbo Mix</td>
+            <td>1997-05-06</td>
+            <td>Queso Cabrales</td>
             <td>USA</td>
-            <td>21.35</td>
-            <td>Paula Wilson</td>
-            <td>Rattlesnake Canyon Grocery</td>
+            <td>21.0</td>
+            <td>Howard Snyder</td>
+            <td>Great Lakes Food Market</td>
         </tr>
         <tr>
-            <td>1996-07-22</td>
-            <td>Uncle Bob&#x27;s Organic Dried Pears</td>
-            <td>USA</td>
-            <td>30.0</td>
-            <td>Paula Wilson</td>
-            <td>Rattlesnake Canyon Grocery</td>
-        </tr>
-        <tr>
-            <td>1996-07-22</td>
-            <td>Gnocchi di nonna Alice</td>
-            <td>USA</td>
-            <td>38.0</td>
-            <td>Paula Wilson</td>
-            <td>Rattlesnake Canyon Grocery</td>
-        </tr>
-        <tr>
-            <td>1996-07-31</td>
+            <td>1997-05-06</td>
             <td>Geitost</td>
             <td>USA</td>
             <td>2.5</td>
-            <td>Karl Jablonski</td>
-            <td>White Clover Markets</td>
+            <td>Howard Snyder</td>
+            <td>Great Lakes Food Market</td>
         </tr>
         <tr>
-            <td>1996-07-31</td>
+            <td>1997-05-06</td>
             <td>Mozzarella di Giovanni</td>
             <td>USA</td>
             <td>34.8</td>
-            <td>Karl Jablonski</td>
-            <td>White Clover Markets</td>
+            <td>Howard Snyder</td>
+            <td>Great Lakes Food Market</td>
+        </tr>
+        <tr>
+            <td>1997-07-04</td>
+            <td>Steeleye Stout</td>
+            <td>USA</td>
+            <td>18.0</td>
+            <td>Howard Snyder</td>
+            <td>Great Lakes Food Market</td>
+        </tr>
+        <tr>
+            <td>1997-07-31</td>
+            <td>Côte de Blaye</td>
+            <td>USA</td>
+            <td>263.5</td>
+            <td>Howard Snyder</td>
+            <td>Great Lakes Food Market</td>
         </tr>
     </tbody>
 </table>
@@ -3673,10 +4596,10 @@ stdout >>> 3 rows affected.
             <td>Ernst Handel</td>
         </tr>
         <tr>
-            <td>QUICK-Stop</td>
+            <td>Save-a-lot Markets</td>
         </tr>
         <tr>
-            <td>Save-a-lot Markets</td>
+            <td>QUICK-Stop</td>
         </tr>
     </tbody>
 </table>
@@ -3700,10 +4623,10 @@ stdout >>> 3 rows affected.
             <td>Ernst Handel</td>
         </tr>
         <tr>
-            <td>QUICK-Stop</td>
+            <td>Save-a-lot Markets</td>
         </tr>
         <tr>
-            <td>Save-a-lot Markets</td>
+            <td>QUICK-Stop</td>
         </tr>
     </tbody>
 </table>
@@ -3742,7 +4665,7 @@ stdout >>> 3 rows affected.
     </tbody>
 </table>
 
-## ⭕ Views
+## Views
 
 ```sql
 CREATE VIEW view_products_of_suppliers as 
@@ -3841,7 +4764,7 @@ result >>> []
 
 ```sql
 INSERT INTO employees (employee_id, first_name, last_name, title_of_courtesy)
-VALUES (11, 'Johnna', 'Dow', 'Ms')
+VALUES (12, 'Johnna', 'Dow', 'Ms')
 RETURNING title_of_courtesy, first_name, last_name
 
 stdout >>> 1 rows affected.
@@ -3877,7 +4800,7 @@ stdout >>> 1 rows affected.
 
 ## ⭕ Stored Procedures and Functions
 
-### ⭕ Procedures
+### Procedures
 
 ```sql
 DROP PROCEDURE IF EXISTS test_proc();
@@ -4286,7 +5209,7 @@ stdout >>> Done.
 result >>> []
 ```
 
-## ⭕ Built-in Functions
+## Built-in Functions
 
 ### `regexp_matches`
 
@@ -4430,12 +5353,4 @@ stdout >>> 5 rows affected.
 
 ## ⭕ DataBase Metadata
 
-## ⭕ Document Model
-
-* https://app.pluralsight.com/library/courses/postgresql-document-database/table-of-contents
-
-
-create or replace funcname(int) return data as $$
-
---
-SELECT * INTO tmp_customers FROM customes;
+## ⭕ Document Model / JSON

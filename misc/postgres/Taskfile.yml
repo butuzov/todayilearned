@@ -11,12 +11,13 @@ tasks:
       - echo "{{.GREETING}}"
     silent: true
 
-  up: docker-compose {{.DOCKERCOMPOSE}} up -d && sleep 5 &&  open "http://localhost:5440"
+  up: docker-compose {{.DOCKERCOMPOSE}} up -d && sleep 5 &&  open "http://localhost:8888"
   logs: docker-compose {{.DOCKERCOMPOSE}} logs postgresql
   down:  docker-compose {{.DOCKERCOMPOSE}} down
   teardown:  docker-compose {{.DOCKERCOMPOSE}} down -v
 
   shell: docker exec -it sandboxpg-dbserver psql -U user -h localhost -d northwind
+
 
   ps: docker-compose {{.DOCKERCOMPOSE}} ps
   ls: docker-compose {{.DOCKERCOMPOSE}} ps
