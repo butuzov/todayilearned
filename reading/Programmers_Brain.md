@@ -1,8 +1,20 @@
 # Programmer's Brain
 
+
+Notes on https://www.manning.com/books/the-programmers-brain 
+
 ## READING CODE BETTER
 
 ### Decoding Your Confusion While Coding
+
+Confusion
+
+It identifies three things. Lack of Knowledge, Lack of Information and Lack of Processing Power.
+
+- lack of information - basically, you don’t know enough about the project / code you are looking at
+- lack of knowledge - you lack knowledge about the thing you are doing, i.e.: some obscure language syntax you are unfamiliar with
+- lack of processing power - the code chunk you are looking at is too large, or you should break it down
+
 
 ### Speed Reading For Code
 
@@ -100,20 +112,165 @@ over time.
 
 ### Getting Better At Solving Programming Problems
 
+What **mental models** you will use to think about code partly depends on the domain, the programming language, and the architecture of the code. However, some things are generally worth using:
+- Data structures, such as directed and undirected graphs and different forms of lists 
+- Design patterns, such as the observer pattern
+- Architectural patterns, such as Model–View–Controller
+- Diagrams, such as entity relationship diagrams or sequence diagrams
+- Modeling tools, such as state diagrams or Petri nets
+
+
 ### Misconceptions: Bugs In Thinking
+
+In regular conversation, the word “misconception” is often used as a synonym for a mistake or for being confused, but the formal definition is slightly different. For a belief to be a misconception, it must:
+- be faulty,
+- be held consistently, across different situations, and 
+- be held with confidence.
+
+
+Summary:
+    
+- Knowledge you already have stored in your LTM can be transferred to new situ- ations. Sometimes existing knowledge helps you learn faster or perform new tasks better. This is called positive transfer.
+- Transfer of knowledge from one domain to another can also be negative, which happens when existing knowledge interferes with learning new things or exe- cuting new tasks.
+- You can use positive transfer to learn new things more effectively by actively searching for related information in your LTM (for example, by elaboration, as covered earlier in the book).
+- You may hold misconceptions, which occur when you are sure you are right but are actually wrong.
+- Misconceptions are not always addressed by simply realizing or being told you are wrong. For misconceptions to be fixed, you need a new mental model to replace the old, wrong model.
+- Even if you have learned a correct model, there is always the risk you will fall back to using the misconception.
+- Use tests and documentation within a codebase to help prevent misconceptions.
 
 ## WRITING CODE BETTER
 
 ### How To Get Better At Naming Things 
 
+https://peter.bourgon.org/blog/2019/04/24/go-naming-tips.html
+
+- Structs are plain nouns: API, Replica, Object
+- Interfaces are active nouns: Reader, Writer, JobProcessor
+- Functions and methods are verbs: Read, Process, Sync
+
+Feitelson designed a three-step model to help developers choose better names:
+
+1. Select the concepts to include in the name.
+2. Choose the words to represent each concept.
+3. Construct a name using these words.
+
+general tips
+
+- Make sure you completely understand the domain
+- Simplify the code
+- Avoid bad code and cognitive load
+
 ### Avoiding Bad Code And Cognitive Load: Two Frameworks
 
-### Getting Better At Solving Complex Problemsaa
+Refactorings defiend by Fauler's book (avoid it).
+
+#### Method Level
+- Long Methods
+- Long Parameter List
+- Switch statements
+
+#### Class Level 
+- Alternative Classes with different Interfaces
+- Primitive obsession  
+- Incomplete Library class  
+- Large Class
+- Lazy Class 
+- Data Class 
+- Temp fields
+- Data Clumps
+
+#### Codebase level 
+
+- Divergent Change | Shotgun surgery  
+- Feature Envy
+- Inappropriate intimacy  
+- Duplicate code or code clones
+- Superflouse comments
+- Message Chains  
+- Middle man 
+- Refused bequest  
+- Speculative generality  
+
+- `Structural`: Code is okay, but structured in a way that is difficult to understand and process -> increases cognitive load. 
+- `Linguistic`: Bad / misleading names lead to confusion and bugs.
+
+##### Summary 
+- Code smells, such as long methods, indicate structural issues with code. There are different cognitive reasons why code smells cause a higher cognitive load. Duplicated code, for example, makes it harder to chunk code properly, while long parameter lists are heavy on your working memory.
+- There are different ways to measure cognitive load, including biometric sensors like measuring blinking rate or skin temperature. If you want to measure your own cognitive load, the Paas Scale typically is a reliable instrument.
+- Linguistic antipatterns indicate places in a codebase where code does some thing different than names involved suggest, leading to a higher cognitive load. This is likely caused by the fact that your LTM finds wrong facts while trying to support your thinking. Linguistic antipatterns can also lead to wrong chunking because your brain assumes a meaning of code that is not actually implemented.
+
+### Getting Better At Solving Complex Problems
+
+> In 1945, Pólya wrote a short and famous book called How to Solve It. His book proposes a “system of thinking” to solve any problem involving three steps: 
+> 1. Understanding the problem 
+> 2. Devising a plan 
+> 3. Carrying out the plan
+>
+> **However, despite the popularity of generic approaches, research has consistently shown that problem solving is neither a generic skill nor a cognitive process.**
 
 ## COLLABORATING ON CODE
 
 ### The Act Of Writing Code
 
+Activity        | task: Executing | task: Coding | task: Testing | task: Reading | task: Refactoring | Hard On  |
+----------------|-----------------|--------------|---------------|---------------|-------------------|---------|
+Searching       |x| | |x| | Short-term memory
+Comprehension   |x| |?|x|?| Working memory
+Transcribing    | |x| | | | Long-term memory
+Incrementation  |x|x|x|x|?| All three
+Exploration     |x|x|x|x|?| All three
+
+
+* __*Searching*__ - code searching.
+* __*Comprehension*__ - When you are performing the activity of comprehension, you are reading and executing code to gain an understanding of its functionality
+* __*Transcription*__ - Transcription is the activity where you are “just coding.”
+* __*Incrementation*__ - Incrementation is a mix of searching, comprehension, and transcription. When you are incrementing a code base, you are adding a new feature, which is likely to include both searching for the location(s) to add code and comprehending the existing code to understand where to add code and how to do that, followed by the actual transcrib- ing of the idea into syntax.
+* __*Exploration*__ - When you are performing the activity of exploration, you are in essence sketching with code. You might have a vague idea of where you want to go, but by programming you gain clarity about the domain of the problem and about the programming constructs you will need to use.
+
+##### Summary 
+- When you are programming, you perform a combination of different program- ming activities: searching, comprehending, transcription, incrementation, and exploration. Each activity puts pressure on different memory systems. There- fore, each activity should be supported by different techniques.
+- Interruptions while you are programming are not only annoying; they are detri- mental to productivity because it takes time to rebuild your mental model of the code.
+- To better deal with interruptions, offload mental models into notes, documen- tation, or comments.
+- Deliberately support your prospective memory if you cannot complete a task by documenting your plans.
+- Try to limit interruptions to moments you experience low cognitive load, for example, through automation using a FlowLight or manually by setting your status in Slack.
+
+
 ### Designing And Improving Larger Systems
 
+#### `CDCB` cognitive dimension of codebases
+
+- **Error Proneness** This one is mostly about type safety and how easy it is in your code to make errors.
+
+- **Consistency** How consistent is your code with itself. Naming, structure, where and why things are where they are. Paradigms, idioms being used…
+
+- **Diffuseness** How much space a programming construct takes. How long certain required syntaxes are. Things like for loops, and language structures. How compact or extent the code is.
+
+- **Hidden Dependencies** How visible are the code’s dependencies. Are there hidden things the user needs but is not apparent and not documented?
+
+- **Provisionality Exploring** ideas can help when writing code. You start writing and that will give you ideas about how to proceed further. Your vague ideas become more concrete. Some language can be used better to do this because they don’t get in your way. Like Python, JavaScript. Go is strictly typed and will scream at you if you make a mistake. That can hinder exploration.
+
+- **Viscosity** How resistant is your code to changes.
+
+- **Progressive Evaluation Similar to Provisionality, this dimensions defines how hard it is to execute partial code.
+
+- **Role expressiveness** How easy it is to see what does what. Like, in Ruby it’s difficult to see if something is a function call or a variable. thing.other. Other might be anything. Meanwhile in other languages it’s easy to see that thing() is a function.
+
+- **Closeness of Mapping** How close your program is to the domain / problem that is solved.
+
+- **Hard Mental Operations** The code requires hard mental operations, such as, deciphering obscure syntax, or understanding hard idioms like monads and difficult to follow type systems. If your project requires hard mental operations, contributors are less likely to join it.
+
+- **Secondary Notation** This one is weird. Second meaning to code, such as comments and named parameters.
+
+- **Abstraction** Can users of your system create their own abstractions which are as powerful as built in abstractions. For example functions in a programming language. In Go I would say interfaces provide this abstraction since a user of a Library can create their own Interface over some functionality of a library and use that and pass in the libraries function.
+
+- **Visibility** How easy is it to see parts of the system. Is your folder structure following your architecture layers?
+
 ### How To Onboard New Developers
+
+- **Don’t overload newcomers**. They need to learn a LOT about your environment, group dynamic, team procedures, issue handling, break routines… and I didn’t even begin talking about code yet…
+
+- **Once you master something you forget how difficult it was**. This is a great point we tend to forget. You have a better view of the big picture. You know parts of the code better. Beginners tend to focus on detail more and don’t see the big picture yet. You tend to think that that stuff is “easy”. Since you already forgot how difficult it is/was.
+
+- **Noticing patterns**. Even if you don’t immediately have an answer to a problem you’ll be faster in finding it. You can chunk code better, you can read code faster and spot certain patterns more efficiently since you already encountered them a hundred times over.
+
+- **Semantic Wave** This one is a really interesting concept. It depicts the ideal learning curve of a newcomer. Coin by Karl Maton. Read about it here.
