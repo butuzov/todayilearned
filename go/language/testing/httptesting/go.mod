@@ -11,8 +11,7 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.0.0
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/imkira/go-interpol v1.1.0 // indirect
-	github.com/labstack/echo/v4 v4.5.0
-	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/labstack/echo/v4 v4.9.0
 	github.com/onsi/gomega v1.16.0 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/smartystreets/goconvey v1.6.4 // indirect
@@ -23,9 +22,5 @@ require (
 	github.com/yudai/gojsondiff v1.0.0 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	github.com/yudai/pp v2.0.1+incompatible // indirect
-	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
-	golang.org/x/net v0.0.0-20210908191846-a5e095526f91 // indirect
-	golang.org/x/sys v0.0.0-20210910150752-751e447fb3d0 // indirect
-	golang.org/x/text v0.3.7 // indirect
 	moul.io/http2curl v1.0.0 // indirect
 )
