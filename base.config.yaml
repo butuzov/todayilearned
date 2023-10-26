@@ -1,0 +1,94 @@
+baseURL:      "https://butuzov.github.io"
+languageCode: "en"
+title:        "@todayilearned"
+
+module:
+  mounts:
+  - source: "."
+    target: "content"
+    excludeFiles: "**/readme*"
+
+  - source: ".hugo/assets/"
+    target: "assets"
+
+  - source: ".hugo/layouts/"
+    target: "layouts"
+
+  - source: ".hugo/static/"
+    target: "static"
+
+  # - source: ".hugo/data"
+  #   target: "data"
+
+
+# layoutdir: .hugo/layouts-test
+resourceDir: ".hugo/resources"
+
+
+cleanDestinationDir: true
+publishDir: ".build"
+
+
+# enableRobotsTXT: true
+disableKinds: ["404", "taxonomy", "term", "RSS"]
+
+enableInlineShortcodes: true
+
+# sectionPagesMenu: main
+
+ignoreFiles:
+  - "(.*?)config.ya?ml"
+  - ".build"
+  - "TODO.md"
+  - "Taskfile*"
+  - "readme*"
+  - "sandbox/linters/repo-*"
+  - "sandbox/linters/gopath"
+
+
+params:
+  description: "Because I cant trust my memory"
+  page_title_suffix: "@todayilearned"
+  github_org: "https://github.com/butuzov"
+  repo: "https://github.com/butuzov/todayilearned/"
+  version_tag: "v1.1.1"
+
+outputs:
+  home: [ "HTML", "JSON"]
+
+markup:
+  highlight:
+    codeFences: true
+    # guessSyntax: true
+    # lineAnchors: true
+    # lineNos: false # Show Line Number
+    noClasses: false
+    style: autumn
+    tabWidth: 10
+
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+    ordered: false
+
+  goldmark:
+    extensions:
+      definitionList: true
+      footnote: true
+      linkify: true
+      linkifyProtocol: https
+      strikethrough: true
+      table: true
+      taskList: true
+
+    renderer:
+      unsafe: true
+      xhtml: true
+
+    parser:
+      attribute:
+        # block: true
+        title: true
+
+menu:
+  main:

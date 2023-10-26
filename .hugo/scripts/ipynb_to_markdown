@@ -1,0 +1,189 @@
+#!/usr/bin/env python3
+
+
+import argparse
+import hashlib
+import json
+import pathlib
+from sys import argv, exit
+from threading import Lock
+
+mutex = Lock()
+
+class Convertor():
+    '''
+        # Will
+        ./ipynb_to_markdown
+        ./ipynb_to_markdown -c -d
+
+    '''
+    def __init__(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--all', action=argparse.BooleanOptionalAction,
+                                default=False, help="convert all ipynb files found")
+        self.args, self.pos = parser.parse_known_args(argv[1:])
+
+        print(self.args.all)
+
+    def allowed_for_conversion(self, file):
+        # think on rules later
+        _ = file
+        return True
+
+    def cell_markdown(self, cell) -> str:
+        return "".join(cell["source"])
+
+    def all(self):
+        # TODO: switch to gitignore
+        for n in pathlib.Path('.').glob('**/readme.ipynb'):
+            if any(['.venv' in str(n), '.build' in str(n), '.ipynb_checkpoints' in str(n)]):
+                continue
+
+            self.convert(str(n), str(n).replace('.ipynb', '.md'))
+
+    def filter_out(self, lines):
+        # todo(butuzov): move rejected externaly
+        rejected = ["postgresql:"]
+
+        return (l for l in lines
+                if not (any((pattern in l for pattern in rejected))))
+
+    def code_cell(self, language, cell) -> str:
+        if len(cell['source']) == 1 and cell['source'][0].startswith("!"):
+            language="shell"
+            code = cell['source'][0]
+        else:
+            callback = lambda x: f"#> {x[1:].strip()}\n" if x.startswith("!") else x
+            code = "".join(map(callback, cell['source'])).rstrip()
+
+        stderr, stdout = "", ""
+        data_text, data_html = "", ""
+        for out in cell["outputs"]:
+            named = "name" in out
+            datad = "data" in out
+
+            if named and out["name"] == "stderr":
+               stderr = self.filter_out(out["text"])
+                # stderr = "stderr >>> {0}".format("stderr >>> ".join(
+                #     self.filter_out(out["text"])))
+                # stderr = stderr.strip()
+
+            if named and out["name"] == "stdout":
+               stdout = self.filter_out(out["text"])
+                # stdout = "stdout >>> {0}".format("stdout >>> ".join(
+                #     self.filter_out(out["text"])))
+                # stdout = stdout.strip()
+
+            if datad and "text/html" in out["data"]:
+                data_html = "\n\n" + "".join(self.filter_out(out["data"]["text/html"]))
+
+            if datad and "image/png" in out["data"]:
+                data_html += "\n\n<img src='data:image/png;base64,{0}' />".format(
+                    out["data"]["image/png"][0:-1])
+
+            if datad and "text/plain" in out["data"]:
+                data_text = "result >>> {0}\n".format("result >>> ".join(
+                    self.filter_out(out["data"]["text/plain"])))
+                data_text = data_text.strip()
+
+        if code == "":
+            return ""
+
+        data_text = "" if data_html else data_text
+
+        out_list = []
+
+        if stderr and stdout:
+             out_list.append(self.map("stderr> ", stderr))
+             out_list.append(self.map("stdout> ", stderr))
+        elif stderr:
+             out_list.append(self.map("> ", stderr))
+        elif stdout:
+             out_list.append(self.map("> ", stdout))
+        # if stderr: out_list.append(stderr)
+        # if stdout: out_list.append(stdout)
+
+        if data_text: out_list.append(data_text)
+        out = "\n".join(out_list).strip()
+        out = "" if not out else f"\n{out}"
+
+        if '%%sql' in code:
+            language = 'sql'
+            code = code.replace("%%sql", "")
+
+        if '%sql' in code:
+            language = 'sql'
+            code = code.replace("%sql", "")
+
+        if out and not out.endswith("\n"):
+            out += "\n"
+
+        return "```{0}```{1}".format("\n".join([language,
+                                                code.lstrip(), out]), data_html)
+
+    def map(self, prefix, output) -> str:
+        return "\n"+"\n".join(map(lambda x: prefix + x.strip(), output)) + "\n"
+
+    def convert(self, src, dst):
+
+        result = []
+        with open(src) as f:
+            data = json.load(f)
+            for cell in data["cells"]:
+                c = ""
+
+                if cell["cell_type"] == "markdown":
+                    c = self.cell_markdown(cell)
+                elif cell["cell_type"] == "code":
+                    c = self.code_cell(data["metadata"]["kernelspec"]["language"], cell)
+                else:
+                    print(cell)
+
+                if c != "":
+                    result.append(c)
+
+        if not result:
+            return False
+
+        content = "\n\n".join(result)
+
+        do_update = exists = pathlib.Path(dst).exists()
+        if exists:
+            old = hashlib.md5(open(dst, 'rb').read()).hexdigest()
+            new = hashlib.md5(content.encode()).hexdigest()
+            do_update = old != new
+
+        if not exists or do_update:
+            with open(dst, "w") as f:
+                f.write(content)
+
+
+    def check_notebook(self, name):
+        if not name.endswith(".ipynb"):
+            return 0
+
+        if not self.allowed_for_conversion(name):
+            return 0
+
+        with mutex:
+            self.convert(name, name.replace('.ipynb', '.md'))
+            # with open("/Users/butuzov/Desktop/pre-commit-demo/log.txt", "a") as f:
+            #     h = hashlib.sha1(open(self.pos[0], 'rb').read()).hexdigest()
+            #     f.write(f"args {self.args} - {name.replace('.ipynb', '.md')}\n")
+
+        return BaseException("Something happend")
+
+    def main(self):
+
+        if self.args.all:
+            return self.all()
+
+        if not len(self.pos):
+            return 1
+
+        return self.check_notebook(self.pos[0])
+
+
+
+if __name__ == "__main__":
+    exit(Convertor().main())

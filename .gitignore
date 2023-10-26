@@ -1,0 +1,17 @@
+# any temporary folder artifact
+.build*
+.venv*
+.tmp*
+.task*
+
+# hugo
+/.hugo_build.lock
+config.yaml
+.hugo/resources*
+
+# Content. Do not commit _index.md files!
+_index.md
+# content sources temps
+.ipynb_checkpoints
+.jupyter
+.venv

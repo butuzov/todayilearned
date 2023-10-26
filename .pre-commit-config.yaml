@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ipynb_to_markdown
+        name: ipynb to markdown
+        entry: ./scripts/ipynb_to_markdown
+        language: script
+        pass_filenames: true

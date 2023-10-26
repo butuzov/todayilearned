@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+file_to_menu() {
+    file=$1
+    # echo "#" $file $(awk '/^# / {print FNR;exit;}' $file)
+    name=$(sed -n $(awk '/^# / {print FNR;exit;}' $file)p $file | sed "s/# //")
+    url=$(echo ${file:1} | sed 's/\/_index.md//' | sed 's/\/index.md//' | sed 's/.md//' | sed 's/^@\(.*\)/\1/' )
+
+    # name=$(echo $name | sed 's/`//' )
+
+    if [[ ! -z $url ]]
+    then
+
+        ref=$(basename $file | sed 's/.md//')
+        printf "  -  name:       \"$name\"\n"
+        printf "     title:      \"$name\"\n"
+        printf "     url:        \"$url\"\n"
+        printf "     pageRef:    \"$url\"\n"
+        printf "     identifier: \"$url\"\n"
+
+        level=$(echo $url | awk -F/ '{print NF-1}' )
+        if (( $level >= 2))
+        then
+        printf '     parent:     "%s"\n' $(dirname $url)
+        fi
+
+        printf "\n"
+
+    fi
+}
+
+new_menu() {
+
+    res=$(find . -name "*.md"  | grep -v -f .content | grep -v "readme.md" | wc -l)
+
+    if (( $res <= 1))
+    then
+        exit 0
+    fi
+
+    printf "menu:\n"
+    printf "  main:\n"
+
+    for i in $(find . -name "*.md"  | grep -v -f .content | grep -v "readme.md");
+    do
+       file_to_menu $i
+    done;
+}
+
+old_base() {
+    base=base.config.yaml
+    head -n$(awk '/menu:/ {print FNR-1}' $base) $base
+}
+
+
+old_base > config.yaml
+new_menu >> config.yaml

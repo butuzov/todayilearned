@@ -1,0 +1,52 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Hugo Setup
+      uses: peaceiris/actions-hugo@v2.6.0
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      with:
+        hugo-version: '0.119.0'
+        extended: true
+
+    - name: Generate config
+      run: |
+        ./.hugo/scripts/readme_to_index
+        ./.hugo/scripts/update_config_with_menu
+
+    - name: Running Hugo (config)
+      run: hugo --destination .build
+
+    # - name: Remove readme from generated files
+    #   run: ./.github/scripts/postprocessor_build_remove_readme
+
+    # - name: Fix Markdown links in repo
+    #   run: ./.github/scripts/postprocessor_build_markdown_links
+
+    - name: Dir(build)
+      run: ls -lah ./.build
+
+    # - name: deadlinks checker
+    #   uses: docker://docker.io/butuzov/deadlinks:latest
+    #   with:
+    #     args: internal -n10 --root=build --no-progress --skip-robots-checks
+
+    - name: github pages deployment
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        publish_dir: .build
+        enable_jekyll: false
+        external_repository: butuzov/butuzov.github.io
+        publish_branch: main

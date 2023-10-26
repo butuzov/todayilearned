@@ -1,0 +1,14 @@
+<!--
+  Partial to generate page name from Title or File name.
+  Accepts Page as context
+-->
+
+{{ $title := "" }}
+
+{{ if .Title }}
+	{{ $title = (printf "title:%s" .Title) }}
+{{ else if .Content }}
+	{{ $title = index (first 1 (split .Content "\n")) 0 }}
+{{ end }}
+
+{{ return (replaceRE "<h1.*?>(.*?)</h1>" "$1" $title | safeHTML) }}

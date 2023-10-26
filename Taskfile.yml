@@ -1,0 +1,58 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    env:
+      PATH: "{{.PATH}}:{{ .PWD }}/.bin"
+    cmds:
+    # - task: install-hugo-if-missing
+    - task: sass
+    - task: mark
+    - task: hugo
+
+  hugo:
+    sources:
+    - ".hugo/layouts/**/*.html"
+    - ".hugo/assets/**/*.js"
+    method: timestamp
+    cmd: ./.bin/hugo server --disableFastRender --watch=0
+
+  mark:
+    sources:
+    - "./**/readme.md"
+    - "base.config.yaml"
+    method: timestamp
+    cmds:
+    - ./.hugo/scripts/ipynb_to_markdown --all
+    - ./.hugo/scripts/readme_to_index
+    - ./.hugo/scripts/update_config_with_menu
+
+  sass:
+    sources:
+    - ".hugo/assets/**/*.scss"
+    method: timestamp
+    cmd: sass --no-source-map .hugo/assets/scss/site.scss .hugo/assets/css/main.css
+
+
+  install-hugo-if-missing:
+    run: once
+    cmds:
+      - task: go-local-install
+        vars:
+          URL: github.com/gohugoio/hugo
+          VERSION: v0.120.4
+          BIN: hugo
+
+  go-local-install:
+    env: { GOBIN: "{{ .PWD }}/.bin" }
+    cmd: go install {{ .URL }}@{{ .VERSION }}
+    preconditions:
+      - sh:  '[[ ! -f "{{ .PWD }}/.bin/{{ .BIN }}" ]]'
+
+  commit:
+    cmds:
+    - git add . -A
+    - git commit --amend --no-edit
+    - git push --force

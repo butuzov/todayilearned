@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	{{ partial "head" . }}
+  </head>
+
+  <body class="d-flex min-vh-100 flex-column">
+	{{ partial "body-header" . }}
+
+	{{ block "main" .   }}{{ end }}
+    {{ block "footer" . }}{{ end }}
+
+	{{ partial "search-modal" . }}
+
+	{{ partial "body-footer" . }}
+  </body>
+</html>

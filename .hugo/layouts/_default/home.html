@@ -1,0 +1,20 @@
+{{ define "main" }}
+<main id="home" class="flex-grow-1 d-flex justify-content-center align-items-center">
+	{{ template "home/hero" $ }}
+</main>
+{{ end }}
+
+
+
+{{ define "home/hero" }}
+  <section>
+	<div>This is some kind of a memory dump in proccess of transition. Author intends to use it as quick help from time to time. You also can do that.</div>
+	<p>Search <kbd>⌘</kbd>+<kbd>K</kbd></p>
+  </section>
+{{ end }}
+
+
+
+{{ define "footer" }}
+  {{ partial "footer" $ }}
+{{ end }}

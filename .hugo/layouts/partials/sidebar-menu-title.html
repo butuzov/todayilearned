@@ -1,0 +1,13 @@
+{{ $title := "---" }}
+
+{{ if .Page }}
+	{{ if .Page.Params.Menu }}
+	{{ $title = .Page.Params.Menu }}
+	{{ else if .Page.Params.Title }}
+	{{ $title = .Page.Params.Title }}
+	{{ else if .Title }}
+	{{ $title = .Title }}
+	{{ end }}
+{{ end }}
+
+{{ return $title }}

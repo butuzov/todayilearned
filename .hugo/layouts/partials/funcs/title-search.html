@@ -1,0 +1,10 @@
+{{ $title := partial "funcs/title.html" .}}
+{{ $title = replaceRE "<[^>]*>" "" $title  }}
+{{ $title = safeHTML $title }}
+{{ $title = transform.HTMLUnescape $title }}
+{{ $title = replaceRE "<[^>]*>" "" $title }}
+{{ $title = replaceRE "`" "" $title }}
+{{ $title = replaceRE "`" "" $title }}
+{{ $title = transform.HTMLUnescape $title }}
+
+{{ return $title }}

@@ -1,0 +1,43 @@
+// Copy Code button
+.highlight {
+  &:hover {
+    div.bd-clipboard {
+      visibility: visible;
+    }
+  }
+
+  div.bd-clipboard {
+    position: relative;
+    float: right;
+    visibility: hidden;
+
+    button {
+      &:hover {
+        background-color: rgba(#818a91, 0.3);
+        color: #404040;
+      }
+
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      z-index: 10;
+      display: block;
+      padding: 0.25rem 0.5rem;
+      font-size: 75%;
+      color: #818a91;
+      cursor: pointer;
+      background-color: transparent;
+      border: 0;
+      border-radius: 0.25rem;
+    }
+  }
+}
+
+table td .highlight {
+  div.bd-clipboard {
+    button {
+      top: 0rem;
+      right: 0rem;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{{- template "portable-link" . -}}
+
+{{/* {{- if .Page.Site.Params.BookPortableLinks -}}
+{{- else -}}
+  <a href="{{ .Destination | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- end -}} */}}
+
+{{- define "portable-link" -}}
+  {{- $destination := .Destination }}
+  {{- $isRemote := or (in .Destination ":") (strings.HasPrefix .Destination "//") }}
+  {{- if not $isRemote }}
+    {{- $url := urls.Parse .Destination }}
+    {{- $path := strings.TrimSuffix "/readme.md" $url.Path }}
+	{{- $path := strings.TrimSuffix "/_index.md" $path }}
+    {{- $path = strings.TrimSuffix "/_index" $path }}
+    {{- $path = strings.TrimSuffix ".md" $path }}
+    {{- $page := .Page.GetPage $path }}
+    {{- if $page }}
+      {{- $destination = $page.RelPermalink }}
+      {{- if $url.Fragment }}
+        {{- $destination = print $destination "#" $url.Fragment }}
+      {{- end }}
+    {{- else if fileExists (print .Page.File.Dir .Destination) }}
+      <!-- Nothing -->
+    {{- else -}}
+      {{- warnf "Page '%s' not found in '%s'" .Destination .Page.File }}
+    {{- end }}
+  {{- end -}}
+  <a href="{{ $destination | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- end -}}

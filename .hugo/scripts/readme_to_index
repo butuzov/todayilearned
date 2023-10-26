@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+
+import hashlib
+import pathlib
+import re
+
+re_comment  = re.compile("^<!-- (.*?: .*?) -->", re.DOTALL)
+re_external = re.compile("\[`(.*?)`\]\((.*?)\)", re.DOTALL)
+
+def update_indexmd(dir):
+    for md in pathlib.Path(dir).rglob('readme.md'):
+        if md.name.startswith("~") or md.name.startswith("._"):
+            continue
+
+        if "/" not in str(md):
+            continue
+
+        if "sandbox/linters" in str(md.absolute()):
+            continue
+
+        src = apply_transformers(md.open().read())
+        dst = pathlib.Path(str(md).replace('readme.md', "_index.md"))
+
+        if not dst.exists():
+            dst.open("x+").write(src)
+            continue
+
+        if not is_same_thing(src, dst.open().read()):
+            dst.open("w+").write(src)
+
+
+def tr_front_matter_markdown(src :str)-> str:
+    """
+    Read comment from the begining of the file and creates front matter.
+    """
+    header = []
+    header.append("---")
+
+    lines = src.split("\n")
+    starts = 0
+    for line in lines:
+        found = re_comment.findall(line)
+        if not found:
+            break
+
+        header.append(found[0])
+        starts = starts + 1
+
+    header.append("---")
+
+    if len(header) == 2:
+        return src
+
+    return  "\n".join(header + lines[starts:])
+
+def tr_prism_code(src: str) -> str:
+    """
+    Converts [`file`](file) into <pre data-src="file"></pre> if file exists
+    """
+    for match in re_external.findall(src):
+        src = src.replace(f'[`{match[0]}`]({match[0]})',
+                          f'<pre data-src="{match[0]}"></pre>')
+    return src
+
+def apply_transformers(src :str)-> str:
+
+    src = tr_front_matter_markdown(src)
+    # src = tr_prism_code(src)
+
+    # todo -> link fixer
+
+    return src
+
+
+def main():
+    update_indexmd('.')
+
+def is_same_thing(src, dst: str) -> bool:
+    return hash(src) == hash(dst)
+
+def hash(s: str) -> str:
+    h = hashlib.new('sha256')
+    h.update(s.encode())
+    return h.hexdigest()
+
+
+if __name__ == "__main__":
+    main()

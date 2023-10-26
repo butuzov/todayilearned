@@ -1,0 +1,20 @@
+{{ $pages := slice }}
+{{- range $index, $page := .Site.Pages }}
+{{- if not (or (eq $page.Type "json") ($page.Params.noindex | default false) ($page.IsHome) ) -}}
+{{ $pages = $pages | append $page }}
+{{- end -}}
+{{- end -}}
+
+[
+{{ range $index, $page := $pages }}
+{{- if ne $page.Type "json" -}}
+{{- if and $index (gt $index 0) -}},{{- end }}
+{
+	"uri": "{{ $page.Permalink }}",
+	"title": "{{ htmlEscape ( (partial "funcs/title-search.html" .) ) }}",
+	{{if $page.Params.Tags}}"tags": {{ $page.Params.Tags | jsonify}},{{end}}
+	"description": "{{ htmlEscape .Description}}",
+	"content": {{$page.Plain | jsonify}}
+}
+{{- end -}}
+{{- end -}}]
