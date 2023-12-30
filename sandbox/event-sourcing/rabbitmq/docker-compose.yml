@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+  jupyter:
+    image: butuzov/jupyter-golang
+    container_name: sandboxpg-jupyter
+    ports:
+      - 5670:8888
+    volumes:
+    - ".:/share"
+    restart: "on-failure"
+    networks: [ "rabbits_burrow" ]
+
+  rabbitmq1: &rabbitmq
+    image: rabbitmq:3.8.18-management
+    environment:
+      CLUSTERED: "true"
+    env_file:
+      - .env
+    restart: "on-failure"
+    ports:
+    - 15671:15672
+    - 5671:5672
+    networks: [ "rabbits_burrow" ]
+
+  # rabbitmq2:
+  #   <<: *rabbitmq
+  #   ports:
+  #     - 15673:15672
+  #     - 5673:5672
+  #   environment:
+  #     CLUSTERED: "true"
+  #     CLUSTER_WITH: rabbitmq1
+  #     RAM_NODE: "true"
+
+
+
+networks:
+ rabbits_burrow:
+  driver: bridge
+

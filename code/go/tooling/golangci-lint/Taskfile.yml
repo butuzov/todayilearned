@@ -1,0 +1,71 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+    - hello world
+
+  config:
+    cmds:
+    - curl https://raw.githubusercontent.com/golangci/golangci-lint/master/.golangci.reference.yml > .golangci.default.yaml
+    - |
+      cp .golangci.default.yaml .golangci.ongoing.yaml
+      yq  ea -i 'del(.linters-settings.errcheck.exclude)' .golangci.ongoing.yaml
+      yq  ea -i 'del(.linters-settings.custom.example)' .golangci.ongoing.yaml
+      # gocritic noise
+      yq  ea -i 'del(.linters-settings.gocritic.enabled-checks[0])' .golangci.ongoing.yaml
+      yq  ea -i '.linters-settings.gocritic.enabled-checks += "ruleguard"' .golangci.ongoing.yaml
+      yq  ea -i '.linters-settings.gocritic.enabled-checks += "nestingreduce"' .golangci.ongoing.yaml
+      yq  ea -i '.linters-settings.gocritic.enabled-checks += "truncatecmp"' .golangci.ongoing.yaml
+      yq  ea -i '.linters-settings.gocritic.enabled-checks += "unnamedresult"' .golangci.ongoing.yaml
+
+      # general useless settings
+      yq ea -i 'del(.issues.new-from-rev)' .golangci.ongoing.yaml
+      yq ea -i 'del(.issues.new-from-patch)' .golangci.ongoing.yaml
+
+      # echo "incompattible rules"
+      yq ea -i 'del(.linters)' .golangci.ongoing.yaml
+
+      # exhaisive struct settings.
+      yq ea -i 'del(.linters-settings.exhaustivestruct.struct-patterns)' .golangci.ongoing.yaml
+
+  golangci-lint:
+    desc: "Runs golangcilint checks"
+    sources:
+    - ./testdata/*.go
+    - .golangci.ongoing.yaml
+    - ./scripts/golangci-lint*
+    method: timestamp
+    cmds:
+    - clear
+    - ./scripts/golangci-lint
+    silent: true
+
+  gocritic:
+    desc: "Runs gocritic checks"
+    sources:
+    - ./gocritic/*.go
+    - .golangci.gocritic.yaml
+    - ./scripts/gocritic*
+    method: timestamp
+    cmds:
+    - clear
+    - ./scripts/gocritic
+    silent: true
+
+  revive:
+    desc: "Runs revive checks"
+    sources:
+    - ./revive/*.go
+    - .golangci.revive.yaml
+    - ./scripts/revive*
+    method: timestamp
+    cmds:
+    - clear
+    - ./scripts/revive
+    silent: true

@@ -3,3 +3,4 @@
 \.venv
 \.github
 TODO
+sandbox/linters

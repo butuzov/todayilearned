@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+
+GOCRITIC_CURRENT_RULES=$(\
+  curl -s https://go-critic.com/overview.html |
+  sed -n 's/.*href="\([^"]*\).*/\1/p' | \
+  tr  '[:upper:]' '[:lower:]' | \
+  sed "s/^  //" | \
+  grep -e "^#" | \
+  sed 's/^#\(.*\)/\1/' | \
+  sort )
+
+GOCRITIC_CURRENT_FILES=$( \
+  ls -1 gocritic | \
+  xargs -I {} sh -c "basename {} .go" | \
+  sort)
+
+# new, not exists in examples
+for RULE in $GOCRITIC_CURRENT_RULES; do
+  example=$(printf "gocritic/%s.go" $RULE)
+  if [[ ! -f $example ]]; then
+    printf "${YELLOW} (missing): %s${NC}\n" $RULE
+  fi
+done
+
+
+# old, no more relevant
+for RULE in $GOCRITIC_CURRENT_FILES; do
+  w=$(echo $GOCRITIC_CURRENT_RULES | grep -w $RULE)
+  if [[ -z $w ]]; then
+    printf "${RED}(obsolete): %s${NC}\n" $RULE
+  else
+    match=$(golangci-lint run -c .golangci.gocritic.yaml ./gocritic/$RULE.go  2>/dev/null | \
+        grep --ignore-case "$RULE:")
+
+    if [[ -z $match ]]; then
+        printf "${RED}   (error): %s${NC}\n" $RULE
+        # AGAIN!
+        golangci-lint run -c .golangci.gocritic.yaml ./gocritic/$RULE.go 2>/dev/null
+        gocritic check ./gocritic/$RULE.go
+    else
+        printf "${GREEN}   (exits): %s${NC}\n" $RULE
+    fi
+  fi
+done

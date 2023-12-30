@@ -1,0 +1,68 @@
+version: '3.7'
+
+services:
+
+  demo:
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    restart: "on-failure"
+    networks: [ "go_examples" ]
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana:/var/lib/grafana
+
+      - ./configs/grafana-settings.ini:/etc/grafana/config.ini
+      # Bootstraping
+      - ./configs/grafana-datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./configs/grafana-dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
+      # Dashboards
+      - ./configs/grafana-db-victoriametrics.json:/etc/grafana/provisioning/dashboards/db-victoriametrics.json
+      # - ./configs/grafana-db-vmagent.json:/var/lib/grafana/dashboards/vmagent.json
+    env_file:
+      - ./configs/grafana.env
+    environment:
+      GF_SECURITY_ADMIN_USER:     ${GF_SECURITY_ADMIN_USER:-demo}
+      GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD:-demo}
+    restart: "on-failure"
+    networks: [ "go_examples" ]
+
+
+  victoriametrics:
+    image: victoriametrics/victoria-metrics
+    ports:
+      - 8428:8428
+    volumes:
+      - victoria_metrics_storage:/data
+      - ./configs/vistoriamerics-prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "-storageDataPath=/data"
+      - "-loggerLevel=INFO"
+      - "-loggerFormat=default"
+      - "-httpListenAddr=:8428"
+      - "-retentionPeriod=24"
+      - "-memory.allowedPercent=60"
+      - "-influxSkipSingleField"
+      - '--promscrape.config=/etc/prometheus/prometheus.yml'
+      - "-selfScrapeInterval=10s"
+    restart: "on-failure"
+    networks: [ "go_examples" ]
+
+
+
+
+networks:
+  go_examples:
+    driver: bridge
+
+volumes:
+  victoria_metrics_agent: {}
+  victoria_metrics_storage: {}
+  grafana: {}

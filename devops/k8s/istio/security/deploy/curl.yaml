@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: curl
+  name: curl
+spec:
+  containers:
+  - image: docker.io/curlimages/curl
+    name: curl
+    resources: {}
+    args:
+    - /bin/sh
+    - -c
+    - sleep infinity
+status: {}

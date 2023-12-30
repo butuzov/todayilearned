@@ -1,0 +1,37 @@
+// file-header-check
+package testdata
+
+func funLengthA() (a int) { // MATCH /maximum number of statements per function exceeded; max 2 but got 5/
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	return 1
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "proto;unary_proto";
+
+package ua.made.unary;
+
+// The greeting service definition.
+service Service {
+  // Sends a greeting
+  rpc Hello(Request) returns (Reply) {}
+}
+
+// The request message containing the user's name.
+message Request { string message = 1; }
+
+// The response message containing the greetings
+message Reply { string message = 1; }

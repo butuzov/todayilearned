@@ -1,0 +1,29 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: jwt-example
+  namespace: istio-course
+spec:
+  selector:
+    matchLabels:
+      app: httpbin
+  jwtRules:
+  - issuer: test-issuer-1@istio.io
+    jwksUri: https://example.com/demo.jwt
+
+---
+
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: httpbin
+  namespace: istio-course
+spec:
+  selector:
+    matchLabels:
+      app: httpbin
+  action: DENY
+  rules:
+  - from:
+    - source:
+        notRequestPrincipals: [ "*" ]

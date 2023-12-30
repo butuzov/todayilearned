@@ -1,0 +1,35 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: frontend
+spec:
+  host: frontend
+  subsets:
+  - name: v2
+    labels:
+      version: v2.2
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: course-istio
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - course-frontend-gateway
+  http:
+  - name: "default"
+    match:
+    - uri:
+        prefix: /frontend-catalog/api/v1/
+    rewrite:
+        uri: /api/v1/
+    route:
+    - destination:
+        host: frontend
+        subset: v2
+        port:
+          number: 3000

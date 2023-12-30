@@ -1,0 +1,77 @@
+
+## Commands
+
+### ansible-playbook
+
+### ansible-galaxy
+
+
+https://docs.ansible.com/ansible/latest/galaxy/user_guide.html
+
+```
+ansible-galaxy role search wireguard
+ansible-galaxy role info githubixx.ansible_role_wireguard
+ansible-galaxy install -r requirements.yml
+```
+
+### ansible-config
+
+```shell
+ansible-config init --disabled > ansible.cfg
+ansible-config dump | grep cp
+
+```
+
+## Roles & Tasks
+- Playbook is
+- Task is singular action unit.
+- Role is collection of playbooks and tasks.
+
+- - - - -
+
+## TODO
+```shell
+python3 -m venv .venv
+. .venv/bin/activate
+# or .venv\Scripts\Activate.ps1 if windows...
+python3 -m pip install ansible
+```
+
+
+molecule
+
+## Hello World
+
+```shell
+ansible-playbook hello-world.yaml
+```
+
+{{% include hello-world.yaml %}}
+[`example:hello-world.yaml lang="yaml"`]()
+
+
+```shell
+# Define and run a single task 'playbook' against a set of hosts (inventory hosts)
+ansible all -i hosts -m ping -f 1
+
+# Runing ansible-playbook -i hosts roles/all-in-one.yml -f 2 -b
+```
+
+## Inventory
+
+Ansible automates tasks on managed nodes or “hosts” in your infrastructure, using a list or group of lists known as inventory. You can pass host names at the command line, but most Ansible users create inventory files. Your inventory defines the managed nodes you automate, with groups so you can run automation tasks on multiple hosts at the same time. Once your inventory is defined, you use patterns to select the hosts or groups you want Ansible to run against.
+
+- [How to build your inventory](https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html)
+-
+
+### Crateing Dinamical Inventories
+
+TODO:https://github.com/butuzov/sandbox-devops/blob/master/011-Ansible-3-Tier-App-v2/inventory.sh
+
+## Galaxy
+
+Galaxy provides pre-packaged units of work known to Ansible as roles and collections.
+
+```shell
+ansible-galaxy install jasonheecs.digitalocean
+```

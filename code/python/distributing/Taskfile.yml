@@ -1,0 +1,20 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    sources:
+    - ./**/*.py
+    - ./**/*.txt
+    - ./**/Dockerfile
+    - ./**/*.*
+    - ./Makefile
+    method: timestamp
+    cmds:
+      - clear
+      - make all
+    silent: true

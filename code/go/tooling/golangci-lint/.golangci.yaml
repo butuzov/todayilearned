@@ -1,0 +1,468 @@
+# Note: Run --------------------------------------------------------------------------------
+
+run:
+  issues-exit-code: 1
+  timeout: 10m
+  modules-download-mode: mod
+
+  skip-dirs-use-default: false
+  skip-files:
+    - ".+\\.main\\.go$"
+  allow-parallel-runners: true
+
+
+# Note: Output --------------------------------------------------------------------------------
+
+output:
+  format: colored-line-number
+
+  # print lines of code with issue, default is true
+  print-issued-lines: false
+  print-linter-name: true
+  uniq-by-line: false
+  sort-results: true
+
+
+# Note: Issues: --------------------------------------------------------------------------------
+
+issues:
+  # new-from-rev: HEAD
+  max-same-issues: 10
+  fix: false
+
+  exclude-rules:
+
+  - path: ".*_test.go"
+    linters:
+    - gocyclo
+    - errcheck
+    - dupl
+    - gosec
+    - revive
+    - bodyclose
+    - errorlint
+    - varnamelen
+
+  - source: "^//go:generate "
+    linters:
+      - lll
+      - gocyclo
+
+
+linters:
+  enable-all: true
+
+  disable:
+  - cyclop             # @alt revive@cyclomatic (alternative)
+  - deadcode           # @deprecated & covered by `unused` and `govet@varcheck`
+  - errcheck           # @alt revive@unhandled-errors (alternative)
+  - errchkjson         # @alt revive@unhandled-errors (alternative)
+  - errname            # @alt revive@error-naming (alternative)
+  - exhaustivestruct   # @deprecated
+  - forbidigo          # @note: require per project tune.
+  - funlen             # @alt revive@function-length (alternative)
+  - gci                # note: we have to walk long way to it.
+  - gochecknoglobals   # @useless
+  - gochecksumtype     # @useless
+  - gocognit           # @alt revive@cognitive-complexity (alternative)
+  - gocyclo            # @alt revive@cyclomatic (alternative)
+  - godox              # not really useful to react to FIXME/TODO/etc...
+  - goheader           # @note: require per project tune.
+  - golint             # @deprecated
+  - gomodguard         # @note: require per project tune.
+  - ineffassign        # staticcheck@SA4006
+  - interfacer         # @deprecated
+  - ireturn            # its not a time
+  - lll                # @alt revive@line-length-limit (alternative)
+  - maligned           # @deprecated
+  - scopelint          # @deprecated
+  - testpackage        # @useless
+  - varcheck           # covered by `unused`
+  - varnamelen         # thats fine by me
+
+
+
+# Settings: --------------------------------------------------------------------------------
+linters-settings:
+
+  asasalint:
+    # exclude: []
+    use-builtin-exclusions: true
+    ignore-test: false
+
+  asciicheck: ~
+
+  bidichk:
+    # The following configurations check for all mentioned invisible unicode runes.
+    # All runes are enabled by default.
+    left-to-right-embedding: true
+    right-to-left-embedding: true
+    pop-directional-formatting: true
+    left-to-right-override: true
+    right-to-left-override: true
+    left-to-right-isolate: true
+    right-to-left-isolate: true
+    first-strong-isolate: true
+    pop-directional-isolate: true
+
+  bodyclose: ~
+  containedctx: ~
+  contextcheck: ~
+
+  # cyclop: disabled
+
+  # TODO: research, not reacting to rules and example.
+  decorder:
+    dec-order:
+      - type
+      - func
+      - const
+      - var
+    ignore-underscore-vars: false
+    disable-dec-order-check: true
+
+  dogsled:
+    max-blank-identifiers: 2
+
+  dupl:
+    # Tokens count to trigger issue.
+    threshold: 150
+
+  importas:
+    # Do not allow unaliased imports of aliased packages.
+    # Default: false
+    no-unaliased: true
+    # Do not allow non-required aliases.
+    # Default: false
+    no-extra-aliases: true
+    # List of aliases
+    # Default: []
+    alias:
+      # Using `servingv1` alias for `knative.dev/serving/pkg/apis/serving/v1` package.
+      - pkg: knative.dev/serving/pkg/apis/serving/v1
+        alias: servingv1
+      # Using `autoscalingv1alpha1` alias for `knative.dev/serving/pkg/apis/autoscaling/v1alpha1` package.
+      - pkg: knative.dev/serving/pkg/apis/autoscaling/v1alpha1
+        alias: autoscalingv1alpha1
+      # You can specify the package path by regular expression,
+      # and alias by regular expression expansion syntax like below.
+      # see https://github.com/julz/importas#use-regular-expression for details
+      - pkg: knative.dev/serving/pkg/apis/(\w+)/(v[\w\d]+)
+        alias: $1$2
+
+  loggercheck:
+    kitlog: true
+    klog: true
+    logr: true
+    zap: true
+
+    # Require all logging keys to be inlined constant strings.
+    # Default: false
+    require-string-key: true
+    # Require printf-like format specifier (%s, %d for example) not present.
+    # Default: false
+    no-printf-like: true
+    # List of custom rules to check against, where each rule is a single logger pattern, useful for wrapped loggers.
+    # For example: https://github.com/timonwong/loggercheck/blob/7395ab86595781e33f7afba27ad7b55e6956ebcd/testdata/custom-rules.txt
+    # Default: empty
+    rules:
+      - k8s.io/klog/v2.InfoS                     # package level exported functions
+      - (github.com/go-logr/logr.Logger).Error   # "Methods"
+      - (*go.uber.org/zap.SugaredLogger).With    # Also "Methods", but with a pointer receiver
+
+  revive:
+    enable-all-rules: true
+    ignore-generated-header: true
+    confidence: 0.01
+    severity: warning
+    rules:
+
+      - name: add-constant
+        severity: warning
+        disabled: true
+        arguments:
+        - maxLitCount: "3"       # Max Num Strings Lit before warn
+          allowStrs: '""'        # comma-separated list of allowed string literals
+          allowInts: "0,1,2"     # comma-separated list of allowed integers
+          allowFloats: "0.0"     # comma-separated list of allowed floats
+          ignoreFuncs: ""        # todo: what fucntions we going ignore
+
+      - name: argument-limit
+        severity: warning
+        arguments: [ 3 ]
+
+      - name: atomic
+        severity: warning
+
+      # note: in favor of `asciicheck`
+      - name: banned-characters
+        disabled: true
+
+      - name: bare-return
+        severity: warning
+
+      - name: blank-imports
+        severity: warning
+
+      - name: bool-literal-in-expr
+        severity: warning
+
+      - name: call-to-gc
+        severity: warning
+
+      - name: cognitive-complexity
+        severity: warning
+        arguments: [ 30 ]
+
+      - name: comment-spacings
+        severity: warning
+
+      - name: confusing-naming
+        severity: warning
+
+      - name: confusing-results
+        severity: warning
+
+      - name: constant-logical-expr
+        severity: warning
+
+      - name: context-as-argument
+        severity: warning
+
+      - name: context-keys-type
+        severity: warning
+
+      - name: cyclomatic
+        severity: warning
+        arguments: [ 30 ]
+
+      - name: deep-exit
+        severity: warning
+
+      - name: datarace
+        severity: warning
+
+      - name: defer
+        severity: warning
+        arguments:
+        - - "call-chain"
+          - "loop"
+          - "recover"
+          - "return"
+          - "method-call"
+
+      - name: dot-imports
+        severity: warning
+
+      - name: duplicated-imports
+        severity: warning
+
+      - name: early-return
+        severity: warning
+        arguments: ["preserveScope"]
+
+      - name: empty-block
+        severity: warning
+
+      - name: empty-lines
+        severity: warning
+
+      - name: exported
+        severity: warning
+        arguments:
+          - "checkPrivateReceivers"
+          - "sayRepetitiveInsteadOfStutters"
+
+      - name: error-naming
+        severity: warning
+
+      - name: error-return
+        severity: warning
+
+      - name: error-strings
+        severity: warning
+
+      - name: errorf
+        severity: warning
+
+      - name: enforce-map-style
+        disabled: true
+
+      - name: exported
+        severity: warning
+        arguments:
+          - "checkPrivateReceivers"
+          - "sayRepetitiveInsteadOfStutters"
+
+      - name: file-header
+        disabled: true
+
+      - name: flag-parameter
+        severity: warning
+
+      - name: function-result-limit
+        severity: warning
+        arguments: [2]
+
+      - name: function-length
+        severity: warning
+        arguments:
+        - 40     # max statements
+        - 60     # max lines
+
+      - name: struct-tag # better error message by `govet`
+        disabled: true
+
+      - name: get-return
+        severity: warning
+
+      - name: identical-branches
+        severity: warning
+
+      - name: imports-blacklist
+        severity: warning
+        arguments:
+        - "crypto/md5"
+        - "crypto/sha1"
+
+      - name: import-alias-naming
+        severity: warning
+        arguments:
+        - "^[a-z][a-z0-9]{0,}$" # allow regexp
+
+      - name: import-shadowing
+        severity: warning
+
+      - name: increment-decrement
+        severity: warning
+
+      - name: indent-error-flow
+        severity: warning
+
+      - name: line-length-limit
+        arguments: [ 120 ]
+        # disabled: true
+
+      - name: modifies-parameter
+        severity: warning
+
+      - name: modifies-value-receiver
+        severity: warning
+
+      - name: max-public-structs
+        severity: warning
+        arguments: [ 2 ]
+        disable: true
+
+      - name: nested-structs
+        severity: warning
+
+        # rulle not triggered
+      - name: optimize-operands-order
+        severity: warning
+
+      - name: range-val-address
+        severity: warning
+
+      - name: range-val-in-closure
+        severity: warning
+
+      - name: range
+        severity: warning
+
+      - name: receiver-naming
+        severity: warning
+
+      - name: redefines-builtin-id
+        severity: warning
+
+      - name: redundant-import-alias
+        severity: warning
+
+      - name: string-format
+        severity: warning
+        disabled: true
+
+      - name: string-of-int
+        severity: warning
+
+      - name: struct-tag
+        severity: warning
+        arguments:
+        - "json,inline"
+
+      - name: superfluous-else
+        severity: warning
+
+      - name: time-equal
+        severity: warning
+
+      - name: time-naming
+        severity: warning
+
+      - name: unchecked-type-assertion
+        severity: warning
+
+      - name: unconditional-recursion
+        severity: warning
+
+      - name: unexported-naming
+        severity: warning
+
+      - name: unexported-return
+        severity: warning
+
+      - name: unhandled-error
+        severity: warning
+        arguments:
+        - 'fmt\..*'
+        - '(.*?)\.Write(.*)'
+
+      - name: unnecessary-stmt
+        severity: warning
+
+      - name: unreachable-code
+        severity: warning
+
+      - name: unused-parameter
+        severity: warning
+        arguments:
+        - allowRegex: '^_'
+
+      - name: use-any
+        severity: warning
+        # disabled: true
+
+      - name: useless-break
+        severity: warning
+
+      - name: var-declaration
+        severity: warning
+
+      - name: var-naming
+        severity: warning
+
+      - name: waitgroup-by-value
+        severity: warning
+
+# Severity: --------------------------------------------------------------------------------
+severity:
+  default-severity: error
+  case-sensitive: false
+
+  # Coloring According Severity (not implemented, WIP)
+  colors:
+    error: red
+    warn: yellow
+    info: blue
+
+  rules:
+  - linters:
+    - gomnd
+    - godot
+    - lll
+    severity: info
+
+  - linters:
+    - goerr113
+    severity: warn

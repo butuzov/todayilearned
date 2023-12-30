@@ -4,6 +4,8 @@
 .tmp*
 .task*
 
+sandbox/linters/repo-*
+
 # hugo
 /.hugo_build.lock
 config.yaml
@@ -15,3 +17,5 @@ _index.md
 .ipynb_checkpoints
 .jupyter
 .venv
+
+_tmp_*

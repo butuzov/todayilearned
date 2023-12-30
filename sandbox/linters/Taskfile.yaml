@@ -1,0 +1,117 @@
+version: '3'
+
+vars:
+  YAML_CONF: ../../../code/go/tooling/golangci-lint/.golangci.yaml
+
+env:
+  GOPATH: "{{.PWD}}/gopath"
+
+tasks:
+  default:
+    method: checksum
+    sources:
+    - ./Taskfile.yaml
+    cmds:
+    - clear
+    - golangci-lint cache clean
+
+    # Update binaries
+    # - task: build
+    #   vars: { "DIR": /home/projects/linter/ }
+    # - task: build
+    #   vars: { "DIR": /home/projects/golangci-lint/ }
+
+    # Perform check
+    - task: check
+      vars: { "DIR": repo-alertmanager }
+    - task: check
+      vars: { "DIR": repo-beehive }
+    - task: check
+      vars: { "DIR": repo-bigcache }
+    - task: check
+      vars: { "DIR": repo-cds }
+    - task: check
+      vars: { "DIR": repo-cert-manager }
+    - task: check
+      vars: { "DIR": repo-chaos-mesh }
+    - task: check
+      vars: { "DIR": repo-cli }
+    - task: check
+      vars: { "DIR": repo-containerd }
+    - task: check
+      vars: { "DIR": repo-cortex }
+    - task: check
+      vars: { "DIR": repo-croc }
+    - task: check
+      vars: { "DIR": repo-dendrite }
+    - task: check
+      vars: { "DIR": repo-descheduler }
+    - task: check
+      vars: { "DIR": repo-doctl }
+    - task: check
+      vars: { "DIR": repo-drone }
+    - task: check
+      vars: { "DIR": repo-polaris }
+    - task: check
+      vars: { "DIR": repo-prometheus }
+    - task: check
+      vars: { "DIR": repo-prometheus-operator }
+    - task: check
+      vars: { "DIR": repo-tfsec }
+    - task: check
+      vars: { "DIR": repo-thanos }
+    - task: check
+      vars: { "DIR": repo-trivy }
+    - task: check
+      vars: { "DIR": repo-tsuru }
+    - task: check
+      vars: { "DIR": repo-vulcain }
+    - task: check
+      vars: { "DIR": repo-watchtower }
+
+  download: ./download.sh
+
+  build:
+    dir: '{{.DIR}}'
+    cmd: make build
+
+  mirror:
+    dir: '{{.DIR}}'
+    cmd: golangci-lint run --no-config --disable-all -Emirror --max-issues-per-linter 500 --out-format tab --max-same-issues 10 -j 8 --timeout 3m0s
+
+  revive:
+    dir: '{{.DIR}}'
+    cmd: golangci-lint -v -c {{.YAML_CONF}} run --disable-all -Erevive --max-issues-per-linter 100 --out-format tab  --max-same-issues 10 -j 8 --timeout 3m0s
+
+
+  check:
+    dir: '{{.DIR}}'
+    ignore_error: true
+    cmds:
+      - cmd: echo '{{.DIR}}'
+      # - cmd: git pull
+      #   silent: true
+      # - cmd: go mod download
+      #   silent: true
+      # - task: mirror
+      #   vars: { "DIR": '{{.DIR}}' }
+      - task: revive
+        vars: { "DIR": '{{.DIR}}' }
+      # - /Users/butuzov/.dotfiles/bin/golangci-lint cache clean
+      # golangci-lint run -v ./test.go
+      # golangci-lint run -v --fix ./test.go
+      # git diff
+      # - time go vet -vettool=../mirror-before ./...
+      # - echo "--------------------------------------------------------------"
+      # - time go vet -vettool=../mirror-refactor ./...
+      # - echo "--------------------------------------------------------------"
+      # - time ../mirror-before --with-tests ./...
+      # - echo "--------------------------------------------------------------"
+      # - time ../mirror-refactor --with-tests ./...
+      # - echo "--------------------------------------------------------------"
+      # - time go vet -vettool=$(which mirror) ./...
+      # - echo "--------------------------------------------------------------"
+      # - time mirror --with-tests ./...
+      # - echo "--------------------------------------------------------------"
+      # - time golangci-lint run --no-config --disable-all -Emirror --max-issues-per-linter 500 --out-format tab --max-same-issues 10 -j 8 --tests --timeout 3m0s
+      # - echo "--------------------------------------------------------------"

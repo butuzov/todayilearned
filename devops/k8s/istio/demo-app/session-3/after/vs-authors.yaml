@@ -1,0 +1,55 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: authors
+spec:
+  host: authors
+  trafficPolicy:
+    loadBalancer:
+      simple: RANDOM
+    connectionPool:
+      tcp:
+        maxConnections: 1
+      http:
+        http1MaxPendingRequests: 1
+        maxRequestsPerConnection: 1
+    outlierDetection:
+      consecutive5xxErrors: 1
+      interval: 1s
+      baseEjectionTime: 3m
+      maxEjectionPercent: 100
+  subsets:
+  - name: v2
+    labels:
+      version: v2
+    # trafficPolicy:
+    #   loadBalancer:
+    #     simple: ROUND_ROBIN
+  - name: v2-1
+    labels:
+      version: v2.1
+    # trafficPolicy:
+    #   loadBalancer:
+    #     simple: LEAST_CONN
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: authors
+spec:
+  hosts:
+  - authors
+  gateways:
+  - course-frontend-gateway
+  - mesh
+  http:
+  - route:
+    - destination:
+        host: authors
+        subset: v2
+      weight: 50
+    - destination:
+        host: authors
+        subset: v2-1
+      weight: 50

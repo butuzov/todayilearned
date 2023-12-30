@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+
+
+  authors:
+    image: butuzov/demoapp-authors:v2
+    build:
+      context: ./services/authors/v2
+      dockerfile: Dockerfile
+    ports: [ 8082:3000 ]
+    environment:
+      PORT: 3000
+
+  books:
+    image: butuzov/demoapp-books:v2
+    build:
+      context: ./services/books/v2
+      dockerfile: Dockerfile
+    ports: [ 8081:3000 ]
+    environment:
+      PORT: 3000
+
+  front-end:
+    image: butuzov/demoapp-frontend:v2
+    build:
+      context: ./services/frontend/v2
+      dockerfile: Dockerfile
+    ports: [ 8080:3000 ]
+
+    environment:
+      PORT: 3000
+      URL_BASE_AUTHORS: http://authors:3000/api/v1/
+      URL_BASE_BOOKS: http://books:3000/api/v1/
+    restart: on-failure
+    depends_on:
+    - "books"
+    - "authors"

@@ -1,0 +1,328 @@
+# This file contains all available configuration options
+# with their default values.
+# options for analysis running
+run:
+  timeout: 15s
+  issues-exit-code: 1
+
+# Output configuration options
+output:
+  format: line-number
+  print-issued-lines: false
+  print-linter-name: true
+  uniq-by-line: false
+  sort-results: true
+
+issues:
+  max-issues-per-linter: 0
+
+
+linters:
+  enable:
+    - revive
+  disable-all: true
+
+
+linters-settings:
+  revive:
+#     # see https://github.com/mgechev/revive#available-rules for details.
+    ignore-generated-header: true
+    confidence: 0.5
+    severity: warning
+    rules:
+      - name: add-constant
+        severity: warning
+        arguments:
+        - maxLitCount: "3"       # Max Num Strings Lit before warn
+          allowStrs: '""'        # comma-separated list of allowed string literals
+          allowInts: "0,1,2"     # comma-separated list of allowed integers
+          allowFloats: "0.0"     # comma-separated list of allowed floats
+          ignoreFuncs: "strconv" # skip check of this functions
+
+      - name: argument-limit
+        severity: warning
+        arguments: [4]
+
+      - name: atomic
+        severity: warning
+
+      - name: banned-characters
+        severity: warning
+        arguments: Ω
+
+      - name: bare-return
+        severity: warning
+
+      - name: blank-imports
+        severity: warning
+
+      - name: bool-literal-in-expr
+        severity: warning
+
+      - name: comment-spacings
+        severity: warning
+        arguments: ["mypragma"]
+
+      - name: cognitive-complexity
+        severity: warning
+        arguments: [2]
+
+      - name: call-to-gc
+        severity: warning
+
+      - name: confusing-naming
+        severity: warning
+
+      - name: confusing-results
+        severity: warning
+
+      - name: constant-logical-expr
+        severity: warning
+
+      - name: context-as-argument
+        severity: warning
+
+      - name: context-keys-type
+        severity: warning
+
+      - name: cyclomatic
+        severity: warning
+        arguments: 3
+
+      - name: deep-exit
+        severity: warning
+
+      - name: datarace
+        severity: warning
+
+      - name: defer
+        severity: warning
+        arguments:
+        - - "call-chain"
+          - "loop"
+          - "recover"
+          - "return"
+          - "method-call"
+
+      - name: dot-imports
+        severity: warning
+
+      - name: duplicated-imports
+        severity: warning
+
+      - name: early-return
+        severity: warning
+
+      - name: empty-block
+        severity: warning
+
+      - name: empty-lines
+        severity: warning
+
+      - name: enforce-map-style
+        severity: warning
+        arguments: ["make"]
+
+      # unreleased
+      # - name: enforce-slice-style
+      #   severity: warning
+      #   arguments: ["literal"]
+
+      - name: error-naming
+        severity: warning
+
+      - name: error-return
+        severity: warning
+
+      - name: error-strings
+        severity: warning
+
+      - name: errorf
+        severity: warning
+
+      - name: exported
+        severity: warning
+        arguments:
+          - "checkPrivateReceivers"
+          - "sayRepetitiveInsteadOfStutters"
+
+
+      - name: line-length-limit
+        severity: warning
+        arguments: 80
+
+      - name: file-header
+        severity: warning
+        arguments: "file-header-check"
+
+
+      - name: flag-parameter
+        severity: warning
+
+      - name: function-length
+        severity: warning
+        arguments:
+        - 10
+        - 0
+
+      - name: get-return
+        severity: warning
+
+      - name: function-result-limit
+        severity: warning
+        arguments: [2]
+
+      - name: identical-branches
+        severity: warning
+
+      - name: if-return
+        severity: warning
+
+      - name: import-alias-naming
+        severity: warning
+        arguments:
+        - "^[a-z][a-z0-9]{0,}$" # allow regexp
+        # - allowRegex: "^[a-z][a-z0-9]{0,}$"
+          # denyRegex: "^v\d+$"
+
+      - name: import-shadowing
+        severity: warning
+
+      - name: imports-blacklist
+        severity: warning
+        arguments:
+        - "crypto/md5"
+        - "crypto/sha1"
+
+      - name: indent-error-flow
+        severity: warning
+
+      - name: line-length-limit
+        severity: warning
+        arguments: 80
+
+      - name: max-public-structs
+        severity: warning
+        arguments: 2
+        disable: true
+
+      - name: max-return-values
+        severity: warning
+        arguments: [2]
+
+      - name: max-struct-fields
+        severity: warning
+        arguments: [10]
+
+      - name: max-unexported-receiver-methods
+        severity: warning
+        arguments: [10]
+
+      - name: mixed-caps
+        severity: warning
+
+
+      - name: modifies-value-receiver
+        severity: warning
+
+      - name: modifies-parameter
+        severity: warning
+
+      - name: range-val-address
+        severity: warning
+
+      - name: range-val-in-closure
+        severity: warning
+
+      - name: nested-structs
+        severity: warning
+
+        # rulle not triggered
+      - name: optimize-operands-order
+        severity: warning
+
+      - name: receiver-naming
+        severity: warning
+
+      - name: redefines-builtin-id
+        severity: warning
+
+      - name: redundant-import-alias
+        severity: warning
+
+      - name: string-format
+        severity: warning
+        arguments:
+        - [ "stringFormatMethod1", "/^([^A-Z]|$)/", "must not start with a capital letter"]
+
+      - name: string-of-int
+        severity: warning
+
+      - name: struct-tag
+        severity: warning
+
+      - name: superfluous-else
+        severity: warning
+
+      - name: time-naming
+        severity: warning
+
+      - name: time-equal
+        severity: warning
+
+      - name: unchecked-type-assertion
+        severity: warning
+
+      - name: unconditional-recursion
+        severity: warning
+
+      - name: unexported-naming
+        severity: warning
+
+      - name: unexported-return
+        severity: warning
+
+
+      - name: unhandled-error
+        severity: error
+
+      # doens't trigger
+      - name: unnecessary-stmt
+        severity: warning
+
+
+      - name: unused-parameter
+        severity: warning
+
+      - name: use-any
+        severity: warning
+
+      - name: package-comments
+        severity: warning
+
+      - name: increment-decrement
+        severity: warning
+
+      - name: range
+        severity: warning
+
+      - name: unreachable-code
+        severity: warning
+
+      - name: unused-receiver
+        severity: warning
+
+      - name: useless-break
+        severity: warning
+
+      - name: var-naming
+        severity: warning
+        arguments:
+        - - "ID"
+          - "VM"
+
+      - name: var-declaration
+        severity: warning
+
+      - name: waitgroup-by-value
+        severity: warning

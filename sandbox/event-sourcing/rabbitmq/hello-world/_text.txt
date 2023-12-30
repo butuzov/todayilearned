@@ -1,0 +1,8 @@
+```mermaid
+graph LR
+  subgraph GA
+   A[Producer] --> C[queue:foobar] --> D[Consumer]
+  end
+
+
+    A[Producer] --> B[exchange:foobar] --> C[queue:foobar] --> D[Consumer]

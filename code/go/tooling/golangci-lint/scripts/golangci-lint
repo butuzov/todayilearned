@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+VERSION=1.55.2
+ARCHIVE=$(printf  https://github.com/golangci/golangci-lint/archive/v%s.tar.gz $VERSION)
+
+list_golangcilint() {
+    ls -1 $1/*.go | \
+    grep -v gofmt_common | \
+    grep -v gofmt_test | \
+    grep -v govet_test | \
+    grep -v util | \
+    grep -v megacheck | \
+    sed 's/rowerrcheck/rowserrcheck/g' | \
+    xargs -I {} sh -c "basename {} .go" | \
+    sort
+}
+
+filters() {
+    echo $0
+}
+
+list_go() {
+    ls -1 $1/*.go | \
+    xargs -I {} sh -c "basename {} .go" | \
+    sed "s/_test//" | \
+    sort
+}
+
+
+USE_LOCAL=true
+
+if [[ ! -z $USE_LOCAL ]]; then
+    GOLANGCI_LINT_CURRENT_RULES=$(cat golangci.txt | \
+         grep -e  "^[^#;]" |\
+         grep -v commons |\
+         grep -v gofmt_common |\
+         grep -v gofmt_test |\
+         grep -v govet_test |\
+         grep -v staticcheck_common |\
+         grep -v megacheck |\
+          sed 's/rowerrcheck/rowserrcheck/g' | \
+         grep -v typecheck |\
+         grep -v util |\
+         grep -v testableexamples |\
+         sort
+         )
+else
+    curl -Ls $ARCHIVE > $TMPDIR/$(basename $ARCHIVE)
+    tar xf $(printf $TMPDIR/v%s.tar.gz $VERSION) --directory $TMPDIR
+    GOLANGCI_LINT_CURRENT_RULES=$(list_golangcilint $(printf $TMPDIR/golangci-lint-%s/pkg/golinters $VERSION))
+fi
+
+
+
+GOLANGCI_LINT_CURRENT_FILES=$(list_go $(pwd)/testdata)
+
+for RULE in $GOLANGCI_LINT_CURRENT_RULES; do
+  example=$(printf "testdata/%s.go" $RULE)
+  if [[ ! -f $example ]]; then
+    printf "${YELLOW} (missing): %s${NC}\n" $RULE
+  fi
+done
+
+
+
+
+ok=0
+counter=0
+
+# останнє значення що було перевірено 3
+limits=4
+
+for RULE in $GOLANGCI_LINT_CURRENT_FILES; do
+  w=$(echo $GOLANGCI_LINT_CURRENT_RULES | grep -w $RULE)
+  if [[ -z $w ]]; then
+    printf "${RED}(obsolete): %s${NC}\n" $RULE
+  else
+    match=$(golangci-lint run --no-config --disable-all -E=$RULE ./testdata/$RULE*.go 2>/dev/null | grep "($RULE)")
+    warning=$(golangci-lint run --no-config --disable-all -E=$RULE ./testdata/$RULE*.go 2>&1 | grep "is deprecated")
+    with_config=$(cat ./testdata/$RULE*.go | grep "OK_with_config" | grep -v -e '^$' )
+
+    if [[ ! -z $warning ]]; then
+        printf "${RED}   (deprecated): %s${NC}\n" $RULE
+    elif [[ ! -z $with_config ]]; then
+        ok=$((ok+1))
+        # printf "${GREEN}   (exits): %s${NC}\n" $RULE
+    elif [[ -z $match ]]; then
+
+        counter=$((counter+1))
+
+        printf "${RED}   (error): %s${NC}\n" $RULE
+        if (( $counter == $limits )); then
+            echo "-- no config ---"
+            golangci-lint run -v --no-config --disable-all -E=$RULE -E=typecheck ./testdata/$RULE*.go
+            echo "-- with config & only linter ---"
+            golangci-lint -c .golangci.yaml run -v --disable-all -E=$RULE ./testdata/$RULE*.go
+            echo "-- with config and all linters ---"
+            golangci-lint -c .golangci.yaml run -v --enable-all --sort-results  ./testdata/$RULE*.go
+            echo "-- ready linters ---"
+            echo "$ok"
+        fi
+
+        if (( $counter >= $limits )); then
+            exit 1;
+        fi
+    else
+        ok=$((ok+1))
+        # printf "${GREEN}   (exits): %s${NC}\n" $RULE
+    fi
+  fi
+done
+
+echo "$ok"

@@ -1,0 +1,99 @@
+version: "3"
+
+services:
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.5.2
+    restart: "on-failure"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "kafka-1:9092,kafka-2:9092,kafka-3:9092"
+    healthcheck:
+      <<: *x-healthchecks
+      test: curl --fail 0.0.0.0.:8081/subjects
+    depends_on:
+      kafka-1: {condition: service_healthy}
+      kafka-2: {condition: service_healthy}
+      kafka-3: {condition: service_healthy}
+
+  kafka-1: &kafka
+    image: "bitnami/kafka:3.6.0"
+    restart: "on-failure"
+    environment: &kafka-environment
+      ALLOW_ANONYMOUS_LOGIN: yes
+      KAFKA_ENABLE_KRAFT: yes
+      KAFKA_CFG_PROCESS_ROLES: broker,controller
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: kraft:PLAINTEXT,CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT
+      KAFKA_BROKER_ID: 1
+      ALLOW_PLAINTEXT_LISTENER: yes
+      BITNAMI_DEBUG: yes
+      KAFKA_KRAFT_CLUSTER_ID: OTMwNzFhYTY1ODNiNGE5OT
+      KAFKA_CFG_KRAFT_REPLICATION_FACTOR: 3
+      KAFKA_CFG_DEFAULT_REPLICATION_FACTOR: 3
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_CFG_ADVERTISED_LISTENERS: kraft://:9093,INTERNAL://kafka-1:9092
+      KAFKA_CFG_LISTENERS: kraft://:9093,CONTROLLER://kafka-1:9094,INTERNAL://:9092
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka-1:9094,2@kafka-2:9094,3@kafka-3:9094
+    volumes:
+    - kafka-1:/var/lib/kafka/data/
+    healthcheck:
+      <<: *x-healthchecks
+      test: kafka-cluster.sh cluster-id --bootstrap-server localhost:9092 || exit 1
+      retries: 100
+
+  kafka-2:
+    <<: *kafka
+    environment:
+      <<: *kafka-environment
+      KAFKA_BROKER_ID: 2
+      KAFKA_CFG_NODE_ID: 2
+      KAFKA_CFG_ADVERTISED_LISTENERS: kraft://:9093,INTERNAL://kafka-2:9092
+      KAFKA_CFG_LISTENERS: kraft://:9093,CONTROLLER://kafka-2:9094,INTERNAL://:9092
+    volumes:
+    - kafka-2:/var/lib/kafka/data/
+
+  kafka-3:
+    <<: *kafka
+    environment:
+      <<: *kafka-environment
+      KAFKA_BROKER_ID: 3
+      KAFKA_CFG_NODE_ID: 3
+      KAFKA_CFG_ADVERTISED_LISTENERS: kraft://:9093,INTERNAL://kafka-3:9092
+      KAFKA_CFG_LISTENERS: kraft://:9093,CONTROLLER://kafka-3:9094,INTERNAL://:9092
+    volumes:
+    - kafka-3:/var/lib/kafka/data/
+
+  kafka-setup:
+    image: linkedin/datahub-kafka-setup:v0.12.1
+    hostname: kafka-setup
+    environment:
+      DATAHUB_PRECREATE_TOPICS: ${DATAHUB_PRECREATE_TOPICS:-false}
+      KAFKA_BOOTSTRAP_SERVER: kafka-1:9092,kafka-2:9092,kafka-3:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      USE_CONFLUENT_SCHEMA_REGISTRY: TRUE
+    depends_on:
+      kafka-1:         {condition: service_healthy}
+      kafka-2:         {condition: service_healthy}
+      kafka-3:         {condition: service_healthy}
+      schema-registry: {condition: service_healthy}
+    labels:
+      datahub_setup_job: true
+
+  kafka-ui:
+    image: tchiotludo/akhq
+    depends_on:
+      kafka-1:         {condition: service_healthy}
+      kafka-2:         {condition: service_healthy}
+      kafka-3:         {condition: service_healthy}
+      schema-registry: {condition: service_healthy}
+    ports :
+      - 9100:8080
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: "kafka-1:9092,kafka-2:9092,kafka-3:9092"

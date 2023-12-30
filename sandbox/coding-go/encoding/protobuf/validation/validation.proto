@@ -1,0 +1,16 @@
+
+// [START declaration]
+syntax = "proto3";
+// [END declaration]
+
+import "validate/validate.proto";
+
+package validation;
+
+// [START go_declaration]
+option go_package = "./validation";
+// [SEND go_declaration]
+
+message ValidationExample {
+  uint64 id = 1 [ (validate.rules).uint64.gt = 999 ];
+}

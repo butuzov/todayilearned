@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Usage ./scripts/create_templates golangci.txt testdata
+
+for linter in $(cat $1); do
+    echo $linter
+    touch ./$2/$linter.go
+    echo "package testdata" > ./$2/$linter.go
+done
