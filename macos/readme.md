@@ -19,6 +19,10 @@
 * <kbd>⇧</kbd>+<kbd>⌥</kbd>+ resize - proportional resizing.
 * <kbd>⌥</kbd> + resize - resizing a window to resize it from the center.
 
+### Close ALL windows of same type
+
+* Hold <kbd>⌥</kbd> + close toppest window.
+
 
 ## Command recipes
 
