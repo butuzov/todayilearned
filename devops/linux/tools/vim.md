@@ -5,7 +5,6 @@
 Shortcut       | Description
 ---------------|---------------------------
 `x`            | to delete the unwanted character
-
 `u`            | to undo the last the command and U to undo the whole line
 `CTRL`+`R`     | redo
 `:q!`          | to trash all changes
@@ -46,7 +45,7 @@ Shortcut       | Description
 `A`            | Go to End of the Line and Switch to Insert Mode.
 `o`            | Insert Line Under Current and Switch to Insert Mode.
 `O`            | Insert Line Above Current and Switch to Insert Mode.
-`|`            | Go to Begin of the Line
+`\|`           | Go to Begin of the Line
 `:s/old/new/g` | Replace 'new' for 'old' where g is globally
 `:s/old/new`   | Replace 'new' for 'old'
 
