@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-
 import argparse
+import base64
 import hashlib
 import json
 import pathlib
+import re
 from sys import argv, exit
 from threading import Lock
 
@@ -78,8 +79,15 @@ class Convertor():
                 data_html = "\n\n" + "".join(self.filter_out(out["data"]["text/html"]))
 
             if datad and "image/png" in out["data"]:
-                data_html += "\n\n<img src='data:image/png;base64,{0}' />".format(
-                    out["data"]["image/png"][0:-1])
+                content = out["data"]["image/png"][0:-1]
+                name = hashlib.md5(content.encode()).hexdigest()
+
+                g = open(f"{self.path}/img_gen_{name}.png", "wb")
+                content += "=" * ((4 - len(content) % 4) % 4)
+                g.write(base64.b64decode(content))
+                g.close()
+
+                data_html += f"\n\n![](img_gen_{name}.png)"
 
             if datad and "text/plain" in out["data"]:
                 data_text = "result >>> {0}\n".format("result >>> ".join(
@@ -125,6 +133,10 @@ class Convertor():
         return "\n"+"\n".join(map(lambda x: prefix + x.strip(), output)) + "\n"
 
     def convert(self, src, dst):
+        self.path = pathlib.Path(src).parents[0]
+
+        for image_generated in pathlib.Path(src).parents[0].glob(f'img_gen_*.png'):
+            image_generated.unlink()
 
         result = []
         with open(src) as f:
@@ -183,6 +195,18 @@ class Convertor():
 
         return self.check_notebook(self.pos[0])
 
+def decode_base64(data, altchars=b'+/'):
+    """Decode base64, padding being optional.
+
+    :param data: Base64 data as an ASCII byte string
+    :returns: The decoded byte string.
+
+    """
+    data = re.sub(rb'[^a-zA-Z0-9%s]+' % altchars, b'', data)  # normalize
+    missing_padding = len(data) % 4
+    if missing_padding:
+        data += b'='* (4 - missing_padding)
+    return base64.b64decode(data, altchars)
 
 
 if __name__ == "__main__":
