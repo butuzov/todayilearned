@@ -126,13 +126,9 @@ This is copy of https://e.printstacktrace.blog/how-to-convert-json-to-csv-from-t
 ```
 
 1. We run `jq -r` to output raw strings (without double quotes.)
-
 1. In the filter part, we pipe multiple filters together, starting with `map({id,title,url,company,location})`. This filter instructs `jq` which keys we want to extract from the input JSON file.
-
 1. Then we use `(first | keys_unsorted)` as `$keys` filter which takes the first object, extracts its keys and stores them under the `$keys` variable as an array.
-
 1. Next, we use `map([to_entries[] | .value]) as $rows` filter which converts every key-value entry like `"foo": "bar"` into an object like `{"key":"foo","value":"bar"}` so we can extract only values as an array and store it in a $rows variable.
-
 1. Once we do it, we can use `$keys,$rows[]` filter to put keys and rows together and then pipe it with the `@csv` filter to convert JSON objects to CSV rows.
 
 ### CVS parsing
@@ -148,6 +144,21 @@ This is copy of https://e.printstacktrace.blog/how-to-convert-json-to-csv-from-t
         "Pclass": .[2],
       })' \
   example_titanic.csv
+```
+
+### Other builtins
+
+```shell
+# print sorted keys
+curl -s http://localhost:9200/_aliases | jq 'keys'
+# print keys
+curl -s http://localhost:9200/_aliases | jq 'keys_unsorted'
+# object/array length
+curl -s http://localhost:9200/_aliases | jq 'length'
+# check for key in array
+curl -s http://localhost:9200/_aliases | jq 'has("nifi-req-2024.01.11")'
+# in set
+echo -n '["foo", "bar"]' | jq '.[] | in({"foo": 42})'
 ```
 
 ## `TODO`:  Conditionals and Comparisons
