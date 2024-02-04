@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    environment:
+    - RABBITMQ_DEFAULT_USER=foo
+    - RABBITMQ_DEFAULT_PASS=bar
+    volumes:
+    - rabbitmq_data:/var/lib/rabbitmq/
+    - rabbitmq_log/:/var/log/rabbitmq
+    ports:
+    - "5672:5672"   # ampq
+    - "15672:15672" # UI
+    - "1883:1883"   #
+

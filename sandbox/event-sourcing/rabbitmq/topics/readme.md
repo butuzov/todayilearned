@@ -3,6 +3,8 @@
 
 # RabbitMQ's  Topic (`topic`)
 
+![](../images/exchanges-topic-fanout-direct.png)
+
 ![](images/exchanges-topic-fanout-direct.png)
 
 ### Connection

@@ -1,0 +1,27 @@
+version: "3"
+
+
+x-healthchecks: &healthchecks
+  start_period: 20s
+  interval: 10s
+  timeout: 1s
+  retries: 60
+
+services:
+  prom:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - data_prom:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    healthcheck:
+      <<: *healthchecks
+      test:
+      - "CMD-SHELL"
+      - "wget --no-verbose --tries=1 --spider '0.0.0.0:9090/-/healthy' || exit 1"
+
+volumes:
+  data_prom: ~

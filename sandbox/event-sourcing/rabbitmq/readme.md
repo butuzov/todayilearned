@@ -10,10 +10,12 @@
 
 - [Introduction to RabbitMQ](intro/readme.md)
 - [Hello World](hello-world/readme.md)
-- [RabbitMQ's Worker Queues Pattern](worker-queues/readme.md)
-- [RabbitMQ’s `Publications/Subscribe` Pattern (using `fanout`)](pub-sub/readme.md)
-- [RabbitMQ’s Topic](topics/readme.md)
-- [RabbitMQ’s Routing (`direct`)](routing/readme.md)
-- [RabbitMQ’s Request/Reply Pattern](request-reply/readme.md)
 
+![](./images/exchanges-topic-fanout-direct.png)
 
+- [RabbitMQ’s Routing Direct](routing/readme.md)
+- [RabbitMQ’s Routing Topic](topics/readme.md)
+- [RabbitMQ’s Routing Fanout](pub-sub/readme.md)
+- [RabbitMQ's Pattern "Worker Queues"](worker-queues/readme.md)
+- [RabbitMQ’s Pattern "Request/Reply"](request-reply/readme.md)
+- https://hevodata.com/learn/rabbitmq-exchange-type/

@@ -166,6 +166,10 @@ body.typography-grid .content {
   }
 
   // CONTENT ELEMENTS...CONTENT ELEMENTS...CONTENT ELEMENTS...CONTENT ELEMENTS..
+  > :is(p, div) {
+    line-height: 1.3rem !important;
+  }
+
   > :is(p, div, ul, ol, blockquote, table),
   > table td,
   > table td :is(p, ul, ol, blockquote) {

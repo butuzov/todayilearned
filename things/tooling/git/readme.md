@@ -1,6 +1,26 @@
 # `git`
 
 
+## Using git @ work & home
+
+- [Conditional Git Configuration](https://blog.scottlowe.org/2023/12/15/conditional-git-configuration/)
+
+```shell
+# ~/.gitconfig
+[includeIf "gitdir:~/Work/Code/Repos/"]
+    path = ~/Work/Code/Repos/.gitconfig
+```
+```shell
+# ~/Work/Code/Repos/.gitconfig
+[user]
+    email = name@work-domain.com
+    name = Scott Lowe
+[commit]
+    gpgsign = false
+```
+
+
+
 ## Reading
 
 

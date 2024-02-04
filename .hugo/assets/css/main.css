@@ -12255,6 +12255,9 @@ body.colored .content h5, body.colored .content .h5 {
 body.colored .content h6, body.colored .content .h6 {
   background-color: rgba(255, 102, 99, 0.5) !important;
 }
+.content > :is(p, div) {
+  line-height: 1.3rem !important;
+}
 .content > :is(p, div, ul, ol, blockquote, table),
 .content > table td,
 .content > table td :is(p, ul, ol, blockquote) {

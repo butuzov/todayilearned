@@ -21,6 +21,7 @@ tasks:
 
   mark:
     sources:
+    - "./**/readme.ipynb"
     - "./**/readme.md"
     - "base.config.yaml"
     method: timestamp
