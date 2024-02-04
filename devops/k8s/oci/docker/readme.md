@@ -32,6 +32,46 @@ docker inspect --format '{{json .config}}' sdk2i
 docker inspect --format='{{range .NetworkSettings.Networks}}{{println .IPAddress }}{{println .IPPrefixLen}}{{ .MacAddress}}{{end}}'
 ```
 
+## Usefull
+
+### See How Long a Container Ran For
+
+```shell
+> docker container inspect  82d07bd09e7 | grep dAt
+            "StartedAt": "2024-01-12T03:57:21.246442922Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+> docker container inspect  82d07bd09e7 | jq '.[].State.StartedAt,.[].State.FinishedAt'
+```
+
+### Healthchecks
+
+#### HEALTHCHECK
+
+https://docs.docker.com/engine/reference/builder/#healthcheck
+
+#### Docker-Compose: `curl`
+
+Such curl command will generate more readable logs and reduce its memory fingerprint.
+
+```shell
+docker container inspect a76b884d1b2a | jq '.[].State.Health.Log[] | [.Output,.Start,.End] '
+docker container inspect a76b884d1b2a | jq '.[].State.Health.Log[] | {Output,Start,End} '
+```
+```yaml
+x-healthchecks: &healthchecks
+  start_period: 20s
+  interval: 10s
+  timeout: 1s
+  retries: 60
+
+services:
+  service_name:
+    ...
+    healthcheck:
+      <<: *healthchecks
+      test: curl -s --fail localhost:port > /dev/null
+```
+
 ## Tutorials
 
 * [ENTRYPOINT vs CMD]()

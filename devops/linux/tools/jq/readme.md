@@ -7,12 +7,44 @@
 
 - https://jqplay.org/
 - https://jqlang.github.io/jq/
+- https://manpages.ubuntu.com/manpages/xenial/man1/jq.1.html
+- https://github.com/jqlang/jq/wiki/Cookbook
 
 ## Example
 
-https://github.com/jqlang/jq/wiki/Cookbook#filter-objects-based-on-the-contents-of-a-key
+More Simple steps to begin with...
+
+```shell
+> jq -V
+jq-1.7
+
+# Let's grab a sources
+> curl https://api.github.com/users/butuzov/received_events > o.json
+
+# We can pipe source into jq with a few ways
+> cat "o.json" | jq 'length'
+30
+> jq -f o.json 'length'
+30
+> jq 'length' o.json
+30
+# Using null input + piping into another jq to minify it.
+> jq --null-input --argjson test null '.test=$test'  | jq -r tostring
+
+# How this help structured:
+# each call to jquery will precent ...| and it means we runnin cat 'o.json'
+> cat 'o.json'
+
+# writing line below is same as cat o.json | jq -M '.[]', if other input not provided
+> ...| jq '.'
+# json output
+{...}
+
+```
+### Kubernetes Examples
 
 ```bash
+alias k="kubectl $@"
 # initial
 k create deployment nginx --image=nginx --dry-run -o yaml | k create -f -
 k scale deployment nginx --replicas=4
@@ -44,53 +76,11 @@ k get pods -o json | jq '.items[] | {name:.metadata.name, termination: .spec.ter
 
 ```
 
-
-<!-- - https://medium.com/cameron-nokes/working-with-json-in-bash-using-jq-13d76d307c4
-- https://medium.com/google-cloud/kubernetes-engine-master-node-versions-b5ecd9ed0b35
-- https://github.com/butuzov/todayilearned/blob/v2/tooling/jq/jq.md
-- https://medium.com/free-code-camp/how-to-transform-json-to-csv-using-jq-in-the-command-line-4fa7939558bf
-- https://stackoverflow.com/questions/18592173/
-- https://stackoverflow.com/questions/28164849/
-- https://stackoverflow.com/questions/44656515/how-to-remove-double-quotes-in-jq-output-for-parsing-json-files-in-bash
-- https://stackoverflow.com/questions/33057420/jq-select-multiple-conditions/33059058#33059058 -->
-
-
-
-
-```shell
-> jq -V
-jq-1.7
-
-# Let's grab a sources
-> curl https://api.github.com/users/butuzov/received_events > o.json
-
-# We can pipe source into jq with a few ways
-> cat "o.json" | jq 'length'
-30
-> jq -f o.json 'length'
-30
-> jq 'length' o.json
-30
-# Using null input + piping into another jq to minify it.
-> jq --null-input --argjson test null '.test=$test'  | jq -r tostring
-
-# How this help structured:
-# each call to jquery will precent ...| and it means we runnin cat 'o.json'
-> cat 'o.json'
-
-# writing line below is same as cat o.json | jq -M '.[]', if other input not provided
-> ...| jq '.'
-# json output
-{...}
-
-```
-
 ## Invoking jq
 
 - Unix shells: `jq '.["foo"]'`
 - Powershell: `jq '.[\"foo\"]'`
 - Windows command shell: `jq ".[\"foo\"]"`
-
 
 
 ## Basic filters
@@ -106,14 +96,33 @@ false
 > echo [20] | jq 'map([., . == 1]) | tojson'
 "[[20,false]]"
 >
-TODO: Object Identifier-Index
-```
 
-## `TODO`: Types and Values
+```
+## TODO: Object Identifier-Index
+
+## Types and Values
 
 ```shell
+> echo -n '[1, "1"]' | jq '.[] | tonumber'
+1
+1
+> echo -n '[1, "1"]' | jq '.[] | tostring'
+"1"
+"1"
+> echo -n '[0, false, [], {}, null, "hello"]' | jq 'type'
+array
+> echo -n '[0, false, [], {}, null, "hello"]' | jq -c 'map(type)'
+["number","boolean","array","object","null","string"]
 
+# Other...
+$json=$(curl -s https://api.github.com/users/butuzov/received_events)
+# Array To Multi Document Json
+echo $json | jq '.[] | select(.)'
+echo $json | jq '.[] | select(.type == "CreateEvent") | [.]'
+# Subselecting Element from Selected Object into Array
+echo $json | jq '.[] | select(.type == "CreateEvent").actor | [.]'
 ```
+
 ## Builtin operators and functions
 
 ### @CSV
@@ -161,18 +170,151 @@ curl -s http://localhost:9200/_aliases | jq 'has("nifi-req-2024.01.11")'
 echo -n '["foo", "bar"]' | jq '.[] | in({"foo": 42})'
 ```
 
-## `TODO`:  Conditionals and Comparisons
+## Conditionals and Comparisons
 
-## `TODO`:  Regular expressions
+```shell
+> json='[{"a":1,"b":10,"c":9},{"a":2,"b":25,"c":5}]'
+> echo -n $json | jq -c '.[] | select((.a <= 1)).a'
+1
+> echo -n $json | jq -c '.[] | select((.a <= 1) and (.c=9)).b'
+10
+> echo -n $json | jq -c '.[] | select((.a <= 1) or (.c%3>0)).b'
+10
+25
+```
+
+## Regular expressions
+
+The jq regex filters are defined so that they can be used using one of these patterns:
+
+```
+STRING | FILTER(REGEX)
+STRING | FILTER(REGEX; FLAGS)
+STRING | FILTER([REGEX])
+STRING | FILTER([REGEX, FLAGS])
+```
+where:
+
+- `STRING`, `REGEX`, and `FLAGS` are jq strings and subject to jq string interpolation;
+- `REGEX`, after string interpolation, should be a valid regular expression;
+- `FILTER` is one of `test`, `match`, or `capture``, as described below.
+
+`FLAGS` is a string consisting of one of more of the supported flags:
+
+- `g` - Global search (find all matches, not just the first)
+- `i` - Case insensitive search
+- `m` - Multi line mode (. will match newlines)
+- `n` - Ignore empty matches
+- `p` - Both s and m modes are enabled
+- `s` - Single line mode (^ -> \A, $ -> \Z)
+- `l` - Find longest possible matches
+- `x` - Extended regex format (ignore whitespace and comments)
+
+
+```shell
+# Test
+> jq -n '"a" | test("a")'
+true
+> jq -n '"a" | test("a", "x")'
+true
+false
+> echo -n '["xabcd", "ABC"]' | jq '.[] | test("a b c # spaces are ignored"; "ix")'
+true
+true
+
+# Match
+echo -n '"abc abc"' | jq 'match("(abc)+"; "g")'
+{
+  "offset": 0,
+  "length": 3,
+  "string": "abc",
+  "captures": [
+    {
+      "offset": 0,
+      "length": 3,
+      "string": "abc",
+      "name": null
+    }
+  ]
+}
+{
+  "offset": 4,
+  "length": 3,
+  "string": "abc",
+  "captures": [
+    {
+      "offset": 4,
+      "length": 3,
+      "string": "abc",
+      "name": null
+    }
+  ]
+}
+> echo -n 'abc' | jq '[ match("."; "g")] | length'
+3
+
+# Capture
+> echo -n '"xyzzy-14"' | jq 'capture("(?<a>[a-z]+)-(?<n>[0-9]+)")'
+{
+  "a": "xyzzy",
+  "n": "14"
+}
+
+# Split
+> echo -n '"ab,cd, ef"' | jq 'split(", *"; null)'
+["ab","cd","ef"]
+# Splits
+> echo -n '"ab,cd, ef"' | jq 'splits(", *")'
+"ab"
+"cd"
+"ef"
+
+# Sub
+> echo -n '"ab,cd, ef"' |jq 'sub("[^a-z]*(?<x>[a-z]+)"; "Z\(.x)"; "g")'
+"ZabZcdZef"
+
+> echo -n '"Ab"' | jq '[sub("(?<a>.)"; "\(.a|ascii_upcase)", "\(.a|ascii_downcase)")]'
+[
+  "Ab",
+  "ab"
+]
+
+# GSUB
+> echo -n '"Ab"' | jq 'gsub("(?<x>.)[^a]*"; "+\(.x)-")'
+"+A-"
+```
+
 
 ## `TODO`:  Advanced features
 
-### Math
+### Environment
 
 ```shell
-# addition
-echo "[1,2,3,4,5]" | jq '.'
+> jq -n 'env'
+...dumps json of env...
 
+> jq -n 'env | keys | length'
+45
+
+> jq -n 'env | with_entries(select ((.key|startswith("TERM_")) or .key == "DOCKER_CONTAINER_VERSION_TAG"))'
+{
+  "TERM_SESSION_ID": "w0t0p0:D97EB7AC-19B8-4FEF-BB65-E892404B3F6C",
+  "TERM_PROGRAM_VERSION": "3.4.23",
+  "TERM_PROGRAM": "iTerm.app"
+}
+```
+
+### Math
+
+- One-іnput C functions: `acos`, `acosh`, `asin`, `asinh`, `atan`, `atanh`, `cbrt`, `ceil`, `cos`, `cosh`, `erf`, `erfc`, `exp`, `exp10`, `exp2`, `expm1`, `fabs`, `floor`, `gamma`, `j0`, `j1`, `lgamma`, `log`, `log10`, `log1p`, `log2`, `logb`, `nearbyint`, `pow10`, `rint`, `round`, `significand`, `sin`, `sinh`, `sqrt`, `tan`, `tanh`, `tgamma`, `trunc`, `y0`, `y1`.
+- Two-input C math functions: `atan2`, `copysign`, `drem`, `fdim`, `fmax`, `fmin`, `fmod frexp`, `hypot`, `jn`, `ldexp`, `modf`, `nextafter`, `nexttoward`, `pow`, `remainder`, `scalb`, `scalbln`, `yn`.
+- Three-input C math functions: `fma`.
+
+```shell
+> echo "[1,2,3,4,5]" | jq  '. | add'
+15
+> echo "[1,2,3,4,5]" | jq  '. | add | sqrt'
+3.872983346207417
 ```
 
 ## `TODO`: I/O
@@ -184,15 +326,3 @@ echo "[1,2,3,4,5]" | jq '.'
 
 You can customize colored output by setting: [`JQ_COLORS`](https://jqlang.github.io/jq/manual/#colors) (e.g `"JQ_COLORS=1;30:0;39:0;39:0;39:0;32:1;39:1;39"`)
 
-## Other...
-
-```shell
-curl https://api.github.com/users/butuzov/received_events
-
-
-# Array To Multi Document Json
-jq '.[] | select(.)'
-jq '.[] | select(.type == "CreateEvent") | [.]'
-# Subselecting Element from Selected Object into Array
-jq '.[] | select(.type == "CreateEvent").actor | [.]'
-```

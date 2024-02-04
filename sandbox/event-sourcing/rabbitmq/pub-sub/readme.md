@@ -3,6 +3,8 @@
 
 # RabbitMQ's `Publications/Subscribe` Pattern (using `fanout`)
 
+![](../images/exchanges-topic-fanout-direct.png)
+
 ![](images/exchanges-topic-fanout-direct.png)
 
 ### Connection

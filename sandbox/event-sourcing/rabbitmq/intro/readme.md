@@ -1,4 +1,4 @@
-<!-- menu: Introduction to RabbitMQ -->
+<!-- menu: Introduction -->
 <!-- weight: 10 -->
 # Introduction to RabbitMQ
 
