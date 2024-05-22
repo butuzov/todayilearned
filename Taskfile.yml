@@ -4,11 +4,8 @@ version: '3'
 
 tasks:
   default:
-    env:
-      PATH: "{{.PATH}}:{{ .PWD }}/.bin"
     cmds:
-    # - task: install-hugo-if-missing
-    - task: sass
+    # - task: sass
     - task: mark
     - task: hugo
 
@@ -17,7 +14,7 @@ tasks:
     - ".hugo/layouts/**/*.html"
     - ".hugo/assets/**/*.js"
     method: timestamp
-    cmd: ./.bin/hugo server --disableFastRender --watch=0
+    cmd: ./hugo server --disableFastRender --watch=0
 
   mark:
     sources:
@@ -35,22 +32,6 @@ tasks:
     - ".hugo/assets/**/*.scss"
     method: timestamp
     cmd: sass --no-source-map .hugo/assets/scss/site.scss .hugo/assets/css/main.css
-
-
-  install-hugo-if-missing:
-    run: once
-    cmds:
-      - task: go-local-install
-        vars:
-          URL: github.com/gohugoio/hugo
-          VERSION: v0.120.4
-          BIN: hugo
-
-  go-local-install:
-    env: { GOBIN: "{{ .PWD }}/.bin" }
-    cmd: go install {{ .URL }}@{{ .VERSION }}
-    preconditions:
-      - sh:  '[[ ! -f "{{ .PWD }}/.bin/{{ .BIN }}" ]]'
 
   commit:
     cmds:
