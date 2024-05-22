@@ -15,6 +15,14 @@
     // Ignoring (Hiding Files in the File Tree)
     "files.exclude": {
         "**/_index.md": true
+    },
+
+    // Search within files ignored by .gitignore.
+    "search.useIgnoreFiles": false,
+    "search.useParentIgnoreFiles": false,
+    // Don't Search with some additional rules (similar to files.exclude)
+    "search.exclude": {
+      "**/_index.md": true
     }
 }
 ```
