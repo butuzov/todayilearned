@@ -61,21 +61,22 @@ Rotation Types (`-vf`)
 
 ## Audio
 
-### Extract audio from a video (simple)
+```shell
 
-  ```ffmpeg -i my_input_video_file.mp4 my_output_audio_only.wav```
-
-### Extract sound from video to mp3
-
-  ```ffmpeg -i example.mp4  -vn -ar 44100 -ac 2 -ab 192k -f mp3 sound.mp3```
-
-###  audio aac two channels:
-
-  ``` ffmpeg -i input.mp4 -c:a aac -b:a 160k -ac 2 out.mp4 ```
+# Extract audio from a video (simple)
+ffmpeg -i my_input_video_file.mp4 my_output_audio_only.wav
+# Extract sound from video to mp3
+ffmpeg -i example.mp4  -vn -ar 44100 -ac 2 -ab 192k -f mp3 sound.mp3
+# audio aac two channels:
+ffmpeg -i input.mp4 -c:a aac -b:a 160k -ac 2 out.mp4
+# ringtone
+ffmpeg -i input.mp4  -ac 1 -b:a 128k -f mp4 -c:a aac -t 29.99 -y out.m4r"
+```
 
 ### Create video list into audiobook
 
   https://gist.github.com/butuzov/fa7d456ebc3ec0493c0a10b73800bf42#comments
+
 
 ## Streams
 
