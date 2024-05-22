@@ -36,6 +36,11 @@ jobs:
     - name: Dir(build)
       run: ls -lah ./.build
 
+    - name: CiCd
+      run: |
+        mkdir -p ./.build/.github/woworkflows/
+        mv ./.build/static.yml ./.build/.github/woworkflows/
+
     # - name: deadlinks checker
     #   uses: docker://docker.io/butuzov/deadlinks:latest
     #   with:
