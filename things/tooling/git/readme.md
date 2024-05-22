@@ -34,8 +34,6 @@
 
 ### Find Large Files
 
-
-
 ```shell
 # via https://stackoverflow.com/q/10622179/
 git rev-list --objects --all |
@@ -55,6 +53,18 @@ git rm -rf .
 git add your files
 git commit -m 'Initial commit'
 ```
+
+### Garbage Collection
+
+- [How to remove unreferenced blobs from my Git repository](https://stackoverflow.com/questions/1904860)
+
+```shell
+git -c gc.reflogExpire=0 -c gc.reflogExpireUnreachable=0 -c gc.rerereresolved=0 \
+    -c gc.rerereunresolved=0 -c gc.pruneExpire=now gc
+
+git gc --prune=now
+```
+
 
 ### Rebase
 
