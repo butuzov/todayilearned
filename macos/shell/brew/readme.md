@@ -67,6 +67,8 @@ brew services info prometheus
 brew services cleanup
 ```
 
+https://www.raycast.com/erics118/brew-services
+
 
 ## Mac OS App
 
