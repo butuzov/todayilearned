@@ -1,0 +1,13 @@
+apiVersion: 1
+
+datasources:
+  - name: PrometheusDS
+    type: prometheus
+    # access: proxy
+    url: http://prometheus:9090
+    orgId: 1
+    isDefault: true
+    jsonData:
+      httpMethod: POST
+      # manageAlerts: true
+      prometheusType: Prometheus

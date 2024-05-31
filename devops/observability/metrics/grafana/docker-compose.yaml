@@ -1,0 +1,58 @@
+x-common-user:
+  username: &username admin
+  password: &password Password123
+
+x-common-settings: &settings
+  restart: unless-stopped
+  networks:
+    - dap
+
+x-healthchecks: &healthchecks
+  start_period: 20s
+  interval: 10s
+  timeout: 1s
+  retries: 60
+
+services:
+
+  grafana:
+    <<: *settings
+    image: grafana/grafana:11.0.0
+    ports:
+      - "3000:3000"
+    volumes:
+    - grafanadata:/var/lib/grafana/
+    - ./datasources.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+    - ./dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+    environment:
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_AUTH_BASIC_ENABLED: true
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SECURITY_ADMIN_USER: admin
+      GF_INSTALL_PLUGINS: grafana-piechart-panel,grafana-worldmap-panel
+    healthcheck:
+      <<: *healthchecks
+      test: [ "CMD-SHELL", "curl -s --fail '0.0.0.0:3000/healthz' > /dev/null"]
+
+  prometheus:
+    <<: *settings
+    image: prom/prometheus:v2.52.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    healthcheck:
+      <<: *healthchecks
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider '0.0.0.0:9090/-/healthy' || exit 1"]
+
+volumes:
+  elasticsearchdata:
+    driver: local
+  grafanadata:
+    driver: local
+
+
+networks:
+  dap: {}
