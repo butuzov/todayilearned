@@ -18,9 +18,11 @@ jupyter labextension enable @jupyterlab/completer-extension:base-service
 Jupyter notebook, formerly known as the IPython notebook, is a flexible tool that helps you create readable analyses, as you can keep code, images, comments, formulae and plots together.
 
 - https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/
-- https://ipython.readthedocs.io/en/stable/interactive/magics.html 
+- https://ipython.readthedocs.io/en/stable/interactive/magics.html
 
 ## Kernels
+
+> Important: Select default env (` ~/Library/jupyterlab-desktop/jlab_server`) or create new one (`Manage Python Environments` -> `Environments` -> `Add New One`)
 
 [`kernels`](https://docs.jupyter.org/en/latest/projects/kernels.html) allows to use multiple programming languages while working with notebook. Here is how to isntall kernel to [your notebook](https://github.com/jupyterlab/jupyterlab-desktop/issues/304#issuecomment-1574791938) (this example is about `Jupyter Desktop`)
 
@@ -57,7 +59,7 @@ Jupyter notebook, formerly known as the IPython notebook, is a flexible tool tha
 
 ### `closure`
 
-```go
+```python
 (prn "Hello World")
 
 > "Hello World"
@@ -93,7 +95,7 @@ make install
 >>    Installation successful.
 >>
 >> exit(0)
-# If required move into different location 
+# If required move into different location
 
 mv ~/Library/Jupyter/kernels/clojupyter-0.3.7-snapshotv0.2.2-86-ge968  ~/Library/jupyterlab-desktop/jlab_server/share/jupyter/kernels/clj
 code ~/Library/jupyterlab-desktop/jlab_server/share/jupyter/kernels/clj/kernel.json
@@ -101,7 +103,7 @@ code ~/Library/jupyterlab-desktop/jlab_server/share/jupyter/kernels/clj/kernel.j
 
 ### Rust
 
-```go
+```python
 println!("Hello World")
 
 > Hello World
@@ -122,7 +124,7 @@ mv ~/Library/Jupyter/kernels/rust ~/Library/jupyterlab-desktop/jlab_server/share
 
 ### `go`
 
-```go
+```python
 import  "fmt"
 
 fmt.Sprintln("hi")
@@ -145,41 +147,53 @@ chmod +w ./kernel.json # in case copied kernel.json has no write permission
 mv ~/Library/Jupyter/kernels/gophernotes ~/Library/jupyterlab-desktop/jlab_server/share/jupyter/kernels/go
 ```
 
+## Typescript
+
+https://github.com/yunabe/tslab
+
+```shell
+npm install -g tslab
+tslab install --version
+tslab install [--python=python3]
+# or tslab install
+jupyter kernelspec list
+```
+
 ## Magic (cells)
 
 - https://ipython.org/ipython-doc/3/interactive/magics.html
 
 ### Autotime & Timeit
 
-```go
+```python
 #> pip install git+git://github.com/cpcloud/ipython-autotime -q
 %load_ext autotime
 
 > time: 591 µs (started: 2023-11-24 15:21:45 +02:00)
 ```
 
-```go
+```python
 from time import sleep
 sleep(1)
 
 > time: 1.01 s (started: 2023-11-24 15:21:45 +02:00)
 ```
 
-```go
+```python
 %timeit sleep(1)
 
 > 1 s ± 1.45 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 > time: 8.03 s (started: 2023-11-24 15:21:46 +02:00)
 ```
 
-```go
+```python
 ### top 4 magic commands
 
 - % matplotlib. If you did an online course before, you probably recognize this magic command in combination with the inline parameter. ...
 - %load_ext autoreload. This magic command allows you to load the most important extension: autoreload. ...
 ```
 
-```go
+```python
 %system
 
 > time: 25.1 ms (started: 2023-11-24 15:22:37 +02:00)
@@ -187,7 +201,7 @@ sleep(1)
 result >>> []
 ```
 
-```go
+```python
 %who_ls
 
 > time: 3.96 ms (started: 2023-11-24 15:22:18 +02:00)
@@ -248,7 +262,7 @@ del ___currentDir___
 
 ```
 !wget -O skip_ext.py https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/skip_ext.py
-!wget -O pNpDir_ext.py  https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/pNpDir_ext.py 
+!wget -O pNpDir_ext.py  https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/pNpDir_ext.py
 !wget -O writefileE_ext.py https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/writefileE_ext.py
 !wget -O sys_run_ext.py https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/sys_run_ext.py
 !wget -O resize_output_ext.py https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/resize_output_ext.py
