@@ -3,7 +3,7 @@
 <!-- seotitle: "Homebrew" -->
 # Homebrew `brew`
 
-## Install `brew`
+## Installing it
 
 1. via shell call
 
@@ -13,13 +13,11 @@
 
 2. Using [`.pkg` Installer](https://github.com/Homebrew/brew/releases)
 
-
-
 ## Usage
 
 ### ENV variables
 
-- `brew --prefix` same `brew --repository`
+- `brew --prefix` same as  `brew --repository`
 
 ### Command Line Recipes
 
@@ -51,6 +49,24 @@ brew switch pkgname 9.1.5  # switching to version 9.1.5
 brew update                # Updates Homebrew repo
 brew doctor                # Should be run sometimes (maintanance)
 ```
+## Services
+
+You can use brew to manage services
+
+```shell
+brew services
+brew install grafana prometheus
+brew services start grafana
+brew services start prometheus
+brew services stop prometheus
+brew services list
+brew services run prometheus
+brew services kill prometheus
+brew services restart prometheus
+brew services info prometheus
+brew services cleanup
+```
+
 
 ## Mac OS App
 
