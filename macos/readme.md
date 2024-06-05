@@ -5,6 +5,14 @@
 
 ## Keyboard Shortcuts
 
+Mapping Keyboards Keys
+- [using-cmd-on-very-old-pc-keyboard-during-boot](https://apple.stackexchange.com/q/71493/)
+- https://karabiner-elements.pqrs.org/
+
+__Actual Keywords__:
+- [Logitech MX Keys Mini Minimalist](https://www.amazon.com/dp/B098JPSVKY)
+- https://nuphy.com/collections/keyboards/products/air75-v2
+
 ### Screenshots
 
 * <kbd>⌘</kbd> + <kbd>⇧</kbd> + 4, then &lt;space&gt; window screenshot as result.
