@@ -18,7 +18,7 @@ jupyter labextension enable @jupyterlab/completer-extension:base-service
 Jupyter notebook, formerly known as the IPython notebook, is a flexible tool that helps you create readable analyses, as you can keep code, images, comments, formulae and plots together.
 
 - https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/
-- https://ipython.readthedocs.io/en/stable/interactive/magics.html
+- https://ipython.readthedocs.io/en/stable/interactive/magics.html 
 
 ## Kernels
 
@@ -95,7 +95,7 @@ make install
 >>    Installation successful.
 >>
 >> exit(0)
-# If required move into different location
+# If required move into different location 
 
 mv ~/Library/Jupyter/kernels/clojupyter-0.3.7-snapshotv0.2.2-86-ge968  ~/Library/jupyterlab-desktop/jlab_server/share/jupyter/kernels/clj
 code ~/Library/jupyterlab-desktop/jlab_server/share/jupyter/kernels/clj/kernel.json
@@ -155,7 +155,7 @@ https://github.com/yunabe/tslab
 npm install -g tslab
 tslab install --version
 tslab install [--python=python3]
-# or tslab install
+# or tslab install 
 jupyter kernelspec list
 ```
 
@@ -262,7 +262,7 @@ del ___currentDir___
 
 ```
 !wget -O skip_ext.py https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/skip_ext.py
-!wget -O pNpDir_ext.py  https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/pNpDir_ext.py
+!wget -O pNpDir_ext.py  https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/pNpDir_ext.py 
 !wget -O writefileE_ext.py https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/writefileE_ext.py
 !wget -O sys_run_ext.py https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/sys_run_ext.py
 !wget -O resize_output_ext.py https://gist.githubusercontent.com/Mr-McGL/661ae7e50a1cfe7dfd5c0b23216bf0c3/raw/resize_output_ext.py
