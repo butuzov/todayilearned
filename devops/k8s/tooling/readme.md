@@ -22,3 +22,11 @@ $ kubectl krew uninstall access-matrix
 ## Port forwarding
 
 - `UI` [portfall](https://github.com/Rested/portfall) ` Last Releaased ` @ May 21, 2020
+
+## Other
+
+- [`yh`](https://github.com/andreazorzetto/yh) - YAML Highlighter
+  ```kubectl get pod alpine -o yaml | yh```
+
+- [`bat`](https://github.com/sharkdp/bat)
+  ```cat config.yaml | bat -l=yaml```
