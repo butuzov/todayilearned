@@ -1,5 +1,12 @@
 # ChartGPT...WHAT?
 
+## AI in help
+
+### Reading Papers & Summarizing Knowledge
+
+- Preparing Papers https://github.com/hollobit/ResearchChatGPT
+- https://www.summarize.tech/
+- [AI: PDF](https://smallpdf.com/ai-pdf)
 
 ## Promp Engeeniring
 
