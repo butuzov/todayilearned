@@ -6,7 +6,7 @@
 
 - Preparing Papers https://github.com/hollobit/ResearchChatGPT
 - https://www.summarize.tech/
-- [AI: PDF](https://smallpdf.com/ai-pdf)
+- [AI: PDF](https://smallpdf.com/ai-pdf) or https://www.unriddle.ai/
 
 ## Promp Engeeniring
 
