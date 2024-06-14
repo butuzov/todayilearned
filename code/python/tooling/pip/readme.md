@@ -24,12 +24,14 @@ pip install -e  path/to/project
 pip install sampleproject -q
 # install / upgrade
 pip install --upgrade sampleproject
+# In case if dependency defined in requiremtns.txt failing
+pip install github==1.2.7 --no-dependencies
+pip install aiohttp==3.8.2 yarl==1.8.1 frozenlist==1.3.1 typing-extensions
 
 # Requirements
 pip freeze > requirements.txt
 pip install -r requirements.txt
 pip install -c constraints.txt
-
 
 # Latest version
 python -m pip install requests
@@ -40,6 +42,7 @@ pip install 'requests>=2.5.0'
 
 # Download wheels
 pip download requests
+
 ```
 
 ## Using Proxy
