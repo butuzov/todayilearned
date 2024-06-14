@@ -6,9 +6,24 @@
 ## Links
 
 - Link [1]
+- [foobar][2]
 - [Link](http://google.com)
+- [example@example.com](mailto:example@example.com)
+- [Call Me!](tel:1111111)
 
 [1]: http://google.com
+[2]: http://google.com
+
+```markdown
+- Link [1]
+- [foobar][2]
+- [Link](http://google.com)
+- [example@example.com](mailto:example@example.com)
+- [Call Me!](tel:1111111)
+
+[1]: http://google.com
+[2]: http://google.com
+```
 
 ## Language Highlight
 
@@ -27,6 +42,23 @@ As code
 require 'redcarpet'
 markdown = Redcarpet.new("Hello World!")
 puts markdown.to_html
+```
+````
+
+### Diffs
+
+```diff
+def example do
+-  :ok
++  {:ok, :more_stuff}
+end
+```
+````
+```diff
+def example do
+-  :ok
++  {:ok, :more_stuff}
+end
 ```
 ````
 
@@ -52,7 +84,47 @@ graph TD;
     C-->D;
 ```
 
+## Special Blocks @ Github
 
+> [!NOTE]
+> Highlights information that users should take into account, even when skimming.
+
+```markdown
+> [!NOTE]
+> Highlights information that users should take into account, even when skimming.
+```
+
+> [!TIP]
+> Optional information to help a user be more successful.
+
+```markdown
+> [!TIP]
+> Optional information to help a user be more successful.
+```
+
+> [!IMPORTANT]
+> Crucial information necessary for users to succeed.
+
+```markdown
+> [!IMPORTANT]
+> Crucial information necessary for users to succeed.
+```
+
+> [!WARNING]
+> Critical content demanding immediate user attention due to potential risks.
+
+```markdown
+> [!WARNING]
+> Critical content demanding immediate user attention due to potential risks.
+```
+
+> [!CAUTION]
+> Negative potential consequences of an action.
+
+```markdown
+> [!CAUTION]
+> Negative potential consequences of an action.
+```
 
 ## Tables
 
