@@ -44,6 +44,10 @@ Most of tips can be found on [official page](https://help.github.com/articles/se
 `extension:pdf` | Search by Extension   | `in:path extension:pdf tips`
 
 ```python
+#!/usr/bin/env python
+
+import requests
+
 url = f"https://api.github.com/search/code?q={q}"
 headers = {
   'Authorization': f'Token {GH}'

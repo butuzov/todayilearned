@@ -9,7 +9,7 @@ Some of the tooling is essential for working in field.
 - Task runner [`task`](./task)
 - Task runner [`Makefile`](./make)
 - VCS [`git`](./git)
-- VCS Platform [`github`](./github)
+- VCS Platform [`github`](./git/github)
 
 
 ## Home Lab
