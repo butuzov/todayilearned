@@ -122,7 +122,7 @@ evcxr_jupyter --install
 mv ~/Library/Jupyter/kernels/rust ~/Library/jupyterlab-desktop/jlab_server/share/jupyter/kernels/rust
 ```
 
-### `go`
+### `Go`
 
 ```python
 import  "fmt"
@@ -136,8 +136,8 @@ result >>> hi
 - https://github.com/gopherdata/gophernotes
 
 ```shell
-# https://github.com/gopherdata/gophernotes
-go install github.com/gopherdata/gophernotes@v0.7.5
+# https://github.com/gopherdata/gophernotes/issues/147
+go install github.com/gopherdata/gophernotes@5514204
 
 # default jupyter location.
 mkdir -p ~/Library/Jupyter/kernels/gophernotes
@@ -159,6 +159,13 @@ tslab install [--python=python3]
 jupyter kernelspec list
 ```
 
+```python
+let message: string = 'Hello, World!';
+console.log(message);
+
+> Hello, World!
+```
+
 ## Magic (cells)
 
 - https://ipython.org/ipython-doc/3/interactive/magics.html
@@ -169,34 +176,33 @@ jupyter kernelspec list
 #> pip install git+git://github.com/cpcloud/ipython-autotime -q
 %load_ext autotime
 
-> time: 591 µs (started: 2023-11-24 15:21:45 +02:00)
+> time: 183 µs (started: 2024-06-13 16:11:58 +03:00)
 ```
 
 ```python
 from time import sleep
 sleep(1)
 
-> time: 1.01 s (started: 2023-11-24 15:21:45 +02:00)
+> time: 1.01 s (started: 2024-06-13 16:11:58 +03:00)
 ```
 
 ```python
 %timeit sleep(1)
 
-> 1 s ± 1.45 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
-> time: 8.03 s (started: 2023-11-24 15:21:46 +02:00)
+> 1 s ± 546 µs per loop (mean ± std. dev. of 7 runs, 1 loop each)
+> time: 8.04 s (started: 2024-06-13 16:11:59 +03:00)
 ```
 
-```python
-### top 4 magic commands
+### Top 4 magic commands
 
-- % matplotlib. If you did an online course before, you probably recognize this magic command in combination with the inline parameter. ...
-- %load_ext autoreload. This magic command allows you to load the most important extension: autoreload. ...
-```
+- `%matplotlib`. If you did an online course before, you probably recognize this magic command in combination with the inline parameter. ...
+- `%load_ext` autoreload. This magic command allows you to load the most important extension: autoreload. ...
+- `%sql` - with `iron-python` - https://towardsdatascience.com/jupyter-magics-with-sql-921370099589
 
 ```python
 %system
 
-> time: 25.1 ms (started: 2023-11-24 15:22:37 +02:00)
+> time: 20.4 ms (started: 2024-06-13 16:12:08 +03:00)
 
 result >>> []
 ```
