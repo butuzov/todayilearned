@@ -57,7 +57,7 @@ dd if=hdadisk.img of=/dev/hdb
 
 ## `diskutil`
 
-MacOS specific tool to manage volumes, disks, partitions [diskutil](../../macos/shell/diskutil/readme.md)
+MacOS specific tool to manage volumes, disks, partitions [diskutil](../../../../macos/shell/diskutil/readme.md)
 
 ## `d`isplay `f`ree disk space
 

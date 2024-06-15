@@ -60,7 +60,7 @@
 * [traceroute](http://traceroute.sourceforge.net/) - print the route packets trace to network host.
 * [vnStat](https://humdi.net/vnstat/) - &nbsp;– network traffic monitor.
 * [websocat](https://github.com/vi/websocat) - &nbsp;– Connection forwarder from/to web sockets to/from usual sockets, in style of socat.
-* [wget](./other/wget/) - &nbsp;retrieving files using HTTP, HTTPS, FTP and FTPS.
+* [wget](../other/wget/) - &nbsp;retrieving files using HTTP, HTTPS, FTP and FTPS.
 * [Wireless Tools for Linux](https://hewlettpackard.github.io/wireless-tools/Tools.html) - iwconfig,&nbsp;iwlist,&nbsp;iwspy,&nbsp;iwpriv and&nbsp;ifrename.
 * [Wireshark](https://www.wireshark.org/) - network protocol analyzer.
  
