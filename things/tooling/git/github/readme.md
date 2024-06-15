@@ -23,6 +23,7 @@
 `path:pdf`      | In Path               | `path:docker-compose.yaml kafka`
 
 
+
 ### Searching for alive people
 
 Original Code posted by Denis Dinkevich in telegram sourcing comunity.
@@ -33,7 +34,7 @@ Original Code posted by Denis Dinkevich in telegram sourcing comunity.
 
 https://github.com/search
 
-Most of tips can be found on [official page](https://help.github.com/articles/searching-code/).
+Most of tips can be found on [official page](https://help.github.com/articles/searching-code/), API for this still in business - `https://api.github.com/search/code?q=`
 
  Keyword        | Description           | Example
 ----------------|-----------------------|----------------------------
@@ -41,6 +42,14 @@ Most of tips can be found on [official page](https://help.github.com/articles/se
 `in:file`       | Search in Files       | `in:file func main`
 `in:path`       | Search in Path        | `in:path tips.pdf`
 `extension:pdf` | Search by Extension   | `in:path extension:pdf tips`
+
+```python
+url = f"https://api.github.com/search/code?q={q}"
+headers = {
+  'Authorization': f'Token {GH}'
+}
+requests.request("GET", url, headers=headers)
+```
 
 
 ## Examples
