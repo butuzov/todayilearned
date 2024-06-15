@@ -41,7 +41,7 @@
 * [nload](https://linux.die.net/man/1/nload) -  – display network usage.
 * [nmap](https://nmap.org/) - network discovery and security auditing.
 * [nmcli](https://developer.gnome.org/NetworkManager/stable/nmcli.html) - a command-line tool for controlling NetworkManager and reporting network status.
-* [nmtui](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Networking_Guide/sec-Networking_Config_Using_nmtui.html) - provides a text interface to configure networking by controlling&nbsp;<span class="application">NetworkManager</span>.
+* [nmtui](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Networking_Guide/sec-Networking_Config_Using_nmtui.html) - provides a text interface to configure networking by controlling NetworkManager.
 * [nslookup](https://en.wikipedia.org/wiki/Nslookup) - query Internet name servers interactively.
 * [ping](https://en.wikipedia.org/wiki/Ping_(networking_utility)) - send icmp echo_request to network hosts.
 * [route](https://en.wikipedia.org/wiki/Route_(command)) - show / manipulate the IP routing table.
@@ -60,7 +60,7 @@
 * [traceroute](http://traceroute.sourceforge.net/) - print the route packets trace to network host.
 * [vnStat](https://humdi.net/vnstat/) - &nbsp;– network traffic monitor.
 * [websocat](https://github.com/vi/websocat) - &nbsp;– Connection forwarder from/to web sockets to/from usual sockets, in style of socat.
-* [wget](https://www.gnu.org/software/wget/) - &nbsp;retrieving files using HTTP, HTTPS, FTP and FTPS.
+* [wget](./other/wget/) - &nbsp;retrieving files using HTTP, HTTPS, FTP and FTPS.
 * [Wireless Tools for Linux](https://hewlettpackard.github.io/wireless-tools/Tools.html) - iwconfig,&nbsp;iwlist,&nbsp;iwspy,&nbsp;iwpriv and&nbsp;ifrename.
 * [Wireshark](https://www.wireshark.org/) - network protocol analyzer.
  
