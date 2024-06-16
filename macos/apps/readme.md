@@ -21,7 +21,6 @@ Just a list of apps i am using so I can compare my flow from time to time.
 - `utils` Keka
 - `utils` Little Snitch
 - `utils` Maccy
-- `Utils` Microsoft To Do
 - `Utils` Things
 - `dev` + `ai` [Ollama](https://ollama.ai/download) + [`ex3ndr.llama-coder`](https://marketplace.visualstudio.com/items?itemName=ex3ndr.llama-coder)
 - `utils` Only Switch
