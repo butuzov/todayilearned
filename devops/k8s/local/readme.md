@@ -1,9 +1,8 @@
 <!-- weight: 10 -->
 <!-- menu: Local Cluster -->
 <!-- seotitle: Running Local Kubernetes CLuster with minikube, kind, etc.. -->
+
 # Running Local Kubernetes Cluster
-
-
 
 ## microk8s
 
@@ -33,7 +32,7 @@ microk8s config > ~/.kube/config
 
 ## Kind
 
-`kind` is a tool for running local Kubernetes clusters using Docker container “nodes”. kind was primarily designed for testing Kubernetes itself, but may be used for local development or CI.
+`kind is a tool for running local Kubernetes clusters using Docker container “nodes”. kind was primarily designed for testing Kubernetes itself, but may be used for local development or CI.
 
 - [Homepage](https://kind.sigs.k8s.io/)
 
@@ -76,49 +75,58 @@ minikube start --memory=8192 --cpus=4 --kubernetes-version=v1.13.0 \
 minikube start --cpus=8 --memory=32768 --disk-size=50g --vm-driver=vmwarefusion
 ```
 
+```help
+# Basic Commands
 
-- __Basic Commands__
-  * `start`          Starts a local kubernetes cluster
-  * `status`         Gets the status of a local kubernetes cluster
-  * `stop`           Stops a running local kubernetes cluster
-  * `delete`         Deletes a local kubernetes cluster
-  * `dashboard`      Access the kubernetes dashboard running within the minikube cluster
-  * `pause`          pause containers
-  * `unpause`        unpause Kubernetes
+- start           Starts a local kubernetes cluster
+- status          Gets the status of a local kubernetes cluster
+- stop            Stops a running local kubernetes cluster
+- delete          Deletes a local kubernetes cluster
+- dashboard       Access the kubernetes dashboard running within the minikube cluster
+- pause           pause containers
+- unpause         unpause Kubernetes
 
-- Images Commands
-  * `docker-env`     Sets up docker env variables; similar to '$(docker-machine env)'
-  * `podman-env`     Sets up podman env variables; similar to '$(podman-machine env)'
-  * `cache`          Add or delete an image from the local cache.
-- _Configuration and Management Commands_
-  * `addons`         Modify minikube's kubernetes addons
-  * `config`         Modify minikube config
-  * `profile`        Profile gets or sets the current minikube profile
-  * `update-context` Verify the IP address of the running cluster in kubeconfig.
+# Images Commands
 
-- __Networking and Connectivity Commands__
-  * `service`        Gets the kubernetes URL(s) for the specified service in your local cluster
-  * `tunnel`         tunnel makes services of type LoadBalancer accessible on localhost
+- docker-env      Sets up docker env variables; similar to '$(docker-machine env)'
+- podman-env      Sets up podman env variables; similar to '$(podman-machine env)'
+- cache           Add or delete an image from the local cache.
 
-- __Advanced Commands__
-  * `mount`          Mounts the specified directory into minikube
-  * `ssh`            Log into or run a command on a machine with SSH; similar to 'docker-machine ssh'
-  * `kubectl`        Run kubectl
-  * `node`           Node operations
+# Configuration and Management Commands
 
-- __Troubleshooting Commands__
-  * `ssh-key`        Retrieve the ssh identity key path of the specified cluster
-  * `ip`             Retrieves the IP address of the running cluster
-  * `logs`           Gets the logs of the running instance, used for debugging minikube, not user code.
-  * `update-check`   Print current and latest version number
-  * `version`        Print the version of minikube
-  * `options`        Show a list of global command-line options (applies to all commands).
+- addons          Modify minikube's kubernetes addons
+- config          Modify minikube config
+- profile         Profile gets or sets the current minikube profile
+- update-context  Verify the IP address of the running cluster in kubeconfig.
 
-__Other Commands__
-  * `completion`     Outputs minikube shell completion for the given shell (bash or zsh)
+# Networking and Connectivity Commands
 
+- service         Gets the kubernetes URL(s) for the specified service in your local cluster
+- tunnel          tunnel makes services of type LoadBalancer accessible on localhost
+
+# Advanced Commands
+
+- mount           Mounts the specified directory into minikube
+- ssh             Log into or run a command on a machine with SSH; similar to 'docker-machine ssh'
+- kubectl         Run kubectl
+- node            Node operations
+
+# Troubleshooting Commands
+
+- ssh-key         Retrieve the ssh identity key path of the specified cluster
+- ip              Retrieves the IP address of the running cluster
+- logs            Gets the logs of the running instance, used for debugging minikube, not user code.
+- update-check    Print current and latest version number
+- version         Print the version of minikube
+- options         Show a list of global command-line options (applies to all commands).
+
+# Other Commands
+
+completion     Outputs minikube shell completion for the given shell (bash or zsh)
+```
 
 ### Recipe: `SSH`ing into minikube
+
 ```shell
 # ssh to minikube
 minikube ssh
@@ -147,6 +155,7 @@ or using insecure registry
 ```shell
 cat images.txt | xargs -I {} sh -c "docker pull localhost:5000/{}"
 ```
+
 ### Recipe: Multinode support
 
 ```bash

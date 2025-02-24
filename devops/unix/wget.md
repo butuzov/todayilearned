@@ -1,4 +1,4 @@
-# wget
+# `wget`
 
 [wget](https://www.gnu.org/software/wget/) - &nbsp;retrieving files using HTTP, HTTPS, FTP and FTPS.
 

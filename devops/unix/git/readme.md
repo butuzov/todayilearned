@@ -1,7 +1,15 @@
 # `git`
 
+## Reading
 
-## Using git @ work & home
+- [Start Using Git on the Command Line Like a Pro in Five Minutes](https://medium.com/better-programming/start-using-git-on-the-command-line-like-a-pro-in-5-minutes-36a6e0007e9f)
+- [Git CLI tips and tricks to be more productive](https://www.codementor.io/@kpunith8/git-cli-tips-and-tricks-to-be-more-productive-1a3pb4fyvn)
+- https://github.com/tj/git-extras
+- https://ndpsoftware.com/git-cheatsheet.html
+
+## Configuration
+
+### Conditional configs
 
 - [Conditional Git Configuration](https://blog.scottlowe.org/2023/12/15/conditional-git-configuration/)
 
@@ -10,6 +18,7 @@
 [includeIf "gitdir:~/Work/Code/Repos/"]
     path = ~/Work/Code/Repos/.gitconfig
 ```
+
 ```shell
 # ~/Work/Code/Repos/.gitconfig
 [user]
@@ -19,16 +28,12 @@
     gpgsign = false
 ```
 
+### Default Commit Message
 
-
-## Reading
-
-
-- [Start Using Git on the Command Line Like a Pro in Five Minutes](https://medium.com/better-programming/start-using-git-on-the-command-line-like-a-pro-in-5-minutes-36a6e0007e9f)
-- [Git CLI tips and tricks to be more productive](https://www.codementor.io/@kpunith8/git-cli-tips-and-tricks-to-be-more-productive-1a3pb4fyvn)
-- https://github.com/tj/git-extras
-- https://ndpsoftware.com/git-cheatsheet.html
-
+```shell
+# Setting Commit Message (Default) for repo (Not works in SourceTree)
+git config commit.template $(pwd)/.hugo/git-extras/.commit-msg-template
+```
 
 ## Recipes
 
@@ -65,7 +70,6 @@ git -c gc.reflogExpire=0 -c gc.reflogExpireUnreachable=0 -c gc.rerereresolved=0 
 git gc --prune=now
 ```
 
-
 ### Rebase
 
 ```shell
@@ -86,6 +90,7 @@ git rebase --continue
 
 # Squash
 git log --oneline
+# Edit Commit Messages
 git rebase -i HEAD~4
 ```
 

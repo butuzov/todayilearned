@@ -1,4 +1,5 @@
 <!-- menu: Tooling -->
+
 # Kubernetes Tooling
 
 ## krew
@@ -18,15 +19,14 @@ $ kubectl krew uninstall access-matrix
 - https://github.com/stern/stern tailf for containers
 - https://github.com/alcideio/rbac-tool rbac
 
-
 ## Port forwarding
 
-- `UI` [portfall](https://github.com/Rested/portfall) ` Last Releaased ` @ May 21, 2020
+- `UI` [portfall](https://github.com/Rested/portfall) `Last Releaased` @ May 21, 2020
 
-## Other
+## Highlighting YAML
 
 - [`yh`](https://github.com/andreazorzetto/yh) - YAML Highlighter
-  ```kubectl get pod alpine -o yaml | yh```
-
+  `kubectl get pod alpine -o yaml | yh`
+- `yq` - `kubectl get pod alpine -o yaml | yq`
 - [`bat`](https://github.com/sharkdp/bat)
-  ```cat config.yaml | bat -l=yaml```
+  `cat config.yaml | bat -l=yaml`

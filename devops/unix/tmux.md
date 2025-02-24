@@ -16,30 +16,28 @@ tmux rename-session -t 0 <name>
 
 ## Shortcuts
 
-* `^d` or `exit` - close
-* `^b` + `⇧+%` - split to right
-* `^b` + `<-` - switch to left
-* `^b` + `->` - switch to right
-* `^b` + `z` - toggle pane fullscreen
-* `^b` + `,` - rename current window
-
+- `^d` or `exit` - close
+- `^b` + `⇧+%` - split to right
+- `^b` + `<-` - switch to left
+- `^b` + `->` - switch to right
+- `^b` + `z` - toggle pane fullscreen
+- `^b` + `,` - rename current window
 
 ## In Session
 
-* `^b` + `c` - new window
-* `^b` + `p` - switch to prev
-* `^b` + `n` - switch to new
-* `^b` + `NUM` - switch to window Num
+- `^b` + `c` - new window
+- `^b` + `p` - switch to prev
+- `^b` + `n` - switch to new
+- `^b` + `NUM` - switch to window Num
 
 ## Resizing panes
 
-*`^b`+`:`, then `:resize-pane` with following `-L` or (`-R`, `-D`, `-U`)
+\*`^b`+`:`, then `:resize-pane` with following `-L` or (`-R`, `-D`, `-U`)
 
 ```
 :resize-pane -D (Resizes the current pane down by 1 cell)
 :resize-pane -R 7 (Resizes the current pane right by 7 cells)
 ```
-
 
 ## Unsorted (`^b` + `?` result)
 
