@@ -1,62 +1,40 @@
-```python
-#hide
-from icecream import ic
-import sys, re
-
-def jupyter(*args): 
-    print(*[re.sub(r",\s{1,}", ", ", i.replace(",\n", ", ")) for i in args], file=sys.stdout)
-    
-ic.configureOutput(prefix='ic> ', outputFunction=jupyter)
-```
-
-# Python Data Structures & Types
+# Data Structures
 
 ## Data Types
 
-### int
-
-Supported Methods:
-`__abs__`, `__add__`, `__and__`, `__bool__`, `__ceil__`, `__class__`, `__delattr__`, `__dir__`, `__divmod__`, `__doc__`, `__eq__`, `__float__`, `__floor__`, `__floordiv__`, `__format__`, `__ge__`, `__getattribute__`, `__getnewargs__`, `__gt__`, `__hash__`, `__index__`, `__init__`, `__init_subclass__`, `__int__`, `__invert__`, `__le__`, `__lshift__`, `__lt__`, `__mod__`, `__mul__`, `__ne__`, `__neg__`, `__new__`, `__or__`, `__pos__`, `__pow__`, `__radd__`, `__rand__`, `__rdivmod__`, `__reduce__`, `__reduce_ex__`, `__repr__`, `__rfloordiv__`, `__rlshift__`, `__rmod__`, `__rmul__`, `__ror__`, `__round__`, `__rpow__`, `__rrshift__`, `__rshift__`, `__rsub__`, `__rtruediv__`, `__rxor__`, `__setattr__`, `__sizeof__`, `__str__`, `__sub__`, `__subclasshook__`, `__truediv__`, `__trunc__`, `__xor__`, `bit_length`, `conjugate`, `denominator`, `from_bytes`, `imag`, `numerator`, `real`, `to_bytes`
-
 ```python
-i: int = 1
-    
-ic(sys.getsizeof(i))
-ic(i.bit_length())
+# Primitive Types: Int
 
-# number separation with underscores
-i: int = 1_000_000
-    
-ic(sys.getsizeof(i))
+dir(int(0))
+> __abs__, __add__, __and__, __bool__, __ceil__, __class__, __delattr__, __dir__, __divmod__, __doc__, __eq__, __float__, __floor__, __floordiv__, __format__, __ge__, __getattribute__, __getnewargs__, __gt__, __hash__, __index__, __init__, __init_subclass__, __int__, __invert__, __le__, __lshift__, __lt__, __mod__, __mul__, __ne__, __neg__, __new__, __or__, __pos__, __pow__, __radd__, __rand__, __rdivmod__, __reduce__, __reduce_ex__, __repr__, __rfloordiv__, __rlshift__, __rmod__, __rmul__, __ror__, __round__, __rpow__, __rrshift__, __rshift__, __rsub__, __rtruediv__, __rxor__, __setattr__, __sizeof__, __str__, __sub__, __subclasshook__, __truediv__, __trunc__, __xor__, bit_length, conjugate, denominator, from_bytes, imag, numerator, real, to_bytes
 
 # big int
 i: int = 2**64
-    
-ic(sys.getsizeof(i))
+> sys.getsizeof(i): 36
 
-> ic> sys.getsizeof(i): 28
-> ic> i.bit_length(): 1
-> ic> sys.getsizeof(i): 28
-> ic> sys.getsizeof(i): 36
+# nto so big int
+i: int = 1
+> sys.getsizeof(i): 28
+> i.bit_length(): 1
 
-result >>> 36
+# number separation with underscores
+i: int = 1_000_000
+
 ```
 
 ```python
-### float
+# todo: primitive Types: float
 ```
 
 ```python
-### str
+# todo: primitive Types: str
 ```
 
 ```python
-### bytes
+# todo: primitive Types: bytes
 ```
 
 ### `struct.Struct`
-
-structured data as bytes 
 
 ```python
 # Struct
@@ -79,10 +57,9 @@ result >>> (23, False, 42.0)
 
 ### `dict`
 
-
 **Talks**:
 
-* [Modern Python Dictionaries - A confluence of a dozen great ideas (PyCon 2017)](https://www.youtube.com/watch?v=npw4s1QTmPg) by Raymond Hettinger
+- [Modern Python Dictionaries - A confluence of a dozen great ideas (PyCon 2017)](https://www.youtube.com/watch?v=npw4s1QTmPg) by Raymond Hettinger
 
 ```python
 ys={'z':9, 'y':1, 'x':5}
@@ -108,7 +85,7 @@ result >>> {'a': 1, 'b': 3, 'c': 2, 'z': 9, 'y': 1, 'x': 5}
 ```python
 # Ordered Dict
 
-# in python 3.7 order will be preserved, 
+# in python 3.7 order will be preserved,
 # but it's depends on dict implementation
 # see Hettinger's video.
 a = {'a':1, 'b':3, 'c':2}
@@ -164,7 +141,7 @@ ic(options_source['nosuchoptions'])
 # merging dictionaries
 d1 = {'a': 1, 'b': 2}
 d2 = {'c': 3, 'd': 4}
- 
+
 ic({**ChainMap(d1, d2)})
 
 > ic> options_source['option']: 'default_value'
@@ -177,7 +154,7 @@ result >>> {'c': 3, 'd': 4, 'a': 1, 'b': 2}
 ### `collections.defaultdict`
 
 ```python
-import collections 
+import collections
 
 my_dict = {}
 
@@ -195,8 +172,8 @@ result >>> []
 
 ### `types.MappingProxyType`
 
-* https://www.python.org/dev/peps/pep-0416
-* https://docs.python.org/3/library/types.html
+- https://www.python.org/dev/peps/pep-0416
+- https://docs.python.org/3/library/types.html
 
 ```python
 from types import MappingProxyType
@@ -237,10 +214,10 @@ b = b'literal'
 # bytes literal - restricted to ascii symbols (except \ and control codes)
 ic(b)
 
-# int (code at ascii) if indexing 
+# int (code at ascii) if indexing
 ic(b[1])
 
-# int (code at ascii) if indexing 
+# int (code at ascii) if indexing
 ic(b[0:3])
 
 # bytes to string convertion (with escape characters)
@@ -272,7 +249,7 @@ result >>> b'dots over \xd1\x96'
 
 ```python
 # https://docs.python.org/3/library/array.html
-from array import array 
+from array import array
 
 # Unicode (Py_UNICODE)
 ic(array('u', 'hello \u2641'))
@@ -283,7 +260,7 @@ ic(array('l', (1, 2, 3, 4, 5)))
 # doubles
 ic(array('d', (1.0, 2.0, 3.14)))
 
-# floats 
+# floats
 ic(array('f', (1.0, 1.5, 2.0, 2.5)))
 
 > ic> array('u', 'hello \u2641'): array('u', 'hello ♁')
@@ -353,7 +330,7 @@ class PriorityQueue(object):
 
     def pop(self):
         return heapq.heappop(self._q)[-1]
-    
+
 pq = PriorityQueue()
 pq.add("hello", priority=2)
 pq.add("world", priority=1)
@@ -373,11 +350,11 @@ result >>> 'hello'
 ### `queue.deque`
 
 ```python
-import collections 
+import collections
 
 d = collections.deque(["one", "two", "three"])
 ic(d)
- 
+
 d.append("four")
 ic(d)
 
@@ -470,7 +447,7 @@ ic(c2.most_common())
 # Counter Example
 c3 = Counter()
 lipsum = "Un dos tres quatro cinco seis siete"
-words = [w.strip(".,") for w in lipsum.lower().split(' ')]   
+words = [w.strip(".,") for w in lipsum.lower().split(' ')]
 for word in words:
     c3[word]+=1
 
@@ -486,7 +463,7 @@ ic(list(c3))
 c4 = Counter(["dos"])
 c4.update(["dos", "tres", "cinco", "seis", "ocho"])
 c4.subtract(["ocho"])
-ic(c4) 
+ic(c4)
 
 # background implementation - itertools chain
 ic(c4.elements())
@@ -548,7 +525,7 @@ except TypeError as e:
 ### `collections.namedtuple`
 
 ```python
-import collections, json 
+import collections, json
 
 Car = collections.namedtuple('Auto' , 'color engine')
 # Is Creates class Auto with a fields 'color' and 'engine' and
@@ -591,7 +568,7 @@ result >>> OrderedDict([('color', 'red'), ('engine', 'turbo')])
 
 ### `enum.IntEnum`
 
-* https://docs.python.org/3/library/enum.html
+- https://docs.python.org/3/library/enum.html
 
 ```python
 import enum
@@ -607,7 +584,7 @@ class Requests(enum.Enum):
 request = Requests.POST
 ic(request)
 ic(isinstance(request, Requests))
-ic(request.name) 
+ic(request.name)
 
 # Programmatic access to enumeration members and their attributes
 ic(Requests(2))
@@ -622,12 +599,12 @@ try:
     class HTTPErrorCodes:
         NotFound = 404
         Forbiden = 404
-except AttributeError  as e:  
+except AttributeError  as e:
     print(e)
-    
+
 
 # iota / automatic values
-# 
+#
 class HTTPErrorCodes(enum.Enum):
     Bad_Request      = 400
     Unauthorized     = enum.auto()
@@ -668,13 +645,13 @@ class Planets(enum.Enum):
     def __init__(self, mass, radius):
         self.mass = mass       # in kilograms
         self.radius = radius   # in meters
-        
+
     @property
     def gravity(self):
         # universal gravitational constant  (m3 kg-1 s-2)
         G = 6.67300E-11
         return G * self.mass / (self.radius * self.radius)
-    
+
 planets = [str((planet.name, planet.gravity)) for planet in Planets]
 ic(", ".join(planets))
 
@@ -700,7 +677,7 @@ class Perm(enum.IntFlag):
     R = 4
     W = 2
     X = 1
-    
+
 ic(Perm.R | Perm.W)
 ic(Perm.R + Perm.W)
 
@@ -727,7 +704,7 @@ class Colors(enum.Flag):
     BLUE = enum.auto()
     GREEN = enum.auto()
     WHITE = RED | BLUE | GREEN
-    
+
 colors_names = [str(color.name) for color in Colors]
 ic(", ".join(colors_names))
 
@@ -740,9 +717,9 @@ ic(", ".join(color_values))
 result >>> '1, 2, 4, 7'
 ```
 
-## `dataclasses.dataclass` 
+## `dataclasses.dataclass`
 
-* [Dataclasses: The code generator to end all code generators - PyCon 2018](https://www.youtube.com/watch?v=T-TwcmT6Rcw) by Raymond Hettinger [slides](https://www.dropbox.com/s/te4q0xf46zkuu21/hettinger_dataclasses_pycon_2018.zip), [pdf](https://www.dropbox.com/s/m8pwkkz43qz5pgt/HettingerPycon2018.pdf)
+- [Dataclasses: The code generator to end all code generators - PyCon 2018](https://www.youtube.com/watch?v=T-TwcmT6Rcw) by Raymond Hettinger [slides](https://www.dropbox.com/s/te4q0xf46zkuu21/hettinger_dataclasses_pycon_2018.zip), [pdf](https://www.dropbox.com/s/m8pwkkz43qz5pgt/HettingerPycon2018.pdf)
 
 ```python
 import dataclasses
@@ -756,7 +733,7 @@ A *very* basic representation of a person, created as a dataclass
     family_name: str
     birth_date: str = None
     email_address: str = None
-        
+
 ic(Person)
 
 
@@ -776,7 +753,7 @@ ic(p1)
 p2 = Person('Personica', 'Bname', None, 'bname@gmail.com')
 ic(p2)
 
-# - order=True has to be passed as an argument to the 
+# - order=True has to be passed as an argument to the
 #   dataclass decorator for these to work:
 ic('p1 == p2 ... %s' % (p1 == p2))
 ic('p1 != p2 ... %s' % (p1 != p2))
@@ -802,18 +779,18 @@ result >>> 'p1 >= p2 ... False'
 
 ## Comparison
 
- Dataclass                        | NamedTuple
-----------------------------------|-------------
-`replace()` function	          | `_replace()` method
-`asdict()` function	              | `_asdict()` method
-converts to regular `dict`        | converted to OrderedDict
-`astuple()` function              | `tuple()` function
-Mutable                           | Frozen
-Unhashable                        | Hashable
-Non-iterable                      | Iterable and unpackable
-No comparison methods             | Sortable
-Underlying store: instance `dict` | Underlying store: tuple
-168 bytes                         | 72 bytes
-33 ns access                      | 61 ns access
+| Dataclass                         | NamedTuple               |
+| --------------------------------- | ------------------------ |
+| `replace()` function              | `_replace()` method      |
+| `asdict()` function               | `_asdict()` method       |
+| converts to regular `dict`        | converted to OrderedDict |
+| `astuple()` function              | `tuple()` function       |
+| Mutable                           | Frozen                   |
+| Unhashable                        | Hashable                 |
+| Non-iterable                      | Iterable and unpackable  |
+| No comparison methods             | Sortable                 |
+| Underlying store: instance `dict` | Underlying store: tuple  |
+| 168 bytes                         | 72 bytes                 |
+| 33 ns access                      | 61 ns access             |
 
 ## `@memoryview`

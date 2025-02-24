@@ -1,31 +1,19 @@
-```python
-#hide
-from icecream import ic
-import sys, re
-
-def jupyter(*args): 
-    print(*[re.sub(r",\s{1,}", ", ", i.replace(",\n", ", ")) for i in args], file=sys.stdout)
-    
-ic.configureOutput(prefix='ic> ', outputFunction=jupyter)
-
-
-import functools
-```
-
 # Decorators
 
 [PEP 3129](https://www.python.org/dev/peps/pep-3129/), [PEP 318](https://www.python.org/dev/peps/pep-0318/)
 
 ### Resources
-* [PythonWiki: PythonDecorators](https://wiki.python.org/moin/PythonDecorators)
-* [PythonWiki: PythonDecoratorLibrary](https://wiki.python.org/moin/PythonDecoratorLibrary)
-* [Stackoverflow: How to make a chain of function decorators?
-](https://stackoverflow.com/questions/739654/)
-* https://github.com/lord63/awesome-python-decorator
+
+- [PythonWiki: PythonDecorators](https://wiki.python.org/moin/PythonDecorators)
+- [PythonWiki: PythonDecoratorLibrary](https://wiki.python.org/moin/PythonDecoratorLibrary)
+- [Stackoverflow: How to make a chain of function decorators?
+  ](https://stackoverflow.com/questions/739654/)
+- https://github.com/lord63/awesome-python-decorator
 
 ### Talks
-* [PyCon2019: Practical decorators](https://youtu.be/MjHpMCIvwsY) by Reuven M. Lerner - [slides](https://speakerdeck.com/pycon2019/reuven-m-lerner-practical-decorators) 
-* [EuroPytop 2018: A Taxonomy of Decorators: A-E](https://youtu.be/pEL1THG6ysY) by Andy Fundinger - [slides](https://github.com/Ciemaar/decorator-taxonomy)
+
+- [PyCon2019: Practical decorators](https://youtu.be/MjHpMCIvwsY) by Reuven M. Lerner - [slides](https://speakerdeck.com/pycon2019/reuven-m-lerner-practical-decorators)
+- [EuroPytop 2018: A Taxonomy of Decorators: A-E](https://youtu.be/pEL1THG6ysY) by Andy Fundinger - [slides](https://github.com/Ciemaar/decorator-taxonomy)
 
 ### Example
 
@@ -33,7 +21,7 @@ import functools
 def decorator(func):
     def wrapper(*args, **kwargs):
         return f"{func(*args, **kwargs)}"
-    
+
     return wrapper
 
 @decorator
@@ -71,14 +59,14 @@ result >>> 100
 ### Using `Class` as a decorator
 
 ```python
-class slim_shady: 
-    
+class slim_shady:
+
     def __init__(self, func):
         self.func = func
-        
-    def __call__(self, name): 
+
+    def __call__(self, name):
         return self.func(self.__class__.__name__.replace("_", " "))
-    
+
 @slim_shady
 def name(name):
     return "My name is {}".format(name)
@@ -99,17 +87,17 @@ class ascii():
     def __init__(self, char:str) -> None:
         if len(char) > 1:
             raise ValueError("Accepting only single chars")
-            
+
         self.char = char
     def __repr__(self) -> str:
         return "{} is {}".format(self.char, ord(self.char))
 
 class lister(list):
-    
+
     @recursive_repr()
     def __repr__(self):
         return '<' + ' , '.join(map(repr, self)) + '>'
-    
+
 l = lister()
 l.append(ascii('a'))
 l.append(ascii('b'))
@@ -126,16 +114,16 @@ or using a wrapper inside wrapper inside decorator
 `functools.lru_cache` - caching for LRU objects/calls
 
 ```python
-def fib1(n): 
+def fib1(n):
     return n if n in (0, 1) else (fib1(n-1)+fib1(n-2))
 
 @functools.lru_cache(maxsize=35)
-def fib2(n): 
+def fib2(n):
     return n if n < 2 else (fib2(n-1)+fib2(n-2))
 
-# no limits 
+# no limits
 @functools.lru_cache(maxsize=None)
-def fib3(n): 
+def fib3(n):
     return n if n < 2 else (fib3(n-1)+fib3(n-2))
 
 %timeit fib1(12)
@@ -155,12 +143,12 @@ ic(fib3.cache_info())
 result >>> CacheInfo(hits=81111120, misses=13, maxsize=None, currsize=13)
 ```
 
-####  `functools.wraps` - allows to mask wrapper function name
+#### `functools.wraps` - allows to mask wrapper function name
 
-* [What does `functools.wraps` do?](https://stackoverflow.com/questions/308999)
+- [What does `functools.wraps` do?](https://stackoverflow.com/questions/308999)
 
 ```python
-def loud(func): 
+def loud(func):
     def wrapper(*args, **kwargs):
         args = map(lambda x: x.upper(), (args))
         return func(*args, **kwargs)
@@ -174,11 +162,11 @@ def mprint(string):
 ic(mprint.__name__)
 ic(mprint("yo"))
 
-# ------------------------------------------------- 
+# -------------------------------------------------
 del mprint
 
 # -------------------------------------------------
-def wisper(func): 
+def wisper(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         args = map(lambda x: x.lower(), (args))
@@ -200,7 +188,7 @@ ic(mprint("YO"))
 result >>> 'yo'
 ```
 
-#### `functools.total_ordering` 
+#### `functools.total_ordering`
 
 Given a class defining one or more rich comparison ordering methods, this class decorator supplies the rest. This simplifies the effort involved in specifying all of the possible rich comparison operations:
 
@@ -210,28 +198,28 @@ The class must define one of `__lt__()`, `__le__()`, `__gt__()`, or `__ge__()`. 
 @functools.total_ordering
 class Weight:
     def __init__(self, weight:str):
-        self.number, self.units = weight.split(" ") 
-    
+        self.number, self.units = weight.split(" ")
+
     @property
     def value(self):
         return self.converts_to_kilograms()
-    
+
     def converts_to_kilograms(self):
         mesurments = {}
         mesurments['gr'] = 0.001
-        mesurments['kg'] = 1 
+        mesurments['kg'] = 1
         mesurments['quintal'] = 100
         mesurments['pound'] = 0.5
         mesurments['ton'] = 1000
-        
+
         return float(self.number)*mesurments.get(self.units)
-    
+
     def __gt__(self, other):
         return self.value > other.value
-    
+
     def __eq__(self, other):
         return self.value == other.value
-    
+
 ic(Weight('5 kg') == Weight('5000 gr'))
 ic(Weight('5 kg') <  Weight('4999 gr'))
 ic(Weight('5 kg') >  Weight('4999 gr'))
@@ -263,7 +251,7 @@ def _(arg: int, verbose=False):
     if verbose:
         print("Strength in numbers, eh?", end=" ")
     print(arg)
-    
+
 @fun.register(list)
 def _(arg, verbose=False):
     if verbose:
@@ -344,10 +332,9 @@ result >>> <function __main__._(arg: int, verbose=False)>
 
 ### `@decorators` used in Object-Oriented Programming
 
-* `@statickmethod` - static methods
-* `@classmethod` - class creation
-* `@abstractmethod` - static methods 
-
+- `@statickmethod` - static methods
+- `@classmethod` - class creation
+- `@abstractmethod` - static methods
 
 Note about `@abstractmethod`, in most cases you will use method that raises `NotImplemented` exception **only**^ which is not `abstract method`!
 
@@ -356,19 +343,19 @@ from abc import abstractmethod
 
 class AbstractPower:
     @abstractmethod
-    def power(number, power): 
+    def power(number, power):
         raise NotImplementedError("ddd")
 
 class Power(AbstractPower):
-    
+
     def __init__(self, number, power):
         self.number = number
         self.power = power
-        
+
     @classmethod
     def cube(cls, number):
         return cls(number, 4)
-    
+
     @classmethod
     def root(cls, number):
         return cls(number, 0.5)
@@ -376,18 +363,18 @@ class Power(AbstractPower):
     @staticmethod
     def power(x, power):
         return x**power
-    
+
     def __repr__(self):
         return "{}({}^{}) is {}".format(
-            self.__class__.__name__, 
+            self.__class__.__name__,
             self.number,
             self.power,
             self.__class__.power(self.number, self.power)
         )
-    
+
 ic(Power(2, 2))
 ic(Power.cube(2))
-ic(Power.root(4)) 
+ic(Power.root(4))
 ic(Power.cube(2))
 
 > ic> Power(2, 2): Power(2^2) is 4
@@ -404,15 +391,15 @@ result >>> Power(2^4) is 16
 class Root:
     def __init__(self, number):
         self._n = number
-    
+
     @property
     def n(self):
         return self._n
-    
+
     @n.setter
     def n(self, n):
         self._n = n
-        
+
     @property
     def root(self):
         return self._n * .5
@@ -444,7 +431,7 @@ class Point:
     x: float
     y: float
     z: float = 0.0
- 
+
 ic(Point(1.5, 2.5))
 
 > ic> Point(1.5, 2.5): Point(x=1.5, y=2.5, z=0.0)
@@ -479,7 +466,7 @@ import atexit
 @atexit.register
 def goodbye():
     print("Ciao...")
-    
+
 exit(0)
 
 > Ciao...

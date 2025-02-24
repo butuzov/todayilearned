@@ -1,4 +1,4 @@
-### Bitwise algorithmes and hacks
+# Bitwise algorithmes and hacks
 
 * http://bitwisecmd.com/
 * https://graphics.stanford.edu/~seander/bithacks.html
