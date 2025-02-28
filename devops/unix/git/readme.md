@@ -64,10 +64,18 @@ git commit -m 'Initial commit'
 - [How to remove unreferenced blobs from my Git repository](https://stackoverflow.com/questions/1904860)
 
 ```shell
+# GC
 git -c gc.reflogExpire=0 -c gc.reflogExpireUnreachable=0 -c gc.rerereresolved=0 \
     -c gc.rerereunresolved=0 -c gc.pruneExpire=now gc
-
 git gc --prune=now
+git gc --aggressive --prune=now
+
+# Deletes reflog entries, making those commits unreachable.
+git reflog expire --expire=now --all
+
+# Verify
+git count-objects -vH
+git prune
 ```
 
 ### Rebase
