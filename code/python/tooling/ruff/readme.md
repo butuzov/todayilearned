@@ -62,10 +62,6 @@ unfixable = [
 ```json
 {
   "ruff.lint.run": "onSave",
-  "ruff.showNotifications": "onError",
-  "ruff.lint.args": [
-    "check", "--config", "/path/ruff.toml"
-  ],
-
+  "ruff.lint.args": ["check", "--config", "/path/ruff.toml"]
 }
 ```
