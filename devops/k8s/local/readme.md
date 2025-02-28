@@ -28,6 +28,8 @@ microk8s kubectl get all --all-namespaces
 
 # switch to kubectl
 microk8s config > ~/.kube/config
+
+microk8s stop
 ```
 
 ## Kind

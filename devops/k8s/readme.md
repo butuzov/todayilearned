@@ -19,7 +19,7 @@ Read the [full Manual](https://docs.docker.com/desktop/kubernetes/).
 
 ### Other Options
 
-[minikube](local/readme.md#minikube), [kind](kind/readme.md#kind), [minishift](https://github.com/minishift/minishift), [CRC](https://github.com/crc-org/crc), ansible's [kubespray](https://github.com/kubernetes-sigs/kubespray) with Vagrant (e.g. [k8s-cluster](https://github.com/butuzov/k8s-cluster))
+[minikube](local/readme.md#minikube), [kind](local/readme.md#Kind), [minishift](https://github.com/minishift/minishift), [CRC](https://github.com/crc-org/crc), ansible's [kubespray](https://github.com/kubernetes-sigs/kubespray) with Vagrant (e.g. [k8s-cluster](https://github.com/butuzov/k8s-cluster))
 
 ## Running Commands
 
