@@ -85,6 +85,11 @@ uv run start --port 1234
 # > App started at port 1234
 ```
 
+## Jupyter
+
+1. `uv tool run jupyter lab`
+2. `!uv pip install my-dependcies`
+
 ## Scripts
 
 Self Containing (dependencies)
