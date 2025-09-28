@@ -2,6 +2,7 @@
 _index.md
 .hugo_build.lock
 config.yaml 
+new_config.yaml 
 
 # Temporary
 .cache/*

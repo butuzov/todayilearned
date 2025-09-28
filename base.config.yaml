@@ -1,0 +1,83 @@
+baseURL: "https://butuzov.github.io"
+languageCode: "en"
+title: "@todayilearned"
+
+module:
+  mounts:
+    - source: "."
+      target: "content"
+      excludeFiles: "^readme.md"
+     
+    - source: ".github/hugo/assets/"
+      target: "assets"
+
+    - source: ".github/hugo/layouts/"
+      target: "layouts"
+
+    - source: ".github/hugostatic/"
+      target: "static"
+
+# Publishing
+
+resourceDir: ".cache/resources"
+
+
+ignoreFiles:
+  - "(.*?)config.ya?ml"
+  - ".cache"
+  - "readme*"
+  - "Taskfile*"
+  - "scripts*"
+
+disableKinds: ["404", "taxonomy", "term", "RSS"]
+
+params:
+  description: "Because I cant trust my memory"
+  page_title_suffix: "@todayilearned"
+  github_org: "https://github.com/butuzov"
+  repo: "https://github.com/butuzov/todayilearned/"
+  version_tag: "v1.1.1"
+
+cleanDestinationDir: true
+publishDir: ".cache/build"
+
+outputs:
+  home: ["HTML", "JSON"]
+
+markup:
+  highlight:
+    codeFences: true
+    # guessSyntax: true
+    # lineAnchors: true
+    # lineNos: false # Show Line Number
+    noClasses: false
+    style: autumn
+    tabWidth: 10
+
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+    ordered: false
+
+  goldmark:
+    extensions:
+      definitionList: true
+      footnote: true
+      linkify: true
+      linkifyProtocol: https
+      strikethrough: true
+      table: true
+      taskList: true
+
+    renderer:
+      unsafe: true
+      xhtml: true
+
+    parser:
+      attribute:
+        # block: true
+        title: true
+
+menu:
+  main:
+ 

@@ -1,0 +1,12 @@
+[package]
+name = "hello_add"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[dev-dependencies]
+criterion = "0.5"
+
+[workspace]
+exclude = ["fuzz"]

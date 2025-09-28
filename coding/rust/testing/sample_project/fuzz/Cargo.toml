@@ -1,0 +1,22 @@
+[package]
+name = "hello_add-fuzz"
+version = "0.0.1"
+edition = "2021"
+publish = false
+
+[dependencies]
+libfuzzer-sys = { version = "0.4", features = [
+	"arbitrary-derive",
+], default-features = false }
+
+[dependencies.hello_add]
+path = ".."
+
+[[bin]]
+name = "test_target"
+path = "fuzz_targets/test_target.rs"
+test = false
+doc = false
+
+[package.metadata]
+cargo-fuzz = true

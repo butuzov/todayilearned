@@ -1,0 +1,28 @@
+# https://taskfile.dev
+
+version: "3"
+
+env:
+  TEMP_DIR: .cache/.task
+
+tasks:
+  default:
+    cmds:
+      - hugo server -D
+
+  links:
+    cmds:
+    -  ./scripts/readme_to_index
+    -  ./scripts/update_config_with_menu
+ 
+    sources:
+      - "./**/readme.md"
+      -  ./scripts/readme_to_index
+      -  ./scripts/update_config_with_menu
+    method: timestamp 
+    generates:
+      - "./**/index.md"
+
+  install: brew install hugo
+  version: hugo version
+  publish: hugo
