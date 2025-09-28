@@ -1,0 +1,14 @@
+<!--
+  Partial to generate page name from Title or File name.
+  Accepts Page as context
+-->
+
+{{ $content := "" }}
+
+{{ if .Title }}
+	{{ $content = .Content }}
+{{ else }}
+	{{ $content = delimit (after 1 (split .Content "\n")) "\n" | safeHTML}}
+{{ end }}
+
+{{ return $content }}

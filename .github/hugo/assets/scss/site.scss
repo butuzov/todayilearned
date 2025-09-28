@@ -1,0 +1,47 @@
+@import "bootstrap/bootstrap";
+
+// yes - compile it!
+
+@mixin random-bgr() {
+  background: rgb(random(255), random(255), random(255));
+}
+
+//.... Base Elements ...........................................................
+html {
+  font-size: 125%;
+  body {
+    line-height: 1;
+  }
+}
+
+//.... Variables.................................................................
+$navbar-height: 3rem;
+$sidebar_width: 242px;
+
+$base_color: #558b2f; // Sidebar 
+$color_headings: #404040;
+
+$foggy-text-color: #404040;
+
+// $primary-color: #558b2f; // Green
+// $primary-color: #9e9d24; // Salad
+$primary-color: #0d6dfd; // Blue
+$secondary-color: rgba($primary-color, 0.8);
+
+//.... Mixins ..................................................................
+@mixin debug($color) {
+  body.colored & {
+    background-color: rgba($color, 0.5) !important;
+  }
+}
+
+//.... Includes ................................................................
+@import "home";
+
+@import "navbar";
+@import "sidebar";
+
+@import "search";
+@import "content";
+@import "copy";
+@import "toc";

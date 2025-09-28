@@ -1,0 +1,8 @@
+# Hugo Related
+_index.md
+.hugo_build.lock
+config.yaml 
+
+# Temporary
+.cache/*
+

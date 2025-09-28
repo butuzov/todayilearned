@@ -1,0 +1,45 @@
+{{ if . }}
+  {{ template "head" . }}
+{{ end }}
+
+
+{{ define "head" }}
+
+	{{/* general */}}
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	{{ hugo.Generator }}
+
+	<title> {{- partial "seo-title" . }} | {{ .Site.Title -}} </title>
+
+	{{/* seo optimization  */}}
+	{{ if .Param "noindex" }}
+		<meta name="robots" content="noindex" />
+	{{ end }}
+
+	{{if .Params.redirect}}
+		<meta http-equiv="refresh" content="2; url={{.Params.redirect}}" />
+	{{end}}
+
+	{{/* layout  */}}
+
+	<link href="{{ "favicon.ico" | relURL }}" type="image/x-icon" rel="shortcut icon" />
+	<link href="{{ "favicon.png" | relURL }}" type="image/png" rel="icon" />
+
+{{/* Compilled */}}
+{{ $styles := resources.Get "scss/site.scss" | toCSS | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
+
+{{/* Concatenated */}}
+	{{ $styles := resources.Match "css/*.css" | resources.Concat "css/main.css" | fingerprint }}
+	<link rel="stylesheet" href="{{ $styles.RelPermalink }}"  />
+	
+	{{ if .Page.Store.Get "hasMermaid" }}
+	<!-- head scripts -->
+	<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+	<script>mermaid.initialize({ startOnLoad: true });</script>
+	{{ end }}
+
+{{  end }}

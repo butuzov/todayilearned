@@ -1,0 +1,431 @@
+body.colored {
+  background: url(/images/bg.png?1);
+}
+
+body.typography-grid .content {
+  background: url(/images/bg-1rem.png?v20);
+}
+
+.content {
+  //   reseting paddings
+  :is(h1, h2, h3, h4, h5, h6) {
+    &:hover a.anchor {
+      color: black;
+      visibility: visible;
+    }
+
+    .github {
+      float: right;
+      font-size: 1rem;
+      color: #fff;
+      padding-top: 0.5rem;
+      text-decoration: none;
+    }
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    width: 100% !important;
+    max-width: 1200px !important;
+    padding: 10px !important;
+  }
+
+  //   .... Consecutive elements ...............................................
+  h1 + h2,
+  h2 + h3,
+  h3 + h4,
+  h4 + h5,
+  h5 + h6 {
+    margin-top: -1rem !important;
+  }
+
+  :is(h1, h2, h3, h4, h5, h6, p, div, ol, ul, blockquote),
+  table {
+    margin-bottom: 1rem;
+  }
+
+  h1 code {
+    color: #f0f0f0;
+  }
+
+  h1 + div.highlight {
+    margin-top: -1rem;
+  }
+
+  :is(h1, h2, h3, h4, h5, h6) {
+    display: block;
+    line-height: 1;
+    &:hover {
+      .anchor {
+        visibility: visible;
+        color: rgba(grey, 0.4) !important;
+        text-decoration: none;
+      }
+    }
+    .anchor {
+      visibility: hidden;
+      display: inline-block;
+      width: 2rem;
+      text-align: right;
+      //   padding-right: 0.5rem;
+      line-height: 1;
+    }
+
+    // TEMPORARY...TEMPORARY...TEMPORARY...TEMPORARY...TEMPORARY...TEMPORARY...T
+    span {
+      margin-top: -1rem;
+      display: inline-block;
+      //   background-color: rgba(white, 0.5);
+      display: inline-block;
+      font-size: inherit !important;
+      line-height: inherit !important;
+    }
+    // TEMPORARY...TEMPORARY...TEMPORARY...TEMPORARY...TEMPORARY...TEMPORARY...T
+  }
+
+  //   .... Consecutive elements ...............................................
+  :is(h1, h2, h3, h4, h5, h6) {
+    position: relative;
+    @include media-breakpoint-up(lg) {
+      position: sticky;
+    }
+  }
+
+  //   .... Consecutive elements ...............................................
+  > h1 {
+    @include debug(#cc99c9);
+
+    &:first-child {
+      background-color: $primary-color;
+      color: white;
+      top: $navbar-height;
+      z-index: 100;
+    }
+
+    padding: 0rem 2rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2rem;
+    min-height: 3rem;
+  }
+
+  h2 {
+    @include debug(#9ec1cf);
+
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 2rem;
+    min-height: 3rem;
+
+    scroll-margin-top: calc($navbar-height + 3rem);
+  }
+
+  h3 {
+    @include debug(#9ee09e);
+    // height: 3rem;
+
+    padding: 0rem 0rem;
+
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.8rem;
+    min-height: 3rem;
+
+    scroll-margin-top: calc($navbar-height + 3rem);
+  }
+
+  h4 {
+    @include debug(#fdfd97);
+
+    padding: 0rem 0rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.8rem;
+    min-height: 3rem;
+
+    scroll-margin-top: calc($navbar-height + 3rem);
+  }
+
+  h5 {
+    @include debug(#feb144);
+
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.2rem;
+    min-height: 2rem;
+  }
+
+  h6 {
+    @include debug(#ff6663);
+
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.2rem;
+    min-height: 2rem;
+  }
+
+  // CONTENT ELEMENTS...CONTENT ELEMENTS...CONTENT ELEMENTS...CONTENT ELEMENTS..
+  > :is(p, div) {
+    line-height: 1.3rem !important;
+  }
+
+  > :is(p, div, ul, ol, blockquote, table),
+  > table td,
+  > table td :is(p, ul, ol, blockquote) {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    font-size: 0.85rem;
+    line-height: 1rem;
+    font-weight: 300;
+  }
+
+  > table td {
+    padding: 0.5rem;
+  }
+
+  :is(p, div, li, a) > code {
+    line-height: inherit;
+    font-size: 85%;
+    color: #404040;
+    background-color: rgba(gray, 0.2);
+    padding: 0px 4px;
+    border-radius: 2px;
+  }
+
+  :is(h1, h2, h3, h4, h5, h6) > span > code {
+    display: inline-flex;
+    line-height: inherit;
+    font-size: inherit;
+  }
+  :is(h2, h3, h4, h5, h6) > span > code {
+    background-color: rgba(gray, 0.2);
+    color: #404040;
+  }
+  :is(h1) > span > code {
+    background-color: rgba(white, 0.2);
+    color: #fcfcfc;
+  }
+
+  a {
+    margin-left: 0rem;
+
+    code {
+      border-radius: 4px;
+      padding: 0px 4px;
+      font-size: 85% !important;
+      background-color: rgba(gray, 0.1);
+      color: $primary-color;
+    }
+
+    code.domain {
+      //   font-size: 100% !important;
+      background-color: rgba(gray, 0.1);
+      color: $primary-color;
+    }
+
+    code.domain + code {
+      font-size: 100% !important;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      margin-left: 0px;
+      border-left: 1px solid #404040;
+      display: inline-block;
+      background-color: rgba(gray, 0.2);
+    }
+  }
+
+  ol,
+  ul {
+    padding: 0;
+    border: 0;
+
+    li a,
+    li span {
+      font-size: 0.85rem;
+      line-height: 1rem;
+      font-style: 300;
+    }
+  }
+
+  p strong,
+  div strong,
+  li strong {
+    font-weight: 600;
+  }
+
+  ul li {
+    list-style: none;
+    margin-bottom: 0.5rem;
+
+    & ul {
+      margin-top: 0.5rem;
+      li {
+        margin-left: 1rem;
+      }
+    }
+
+    &::before {
+      content: "-";
+      margin-right: 0.5rem;
+      margin-left: 0rem;
+      font-size: 1rem;
+      vertical-align: middle;
+      line-height: 0.1;
+    }
+  }
+
+  ol li {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    // list-style: none;
+    // list-style-type: decimal;
+  }
+
+  //.... Code .... Code .... Code .... Code ....Code ....Code ....Code ....Code
+  pre {
+    white-space: pre-wrap;
+  }
+
+  pre,
+  code {
+    font-size: 12px;
+    // font-size: 0.75rem;
+    line-height: 1rem;
+    // flex-wrap: wrap !important;
+    // overflow-wrap: anywhere !important;
+    // word-wrap: break-word !important;
+  }
+
+  .chroma {
+    background-color: transparent !important;
+  }
+
+  //.... Consecutive code declarations .........................................
+  > div.highlight + div.highlight,
+  > pre + pre,
+  > pre + div.highlight,
+  > div.highlight + pre {
+    background: rgba(#f7f8fa, 1)
+      url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2O4/+jZfwAI8gOnzDR5pQAAAABJRU5ErkJggg==)
+      repeat-x bottom;
+    //   url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2OIarD+DwAEYgIVKI/65QAAAABJRU5ErkJggg==)
+    //     repeat-y 120px,
+    //   url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2Owtm/4DwADrQH6AcmeYAAAAABJRU5ErkJggg==)
+    //     repeat-y 100px,
+    //   url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P4JOT5HwAFlAJNs87XAAAAAABJRU5ErkJggg==)
+    //     repeat-y 100px;
+    margin-top: -1rem;
+  }
+
+  > div.highlight + div.highlight,
+  > pre + div.highlight {
+    .chroma {
+      //   background: rgba(#f7f8fa, 1)
+      //     url(data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=)
+      //     repeat-x top !important;
+    }
+  }
+
+  //.... MAIN CODE BLOCK .......................................................
+  //.... https://shoonia.github.io/1x1/   ......................................
+  > pre,
+  > div.highlight {
+    margin-left: 0;
+    margin-right: 0;
+
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2O4/+jZfwAI8gOnzDR5pQAAAABJRU5ErkJggg==)
+        repeat-x top,
+      url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2O4/+jZfwAI8gOnzDR5pQAAAABJRU5ErkJggg==)
+        repeat-x bottom
+        //   url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NgaGCYAAACFQERZfSUIwAAAABJRU5ErkJggg==)
+      //     repeat-y calc(2rem + 600px - 10px),
+      //   url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NgWP//PwAFDwKu+s3WfgAAAABJRU5ErkJggg==)
+      //     repeat-y calc(2rem + 750px - 10px),
+      //   url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P4z8AwAQAEkQGQe/BFDQAAAABJRU5ErkJggg==)
+      //     repeat-y calc(2rem + 900px - 12px)
+;
+    background-color: rgba(#f7f8fa, 1);
+
+    code {
+      display: block;
+      padding: 1rem 0;
+      margin: 0 2rem;
+    }
+  }
+
+  li > div.highlight {
+    margin-top: 10px;
+  }
+
+  // .... default table ........................................................
+  table {
+    width: calc(100% - 4rem);
+    margin-left: 2rem;
+  }
+  // .... CODE COMPARE .........................................................
+  table.c2 {
+    width: 100%;
+    border: none;
+    margin-left: 0;
+    border-collapse: collapse !important;
+    border: none;
+    tbody {
+      border: 0px !important;
+    }
+    thead tr th {
+      text-align: left;
+      font-size: 1.2rem;
+      height: 2rem;
+      overflow: hidden;
+      padding-left: 2rem;
+    }
+
+    tbody {
+      background-color: rgba(#f7f8fa, 1);
+      td {
+        vertical-align: top;
+        line-height: 1;
+        width: 50%;
+        div.highlight {
+          padding: 0.5rem 2rem !important;
+        }
+      }
+    }
+  }
+
+  code {
+    font-family: "Fira Code", "Fira Mono", SFMono-Regular, Menlo, Monaco,
+      Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  table {
+    width: auto;
+    border-collapse: collapse;
+    border: 1px solid #404040;
+    background: #dadee2;
+
+    thead {
+      tr {
+        th {
+          font-size: 0.75rem;
+          text-align: center;
+          padding: 0.5rem;
+        }
+      }
+    }
+    tbody {
+      border-collapse: collapse;
+      border: 1px solid #404040;
+      background-color: #fff;
+      tr {
+        &:nth-child(even) {
+          background-color: #f4f4f4;
+        }
+        td {
+          font-size: 0.65rem;
+        }
+      }
+    }
+  }
+}

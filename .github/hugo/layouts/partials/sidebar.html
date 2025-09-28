@@ -1,0 +1,24 @@
+{{ if . }}
+  {{ template "sidebar" . }}
+{{ end }}
+
+{{ define "sidebar" }}
+	{{ $currentPage := . }}
+	{{ $menu := "" }}
+
+	{{/* <div class="sidebar d-flex flex-column"> */}}
+		{{ range site.Menus.main }}
+			{{ if $currentPage.IsMenuCurrent .Menu . }}
+				<ul class="menu-list">
+				{{ partial "sidebar-menu.html" (dict "menu" .Children "pg" $currentPage) }}
+				</ul>
+			{{ else if $currentPage.HasMenuCurrent .Menu . }}
+				<ul class="menu-list">
+				{{ partial "sidebar-menu.html" (dict "menu" .Children "pg" $currentPage) }}
+				</ul>
+			{{ else }}
+
+			{{ end }}
+		{{ end }}
+	{{/* </div> */}}
+{{ end }}

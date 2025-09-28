@@ -1,0 +1,43 @@
+{{ define "main" }}
+
+<main id="content" class="flex-grow-1 d-flex">
+	<aside id="sidebar" class="sidebar border-end">
+		{{ template "sidebar" . }}
+	</aside>
+	<article class="d-flex flex-column flex-grow-1">
+
+		<div class="d-flex flex-column flex-lg-row-reverse justify-content-lg-end gap-xl-6">
+
+			{{ if or (gt (len .TableOfContents) 200) }}
+			<div class="doc-nav align-self-start d-none d-xl-flex flex-column fs-sm">
+				<span class="d-block px-3 pt-4 fw-semibold fs-xs text-uppercase">Table of Contents</span>
+				<div class="doc-nav-content position-relative mt-2">
+					{{ .TableOfContents }}
+				</div>
+			</div>
+			{{ end }}
+
+			<div class="doc-content d-flex flex-grow-1 flex-column"
+			data-bs-spy="scrolle"
+			data-bs-target=".doc-nav-content"
+			data-bs-smooth-scroll="true"
+			tabindex="0">
+
+				<div class="content">
+						<h1 class="sticky">
+				{{- partial "funcs/title.html" . | htmlUnescape 	| markdownify -}}
+				{{if .Params.github}}
+					{{ partial "link-github" .Params.github }}
+				{{end -}}
+				</h1>
+
+					{{/* {{ partial "funcs/title-search.html" . }} */}}
+
+					{{ partial "funcs/content.html" . }}
+				</div>
+
+			</div>
+		</div>
+	</article>
+</main>
+{{ end }}

@@ -1,0 +1,116 @@
+// Table of Contents -----------------------------------------------------------
+.doc-nav {
+  position: relative;
+  padding-left: 0px;
+
+  width: 350px;
+  min-width: 350px;
+  max-width: 350px;
+  flex-shrink: 0;
+
+  max-height: 100vh;
+  height: 100vh;
+
+  @include media-breakpoint-up(lg) {
+    position: sticky;
+    top: 48px;
+    overflow-y: auto;
+  }
+
+  span {
+    font-size: 1rem;
+  }
+}
+
+.doc-nav-content {
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #ebecf0;
+    z-index: 1;
+  }
+
+  nav {
+    font-size: 0.65rem;
+    line-height: 1rem;
+    font-weight: 200;
+    margin-right: 1rem;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      position: relative;
+      width: 100%;
+      height: auto;
+      margin-top: 4px;
+
+      a {
+        position: relative;
+        display: block;
+        align-items: center;
+        color: #6b778c;
+        text-decoration: none;
+        padding-right: 10px;
+
+        code {
+          font-size: inherit !important;
+          background-color: rgba(#afb8c1, 0.2);
+          padding: 2px 4px;
+          border-radius: 5px;
+          color: #404040;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1px;
+          height: 100%;
+          display: block;
+          background-color: #0065ff;
+          opacity: 0;
+          transition: all 0.3s linear;
+          z-index: 2;
+        }
+
+        &:hover {
+          color: #0052cc;
+          text-decoration: none;
+        }
+
+        &.active {
+          color: #0052cc;
+          background-color: rgba(#404040, 0.05);
+
+          &::after {
+            opacity: 1;
+          }
+        }
+      }
+
+      $padding-left: 0.33rem;
+      $padding-side: 0.75rem;
+
+      & > a {
+        padding-left: $padding-left + $padding-side !important;
+      }
+      & > ul > li > a {
+        padding-left: $padding-left + (2 * $padding-side) !important;
+      }
+
+      & > ul > li > ul > li > a {
+        padding-left: $padding-left + (3 * $padding-side) !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+.navbar {
+  background-color: white;
+  @include debug(#aed581);
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  height: $navbar-height;
+  border-bottom: 1px solid rgba($foggy-text-color, 0.5);
+
+  //.... Logo ..................................................................
+  .navbar-brand {
+    @include debug(#8bc34a);
+    text-align: left;
+    font-size: 1rem !important;
+    width: calc($sidebar_width - 1rem);
+    color: $foggy-text-color !important;
+    text-decoration: none;
+    white-space: nowrap;
+    &:hover,
+    &:focus {
+      color: $foggy-text-color !important;
+    }
+  }
+
+  // .... Nav Bar Menu .........................................................
+  .navbar-nav {
+    margin-left: 1rem;
+    @include debug(red);
+    height: $navbar-height;
+
+    font-size: 0.75rem;
+    line-height: 1;
+
+    .nav-item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0.25rem;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        margin-bottom: -1px;
+        left: 6px;
+        right: 6px;
+        height: 4px;
+      }
+
+      //.... li > a ............................................................
+      & > a,
+      &::after {
+        background-color: transparent;
+      }
+
+      & > a {
+        color: $foggy-text-color;
+      }
+
+      //.... li:hover a ........................................................
+      &.hover,
+      &:hover {
+        a {
+          background-color: #dddfe3;
+        }
+      }
+
+      //.... li.active a .......................................................
+      &.active {
+        & > a {
+          color: $primary-color;
+          background-color: transparent;
+        }
+
+        &::after {
+          background-color: rgba($primary-color, 1);
+        }
+      }
+
+      //.... li.active:hover a .................................................
+      &.active.hover,
+      &.active:hover {
+        & > a {
+          color: $secondary-color;
+          background-color: transparent;
+        }
+
+        &::after {
+          background-color: rgba($secondary-color, 1);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,130 @@
+$padding: 1rem;
+
+.sidebar {
+  @include debug(#fff59d);
+
+  #toc-header {
+    display: none !important;
+  }
+  &-xl {
+    #toc-header {
+      display: block;
+    }
+    width: 350px !important;
+  }
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+
+  @include media-breakpoint-up(lg) {
+    position: sticky;
+    height: calc(100vh - #{$navbar-height});
+    width: 242px;
+    top: $navbar-height;
+    overflow-y: auto;
+  }
+
+  @include media-breakpoint-up(xl) {
+    width: 242px;
+  }
+
+  & > ul {
+    margin-bottom: 0;
+  }
+}
+
+.menu-list {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  a.active + & {
+    display: block !important;
+  }
+  a + & {
+    display: none !important;
+  }
+
+  a {
+    padding-left: 0 * $padding;
+    display: block;
+    text-decoration: none;
+    font-size: 0.65rem;
+    line-height: 1rem;
+    font-weight: 200;
+
+    code {
+      background-color: rgba(#f7f8fa, 1);
+      border-radius: 10px;
+      padding: 3px 10px;
+      color: #404040 !important;
+    }
+
+    &.heading {
+      padding-left: 1.5rem;
+      line-height: 1rem;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: $foggy-text-color;
+      background: url(/images/right.svg) no-repeat left 0px;
+      &.current_link,
+      &.active {
+        background: url(/images/down.svg) no-repeat left 0px;
+      }
+      &:hover {
+        color: #344563;
+        text-decoration: none;
+        background-color: #f4f5f7;
+      }
+    }
+
+    &.link {
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+
+      background-color: transparent;
+      color: #344563;
+
+      &.active {
+        color: #212121;
+      }
+
+      &.current_link {
+        position: relative;
+
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 4px;
+          height: 29px;
+          background-color: $primary-color;
+          z-index: 2;
+        }
+      }
+
+      &:hover {
+        color: #344563;
+        text-decoration: none;
+        background-color: #f4f5f7;
+      }
+    }
+
+    // nested padding...
+    .menu-list & {
+      padding-left: calc(10px + 1rem);
+      .menu-list & {
+        padding-left: calc(10px + 2rem);
+        .menu-list & {
+          padding-left: calc(10px + 3rem);
+        }
+      }
+    }
+  }
+}

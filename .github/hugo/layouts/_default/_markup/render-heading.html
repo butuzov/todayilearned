@@ -1,0 +1,15 @@
+{{/*
+  "level" .Level
+  "text" (.Text | plainify | safeHTML)
+  "id" (.Attributes.id | default .Anchor)
+  "class" .Attributes.class
+  Anchor
+  )
+*/}}
+{{- if gt .Level 1 -}}
+<h{{ .Level }} id="{{ .Anchor | safeURL }}" class="sticky">
+  <a class="anchor" href="#{{ .Anchor | safeURL }}">#</a><span>{{- .Text | safeHTML -}}</span>
+</h{{ .Level }}>
+{{- else -}}
+<h{{ .Level }} id="{{ .Anchor | safeURL }}"><span>{{ .Text }}</span></h{{ .Level }}>
+{{- end}}

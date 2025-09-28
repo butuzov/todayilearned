@@ -1,0 +1,21 @@
+{{ $comments := dict
+	"py" "#"
+	"Dockerfile" "#"
+	".dockerignore" "#"
+	"requirements.txt" "#"
+}}
+
+
+{{ $dir := (path.Dir .Page.Path) }}
+{{ range split (.Get 0) "," -}}
+	{{ $p := split . "&" }}
+	{{ $file := (index $p 0) }}
+	{{ $src := (path.Join $dir $file) | readFile }}
+	{{ $lang := (index $p 1) }}
+	{{if not $lang }}{{$lang = substr (path.Ext $file) 1 }} {{ end }}
+
+{{ $com := (default "// " (default (index $comments $lang) (index $comments $file) )) }}
+
+{{ (print "```" $lang "\n" $com " - " $file " - " "\n" $src "\n```") | htmlUnescape | safeHTML }}
+
+{{ end }}

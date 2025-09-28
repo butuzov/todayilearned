@@ -1,0 +1,40 @@
+{{ $page := . }}
+
+{{ if . }}
+	{{ template "menu" . }}
+{{ end }}
+
+{{ define "menu" }}
+	{{ $pg := .pg }}
+	{{ range .menu }}
+		{{ $classes := slice }}
+		{{- if eq ( .URL | strings.Count "/" ) 3 }}
+			{{ $classes = $classes | append "heading fw-medium py-1 text-capitalize ls-wider"}}
+		{{ else }}
+			{{ $classes = $classes | append "link fw-light bd-links-link" }}
+		{{ end -}}
+
+		{{- if (strings.Contains $pg.Permalink .URL)}}
+			{{ $classes = $classes | append "active" }}
+			{{end -}}
+
+		{{- if (strings.HasSuffix $pg.Permalink .URL)}}
+			{{ $classes = $classes | append "current_link" }}
+			{{end -}}
+
+		<li><a class="{{ delimit $classes " " }}" href="{{ .URL }}" {{ if not .Page }}target="_blank" rel="noopener"{{ end }}>
+		{{- .Pre -}}
+		{{- partial "sidebar-menu-title" . | markdownify -}}
+		{{- .Post -}}
+		</a>
+		{{ if .Children }}
+		{{ with .Children -}}
+			<ul class="menu-list ">
+			{{ template "menu" (dict "menu" . "pg" $pg) }}
+			</ul>
+		{{- end }}
+		{{- end }}
+		</li>
+	{{ end }}
+
+{{ end }}

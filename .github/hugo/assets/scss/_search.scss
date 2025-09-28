@@ -1,0 +1,56 @@
+//  form
+
+#search-input {
+  outline: none;
+}
+
+//  results
+
+#searchModal {
+  .modal-dialog {
+    margin-top: 200px !important;
+  }
+  // search results
+  .modal-body {
+    .blankslate {
+      overflow: hidden;
+      height: 2rem;
+      h2.blankslate-heading {
+        text-align: center;
+        font-size: 1.5rem;
+        line-height: 0.25;
+        display: block;
+
+        mark {
+          padding: 0.25rem 0.5rem;
+          display: inline-block;
+          height: 2rem;
+        }
+      }
+    }
+
+    .list-group-item.list-group-item-action {
+      padding: 0.25rem 1rem 0.5rem;
+      nav {
+        font-size: 0.7rem;
+        height: 1rem;
+        display: block;
+        color: #c0c0c2;
+      }
+
+      &:focus,
+      &.focus {
+        outline: none;
+        mark {
+          background-color: rgba(#0052cc, 0.76);
+          color: white;
+        }
+      }
+    }
+    mark {
+      background-color: rgba(#0052cc, 0.76);
+      color: #fff;
+      padding: 0;
+    }
+  }
+}
