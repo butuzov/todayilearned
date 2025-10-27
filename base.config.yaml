@@ -77,7 +77,4 @@ markup:
       attribute:
         # block: true
         title: true
-
-menu:
-  main:
- 
+      

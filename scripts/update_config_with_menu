@@ -1,68 +1,90 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
-clear
+import hashlib
+import os
+import pathlib
+import re
 
-file_to_menu() {
-    file=$1
-    # echo "#" $file $(awk '/^# / {print FNR;exit;}' $file)
-    name=$(sed -n $(awk '/^# / {print FNR;exit;}' $file)p $file | sed "s/# //")
-    url=$(echo ${file:1} | sed 's/\/_index.md//' | sed 's/\/index.md//' | sed 's/.md//' | sed 's/^@\(.*\)/\1/' )
 
-    # name=$(echo $name | sed 's/`//' )
+def main():
+    print("\033[H\033[J", end="")
 
-    if [[ ! -z $url ]]
-    then
+    files = [file for file in allowed_files()]
+    files.sort(key=lambda s: len(s.split("/")))
 
-        ref=$(basename $file | sed 's/.md//')
-        printf "  - name:       \"$name\"\n"
-        printf "    title:      \"$name\"\n"
-        printf "    url:        \"$url\"\n"
-        printf "    pageRef:    \"$url\"\n"
-        printf "    identifier: \"$url\"\n"
+    menu = []
 
-        level=$(echo $url | awk -F/ '{print NF-1}' )
-        if (( $level >= 2))
-        then
-        printf '    parent:     "%s"\n' $(dirname $url)
-        fi
+    config = ""
+    with open("./base.config.yaml", "r", encoding="utf-8") as f:
+        config = f.read()
 
-        printf "\n"
+    config += "\n"
+    config += "menu:\n"
+    config += "  main:\n"
 
-    fi
-}
+    for file in files:
+        with open(file, "r", encoding="utf-8", errors="ignore") as f:
+            data = f.read(512)
+            name = re.search(r"^# (.*)$", data, re.MULTILINE)
+            name = file if not name else name.group(1)
 
-new_menu() {
+        url = file.replace("_index.md", "").replace("index.md", "").replace(".md", "").rstrip("/")
 
-    res=$(find . -name "*.md"  | grep -v -f .hugoignore | grep -v "readme.md" | wc -l)
+        if "`" in name:
+            config += f'  - name: "{name}"\n'
+            config += f'    title: "{name}"\n'
+        else:
+            config += f"  - name: {name}\n"
+            config += f"    title: {name}\n"
+        config += f"    url: /{url}\n"
+        config += f"    pageRef: /{url}\n"
+        config += f"    identifier: /{url}\n"
+        parent = os.path.dirname(url)
+        if "/" in url:
+            config += f"    parent: /{parent}\n"
+        config += "\n"
 
-    if (( $res <= 0))
-    then
-        exit 0
-    fi
+    digest = hashlib.sha1(config.encode("utf-8")).hexdigest()
 
-    for i in $(find . -name "*.md"  | grep -v -f .hugoignore | grep -v "readme.md");
-    do
-       file_to_menu $i
-    done;
-}
+    cfg_path = pathlib.Path("config.yaml")
+    sha1f = hashlib.sha1()
+    with cfg_path.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(8192), b""):
+            sha1f.update(chunk)
 
-old_base() {
-    base=base.config.yaml
-    head -n$(awk '/menu:/ {print FNR+1}' $base) $base
-     
-}
+    if sha1f.hexdigest() != digest:
+        with open("config.yaml", "w") as f:
+            print("Updating Config")
+            f.write(config)
 
-find . -name "*.md"  | grep -v -f .hugoignore  | grep -v "readme.md"
 
-old_base > new_config.yaml
-new_menu >> new_config.yaml
+def allowed_files():
+    # pathlib-based implementationignore_file = os.path.join(".", ".hugoignore")
 
-update=$(sha1sum new_config.yaml | awk '{print $1}')
-existing=$(sha1sum config.yaml | awk '{print $1}')
+    patterns = get_disallow_patterns()
+    for path in pathlib.Path(".").rglob("*.md"):
+        if not any(rx.search(str(path)) for rx in patterns):
+            yield str(path)
 
-echo $update
-echo $existing
 
-if [ "$(sha1sum new_config.yaml | awk '{print $1}')" != "$(sha1sum config.yaml | awk '{print $1}')" ]; then
-  cat new_config.yaml > config.yaml
-fi
+def get_disallow_patterns():
+    patterns = []
+    ignore_file = pathlib.Path(".") / ".hugoignore"
+    if not ignore_file.exists():
+        return patterns
+
+    with ignore_file.open("r", encoding="utf-8", errors="ignore") as f:
+        for line in f:
+            pat = line.rstrip("\n")
+            if not pat:
+                continue
+
+            try:
+                patterns.append(re.compile(pat))
+            except re.error:
+                patterns.append(re.compile(re.escape(pat)))
+    return patterns
+
+
+if __name__ == "__main__":
+    main()

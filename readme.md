@@ -1,4 +1,4 @@
-# Because I Can't Trust My Memory (vN)
+# Because I Can't Trust My Memory (v4)
 
 > This is some kind of a memory dump in proccess of transition. Author intends to use it as quick help from time to time. You also can do that.
 
@@ -12,6 +12,11 @@ TODO: write how?
 2. Add Headers + (Meta)? optionaly
 3. Write Something...
 
+```shell
+hugo server -M -D
+task links -f
+```
+
 ### Markdown Meta
 
 ```html
@@ -19,6 +24,6 @@ TODO: write how?
 <!-- menu: Tooling -->
 ```
 
-### Include Files
+### Shortcode - Include Files
 
 To include files you can use shortcode `{{% list "list.html,of.php,Files.xml" %}}`, list of files can be obtained by running `find . -type f | paste -sd,`

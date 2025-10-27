@@ -6,22 +6,21 @@ env:
   TEMP_DIR: .cache/.task
 
 tasks:
-  default:
-    cmds:
-      - hugo server -D
+  server:
+    cmd: hugo server -D
+        
 
-  links:
-    cmds:
+  default:
+    sources:
+    - "./**/readme.md"
     -  ./scripts/readme_to_index
     -  ./scripts/update_config_with_menu
- 
-    sources:
-      - "./**/readme.md"
-      -  ./scripts/readme_to_index
-      -  ./scripts/update_config_with_menu
     method: timestamp 
+    cmds:
+    - ./scripts/readme_to_index
+    - ./scripts/update_config_with_menu
     generates:
-      - "./**/index.md"
+    - "./**/_index.md"
 
   install: brew install hugo
   version: hugo version

@@ -73,10 +73,6 @@ def apply_transformers(src: str) -> str:
     return src
 
 
-def main():
-    update_indexmd(".")
-
-
 def is_same_thing(src, dst: str) -> bool:
     return hash(src) == hash(dst)
 
@@ -85,6 +81,10 @@ def hash(s: str) -> str:
     h = hashlib.new("sha256")
     h.update(s.encode())
     return h.hexdigest()
+
+
+def main():
+    update_indexmd(".")
 
 
 if __name__ == "__main__":
