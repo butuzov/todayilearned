@@ -47,6 +47,13 @@ def main():
     digest = hashlib.sha1(config.encode("utf-8")).hexdigest()
 
     cfg_path = pathlib.Path("config.yaml")
+
+    if not cfg_path.exists():
+        with open("config.yaml", "w") as f:
+            print("Updating Config")
+            f.write(config)
+        return
+
     sha1f = hashlib.sha1()
     with cfg_path.open("rb") as fh:
         for chunk in iter(lambda: fh.read(8192), b""):

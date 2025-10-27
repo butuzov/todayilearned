@@ -19,10 +19,10 @@ jobs:
         hugo-version: '0.122.0'
         extended: true
 
-    - name: Generate config
-      run: |
-        ./.hugo/scripts/readme_to_index
-        ./.hugo/scripts/update_config_with_menu
+    - name: Generating config from files
+      run: ./scripts/readme_to_index
+    - run: ls -la
+    - run: ./scripts/update_config_with_menu
 
     - name: Running Hugo (config)
       run: hugo --destination .build
@@ -36,10 +36,10 @@ jobs:
     - name: Dir(build)
       run: ls -lah ./.build
 
-    - name: CiCd
-      run: |
-        mkdir -p ./.build/.github/woworkflows/
-        mv ./.build/static.yml ./.build/.github/woworkflows/
+    # - name: CiCd
+    #   run: |
+    #     mkdir -p ./.build/.github/woworkflows/
+    #     mv ./.build/static.yml ./.build/.github/woworkflows/
 
     # - name: deadlinks checker
     #   uses: docker://docker.io/butuzov/deadlinks:latest
