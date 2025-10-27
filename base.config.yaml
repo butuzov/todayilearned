@@ -14,7 +14,7 @@ module:
     - source: ".github/hugo/layouts/"
       target: "layouts"
 
-    - source: ".github/hugostatic/"
+    - source: ".github/hugo/static/"
       target: "static"
 
 # Publishing

@@ -25,21 +25,11 @@ jobs:
     - run: ./scripts/update_config_with_menu
 
     - name: Running Hugo (config)
-      run: hugo --destination .build
-
-    # - name: Remove readme from generated files
-    #   run: ./.github/scripts/postprocessor_build_remove_readme
-
-    # - name: Fix Markdown links in repo
-    #   run: ./.github/scripts/postprocessor_build_markdown_links
+      run: hugo  
 
     - name: Dir(build)
-      run: ls -lah ./.build
-
-    # - name: CiCd
-    #   run: |
-    #     mkdir -p ./.build/.github/woworkflows/
-    #     mv ./.build/static.yml ./.build/.github/woworkflows/
+      run: ls -lah ./.cache/build
+ 
 
     # - name: deadlinks checker
     #   uses: docker://docker.io/butuzov/deadlinks:latest
@@ -51,7 +41,7 @@ jobs:
       if: github.ref == 'refs/heads/main'
       with:
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        publish_dir: .build
+        publish_dir: .cache/build
         enable_jekyll: false
         external_repository: butuzov/butuzov.github.io
         publish_branch: main
