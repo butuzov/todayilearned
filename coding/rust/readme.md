@@ -1,6 +1,5 @@
 # Rust
 
-
 ```rust
 // Hello World!
 fn main(){
@@ -11,11 +10,11 @@ fn main(){
 ## Install
 
 ```shell
-# Using Brew
-
+# Using brew
 brew install rustup
 rustup-init
 cargo install cargo-binstall -q
+
 #  Checking Installed
 rustup --version
 >> rustup 1.28.2 (2025-04-28)
@@ -32,12 +31,15 @@ cargo --version
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
-
 ## Reading
 
+- https://doc.rust-lang.org/stable/
 - [Rust Design Patterns](https://rust-unofficial.github.io/patterns/rust-design-patterns.pdf)
 
-## YouTubers
+## Watching
 
 - [Let's Get Rusty](https://www.youtube.com/@letsgetrusty)
 - [Jon Gjengset](https://www.youtube.com/@jonhoo)
+- [Rusty Bits (embedded)](https://www.youtube.com/@therustybits)
+- [RustConf](https://www.youtube.com/@rustfoundation/playlists)
+- [Rust (Europe)](https://www.youtube.com/@RustVideos/playlists)
