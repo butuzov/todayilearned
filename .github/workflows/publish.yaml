@@ -31,10 +31,10 @@ jobs:
       run: ls -lah ./.cache/build
  
 
-    # - name: deadlinks checker
-    #   uses: docker://docker.io/butuzov/deadlinks:latest
-    #   with:
-    #     args: internal -n10 --root=build --no-progress --skip-robots-checks
+    - name: deadlinks checker
+      uses: docker://docker.io/butuzov/deadlinks:latest
+      with:
+        args: internal -n10 --root=build --no-progress --skip-robots-checks --root=./.cache/build
 
     - name: github pages deployment
       uses: peaceiris/actions-gh-pages@v3
