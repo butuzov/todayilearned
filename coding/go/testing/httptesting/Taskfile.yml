@@ -1,0 +1,16 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    sources:
+    - "./**/*.go"
+    method: checksum
+    cmds:
+      - clear
+      - go test -v  -count=1 ./...
+    silent: true

@@ -6,11 +6,21 @@ import pathlib
 import re
 
 
+def sortby(s: str):
+    keys = []
+    keys.append(len(s.split("/")))
+    keys.append(0 if s.endswith("_index.md") else 1)
+
+    return keys
+
+
 def main():
     print("\033[H\033[J", end="")
 
     files = [file for file in allowed_files()]
-    files.sort(key=lambda s: len(s.split("/")))
+    files.sort(key=lambda s: sortby(s))
+
+    [print(file) for file in files[:20]]
 
     menu = []
 
@@ -28,7 +38,7 @@ def main():
             name = re.search(r"^# (.*)$", data, re.MULTILINE)
             name = file if not name else name.group(1)
 
-        url = file.replace("_index.md", "").replace("index.md", "").replace(".md", "").rstrip("/")
+        url = file.replace("_index.md", "").replace("index.md", "").replace("\.md", "").rstrip("/")
 
         if "`" in name:
             config += f'  - name: "{name}"\n'
