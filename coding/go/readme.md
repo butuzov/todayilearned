@@ -36,6 +36,7 @@ go version
 
 ## Watching
 
+- [Go Time](https://changelog.com/gotime)
 - [GopherCon](https://www.youtube.com/@GopherAcademy/playlists)
 - [GopherCon Europe](https://www.youtube.com/@GopherConEurope/playlists)
 - [GopherCon (UK)](https://www.youtube.com/@GopherConUK/playlists)
