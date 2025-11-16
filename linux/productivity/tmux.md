@@ -18,8 +18,9 @@ brew install tmux
 | **Close** all but current |                               | `:kill-session -a` | `tmux kill-session -a`             |
 | **Attach**                |                               | `:attach -t vpn`   | `tmux attach -t vpn`               |
 | **Deattach**              | <kbd>lead</kbd>, <kbd>d</kbd> |                    |                                    |
-| **List**                  | <kbd>lead</kbd>, <kbd>s</kbd> | `:ls`              | `tmux ls`                          |
-| **List** also windows     | <kbd>lead</kbd>, <kbd>w</kbd> |                    |                                    |
+| **Choose**                | <kbd>lead</kbd>, <kbd>s</kbd> | `:choose-session`  | `tmux choose-session`              |
+| **Choose** also windows   | <kbd>lead</kbd>, <kbd>w</kbd> | `:choose-window`   | `tmux choose-window`               |
+| **List**                  | <                             | `:list`            | `tmux ls`                          |
 | **Rename**                | <kbd>lead</kbd>, <kbd>$</kbd> |                    | `tmux rename-session -t smap smtp` |
 | Navigate **Next**         | <kbd>lead</kbd>, <kbd>(</kbd> |                    |                                    |
 | Navigate **Prev**         | <kbd>lead</kbd>, <kbd>)</kbd> |                    |                                    |
@@ -81,3 +82,5 @@ bind R source-file ~/.tmux.conf \; display "Reloaded!" # Reload
 
 - https://tmuxai.dev/
 - [Managing tmux Sessions – A Beginner‘s Guide](https://thelinuxcode.com/managing-tmux-sessions-ubuntu-20-04-lts/)
+- https://hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/
+- https://github.com/rothgar/awesome-tmux
