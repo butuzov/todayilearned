@@ -6,19 +6,18 @@ env:
   TEMP_DIR: .cache/.task
 
 tasks:
-  server:
-    cmd: hugo server -D
-        
-
   default:
     sources:
     - "./**/readme.md"
     -  ./scripts/readme_to_index
     -  ./scripts/update_config_with_menu
     method: timestamp 
+    watch: true
     cmds:
+    - clear
     - ./scripts/readme_to_index
     - ./scripts/update_config_with_menu
+    - hugo server -M -D
     generates:
     - "./**/_index.md"
 

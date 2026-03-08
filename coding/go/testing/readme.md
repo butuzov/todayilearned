@@ -48,6 +48,37 @@ go test -json -benchmem -run=^$ -bench .
 
 {{% list "testing/add.go,testing/add_test.go,testing/subtract.go,testing/subtract_test.go" %}}
 
+## Continuous integration
+
+### github
+
+```yaml
+#.github/workflows/test.yaml
+jobs:
+  Tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      # INFO: Tip of the Test Matrix
+      - name: Set Conditional Environment Variable
+        if: ${{ matrix.golang == '1.25' }}
+        run: echo "RUN_ONCE=true" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version: ${{ matrix.golang }}
+
+      # ---  📊 Dependencies -----------------------------------------------------
+      # INFO: 📊 Running buils & tests (with coverage) ---------------------------
+      - run: go test --cover -v -coverpkg=github.com/user/package/... -coverprofile=coverage.out github.com/user/package/... -json | tparse
+```
+
+```yaml
+# taskfile.yaml
+```
+
 ## Tooling
 
 ### Tests Generation `cweill/gotests`
