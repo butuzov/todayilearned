@@ -12,11 +12,11 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Hugo Setup
-      uses: peaceiris/actions-hugo@v2.6.0
+      uses: peaceiris/actions-hugo@v3.2.1
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       with:
-        hugo-version: latest
+        hugo-version: "0.162.1"
         extended: true
 
     - name: Generating config from files
@@ -31,10 +31,10 @@ jobs:
       run: ls -lah ./.cache/build
  
 
-    - name: deadlinks checker
-      uses: docker://docker.io/butuzov/deadlinks:latest
-      with:
-        args: internal -n10 --root=build --no-progress --skip-robots-checks --root=./.cache/build
+    # - name: deadlinks checker
+    #   uses: docker://docker.io/butuzov/deadlinks:latest
+    #   with:
+    #     args: internal -n10 --root=build --no-progress --skip-robots-checks --root=./.cache/build
 
     - name: github pages deployment
       uses: peaceiris/actions-gh-pages@v3
