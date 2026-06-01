@@ -25,17 +25,19 @@
 - Window management [divvy](https://mizage.com/divvy/) paid + [griddle](https://getgriddle.app) free
 - Keka
 
-### Virtual System
+### Virtual System && OS
 
 - https://github.com/insidegui/VirtualBuddy
 - https://github.com/utmapp/UTM
 - VirtualBox
+- [macUSB - mac OS - Downlaod & Flash & Boot](https://github.com/Kruszoneq/macUSB/)
+- [Etcher - linux & Windows flasher](https://github.com/balena-io/etcher/)
 
 ### Office
 
 - [RevPDF Editor](https://revpdf.com/)
 
-### Fun Tools / Misc
+### Other Tools / Misc
 
 - https://github.com/KrishKrosh/TrackWeight Skales
 - https://github.com/SiteSucker/SiteSucker-Pro Download (website)

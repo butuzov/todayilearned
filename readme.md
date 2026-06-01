@@ -13,8 +13,7 @@ TODO: write how?
 3. Write Something...
 
 ```shell
-hugo server -M -D
-task links -f
+task -f
 ```
 
 ### Markdown Meta

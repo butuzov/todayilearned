@@ -7,7 +7,7 @@
 }}
 
 
-{{ $dir := (path.Dir .Page.Path) }}
+{{ $dir := (.Page.Path) }}
 {{ range split (.Get 0) "," -}}
 	{{ $p := split . "&" }}
 	{{ $file := (index $p 0) }}

@@ -1,3 +1,3 @@
 # `echo/v4`
 
-{{% list "echo/proxy.go,echo/helpers.go,echo/handler.go,echo/handler_test.go,echo/error_handler_test.go" %}}
+{{% list "proxy.go,helpers.go,handler.go,handler_test.go,error_handler_test.go" %}}

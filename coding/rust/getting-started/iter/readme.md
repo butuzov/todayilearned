@@ -52,7 +52,3 @@ pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> {
 ## `Trait Iterator`
 
 Implementing iterators with [`Trait Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
-
-```rust
-
-```

@@ -46,7 +46,7 @@ go test -json -benchmem -run=^$ -bench .
 
 ## Test Examples
 
-{{% list "testing/add.go,testing/add_test.go,testing/subtract.go,testing/subtract_test.go" %}}
+{{% list "add.go,add_test.go,subtract.go,subtract_test.go" %}}
 
 ## Continuous integration
 
@@ -75,9 +75,7 @@ jobs:
       - run: go test --cover -v -coverpkg=github.com/user/package/... -coverprofile=coverage.out github.com/user/package/... -json | tparse
 ```
 
-```yaml
-# taskfile.yaml
-```
+
 
 ## Tooling
 

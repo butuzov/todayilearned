@@ -1,3 +1,3 @@
-# Command line tools
+# CLI
 
-- Disk: [`diskutil`](./diskutil/)
+

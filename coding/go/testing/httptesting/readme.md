@@ -74,7 +74,7 @@ func TestMiddlewareWithRecorder(t *testing.T) {
 
 ## `HandlerTestSuite`
 
-{{% list "httptesting/middleware_stopwatch.go,httptesting/handler_testing_suite.go,httptesting/middleware_panic.go" %}}
+{{% list "middleware_stopwatch.go,handler_testing_suite.go,middleware_panic.go" %}}
 
 ```
 

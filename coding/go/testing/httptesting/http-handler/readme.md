@@ -1,3 +1,3 @@
-# HTTP `Handler`
+# `net/http`
 
-{{% list "http-handler/handler_test.go,http-handler/handler.go,http-handler/init.go" %}}
+{{% list "handler_test.go,handler.go,init.go" %}}
