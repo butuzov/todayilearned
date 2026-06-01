@@ -24,11 +24,8 @@ jobs:
     - run: ls -la
     - run: ./scripts/update_config_with_menu
 
-    - name: Dir(build)
-      run: ls -lah .
-
-    - name: Dir(build)
-      run: cat config.yaml
+    -  run: ls -lah .
+    -  run: cat config.yaml
 
     - name: Running Hugo (config)
       run: hugo  
