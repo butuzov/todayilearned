@@ -122,9 +122,9 @@ go tool addr2line
 
 ```
 
-## `mod`
+## `mod` 
 
-Go Modules a explained in separate [page](../modules/)
+TODO:
 
 ## `list`
 
