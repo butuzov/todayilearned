@@ -25,11 +25,11 @@ crontab -r
 ## Shedules Examples
 
 ```
-0 */2 * * *    # Every 2 hours
-0 *   * * *    # Once an hour
-0 9   * * *    # At 09:00 every day
-0 9 * * 1-5    # Run at 9 AM on weekdays only
-0 9 * * MON    # Run at 9 AM only on Mondays  
+0 */2 * * *       # Every 2 hours
+0 *   * * *       # Once an hour
+0 9   * * *       # At 09:00 every day
+0 9 * * 1-5       # Run at 9 AM on weekdays only
+0 9 * * MON       # Run at 9 AM only on Mondays  
 0 9 5,15,25 * *   # 1th,15th, 25th days...
 ```
 

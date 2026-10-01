@@ -1,12 +1,12 @@
 baseURL: "https://butuzov.github.io"
-languageCode: "en"
+locale: "en"
 title: "@todayilearned"
 
 module:
   mounts:
     - source: "."
       target: "content"
-      excludeFiles: "^readme.md"
+      files: ["! ^readme.md"]
      
     - source: ".github/hugo/assets/"
       target: "assets"
